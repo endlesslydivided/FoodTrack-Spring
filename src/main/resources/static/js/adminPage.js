@@ -804,7 +804,7 @@ function deleteR(table,id)
                     messageShow("Запись удалена успешно");
                     getAll(table,limit = 10,currentPage,search=null);
                 }
-            )
+            ).catch(message => {messageShow(message)});break;
         }
         case "Product":
             {
@@ -818,7 +818,7 @@ function deleteR(table,id)
                         messageShow("Запись удалена успешно");
                         getAll(table,limit = 10,currentPage,search=null);
                     }
-                )
+                ).catch(message => {messageShow(message)});break;
             }
         case "UsersParam":
         {
@@ -840,7 +840,7 @@ function deleteR(table,id)
                         throw "Нельзя удалить единственную запись параметров пользователя.";
                     }
                 
-                }).catch(message => {messageShow(message)});
+                }).catch(message => {messageShow(message)});break;
         }
         case "User":
             {
@@ -864,7 +864,7 @@ function deleteR(table,id)
                             throw "Ошибка удаления";
                         }
                     
-                    }).catch(message => {messageShow(message)});
+                    }).catch(message => {messageShow(message)});break;
                 }
     }
 
@@ -1225,4 +1225,11 @@ function sendNotify(id)
     {
         console.log(response);
     });
+}
+
+function delete_cookie ( cookie_name )
+{
+  var cookie_date = new Date ( );  // Текущая дата и время
+  cookie_date.setTime ( cookie_date.getTime() - 1 );
+  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
 }

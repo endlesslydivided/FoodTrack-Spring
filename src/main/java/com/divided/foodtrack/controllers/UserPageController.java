@@ -226,7 +226,7 @@ public class UserPageController {
         pageFound = new Page<>(
                 usersParamsService.getPaginated(
                         (page - 1) * limit, page == 1 ? limit : page * limit - 1, idParams),
-                page, count, count / limit + 1);
+                page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
 
@@ -249,7 +249,7 @@ public class UserPageController {
             pageFound = new Page<>(
                     productsService.getPaginatedByUsersIdCategoryS(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1, idAdded, productName, category),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else if(idAdded == -1 && !Objects.equals(category, "null"))
         {
@@ -257,7 +257,15 @@ public class UserPageController {
             pageFound = new Page<>(
                     productsService.getPaginatedByCategoryS(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1, productName, category),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
+        }
+        else if(idAdded != -1 && category.equals("null") && Objects.equals(productName, "null"))
+        {
+            int count = productsService.getCountRows(idAdded);
+            pageFound = new Page<>(
+                    productsService.getPaginatedByUsersId(
+                            (page - 1) * limit, page == 1 ? limit : page * limit - 1, idAdded),
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else if(idAdded != -1 && category.equals("null"))
         {
@@ -265,7 +273,7 @@ public class UserPageController {
             pageFound = new Page<>(
                     productsService.getPaginatedByUserS(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1, productName, idAdded),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else if(!Objects.equals(productName, "null"))
         {
@@ -273,7 +281,7 @@ public class UserPageController {
             pageFound = new Page<>(
                     productsService.getPaginatedByProductName(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1, productName),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
@@ -281,7 +289,7 @@ public class UserPageController {
             pageFound = new Page<>(
                     productsService.getPaginated(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -327,27 +335,27 @@ public class UserPageController {
                 count = reportsService.getCountRows(date,"Завтрак",user.get().getId());
                 pageFound = new Page<>(
                         reportsService.getPaginated(min, max, date, "Завтрак", user.get().getId()),
-                        page, count, count / limit + 1);break;
+                        page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);break;
             case "lunch":
                 count = reportsService.getCountRows(date,"Ланч",user.get().getId());
                 pageFound = new Page<>(
                         reportsService.getPaginated(min, max, date, "Ланч", user.get().getId()),
-                        page, count, count / limit + 1);break;
+                        page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);break;
             case "dinnerDay":
                 count = reportsService.getCountRows(date,"Обед",user.get().getId());
                 pageFound = new Page<>(
                         reportsService.getPaginated(min, max, date, "Обед", user.get().getId()),
-                        page, count, count / limit + 1);break;
+                        page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);break;
             case "afternoon":
                 count = reportsService.getCountRows(date,"Полдник",user.get().getId());
                 pageFound = new Page<>(
                         reportsService.getPaginated(min, max, date, "Полдник", user.get().getId()),
-                        page, count, count / limit + 1);break;
+                        page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);break;
             case "dinnerNight":
                 count = reportsService.getCountRows(date,"Ужин",user.get().getId());
                 pageFound = new Page<>(
                         reportsService.getPaginated(min, max, date, "Ужин", user.get().getId()),
-                        page, count, count / limit + 1);break;
+                        page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);break;
             default:return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         }
@@ -411,7 +419,7 @@ public class UserPageController {
         Page<Products> pageFound = new Page<>(
                 productsService.getPaginatedByUsersId(
                         page == 1 ? (page - 1) * limit : (page - 1) * limit, page == 1 ? limit : page * limit - 1, idAdded),
-                page, count, count / limit + 1);
+                page, count, count % 10 == 0 ? count / limit : count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
     //endregion

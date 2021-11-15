@@ -40,7 +40,10 @@ window.onload = function()
         </div>
     `
     navLinks.innerHTML += `
-    <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
+    <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+
+    <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+    `
   }
   else
   {

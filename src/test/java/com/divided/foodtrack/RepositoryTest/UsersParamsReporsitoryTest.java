@@ -26,7 +26,7 @@ public class UsersParamsReporsitoryTest {
     }
 
     @Test
-    public void getTestById() {
+    public void getUserParamsTestById() {
         Assert.assertNotNull(usersParamsRepository.findById(1));
     }
 }

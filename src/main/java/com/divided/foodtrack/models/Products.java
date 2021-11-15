@@ -4,15 +4,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@NamedStoredProcedureQuery(
-        name = "importJSON",
-        procedureName = "ImportProductsFromJSON",
-        parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.IN, type = String.class, name = "JSONData"),
-                @StoredProcedureParameter(mode = ParameterMode.OUT, type = Integer.class, name = "success_Products"),
-                @StoredProcedureParameter(mode = ParameterMode.OUT, type = Integer.class, name = "success_Categories")
-        }
-)
 public class Products {
     private int id;
     private Integer idAdded;
