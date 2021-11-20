@@ -9,17 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
 
 
 @Configuration
-@EnableWebSecurity
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -28,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     static String USER_ENDPOINT = "/user/**";
     static String ADMIN_ENDPOINT = "/admin/**";
 
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider, JwtTokenFilter jwtTokenFilter)
+    public SecurityConfig(JwtTokenFilter jwtTokenFilter)
     {
         this.jwtTokenFilter = jwtTokenFilter;
     }

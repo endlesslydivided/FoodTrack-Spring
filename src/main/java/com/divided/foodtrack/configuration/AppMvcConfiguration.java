@@ -57,15 +57,6 @@ public class AppMvcConfiguration implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/user").setViewName("userPage");
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/admin").setViewName("adminPage");
-        registry.addViewController("/signIn").setViewName("signInPage");
-        registry.addViewController("/signUp").setViewName("signUpPage");
-        registry.addViewController("/error").setViewName("errorPage");
-    }
 
 
 

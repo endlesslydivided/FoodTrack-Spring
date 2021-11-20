@@ -84,3 +84,21 @@ window.onload = function()
       }
   }
 };
+
+function delete_cookie ( cookie_name )
+{
+  var cookie_date = new Date ( );  // Текущая дата и время
+  cookie_date.setTime ( cookie_date.getTime() - 1 );
+  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
+}
+
+function logOut()
+{
+    window.localStorage.removeItem("user");
+    window.location.href ="http://localhost:8080";
+    delete_cookie('username');
+    delete_cookie('id');
+    delete_cookie('token');
+    delete_cookie('roles');
+
+}

@@ -80,7 +80,7 @@ public class SignInPageController {
             response.put("id", user.get().getId());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            throw new Exception("Invalid username or password");
+            throw new Exception("Неверный логин или пароль");
         }
     }
 
@@ -98,7 +98,9 @@ public class SignInPageController {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity handleBindException(BindException ex) {
-        return new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<Object, Object>> handleException(Exception ex) {
+        Map<Object, Object> response = new HashMap<>();
+        response.put("errorMessage", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

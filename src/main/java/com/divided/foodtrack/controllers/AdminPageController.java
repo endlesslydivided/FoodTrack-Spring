@@ -74,13 +74,13 @@ public class AdminPageController {
         {
             int count = usersService.getCountRows();
             pageFound = new Page<Users>(usersService.getPaginated((page - 1) * limit, page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = usersService.getCountRows(search);
             pageFound = new Page<Users>(usersService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -178,13 +178,13 @@ public class AdminPageController {
         {
             int count = usersParamsService.getCountRows();
             pageFound = new Page<UsersParams>(usersParamsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = usersParamsService.getCountRows(search);
             pageFound = new Page<UsersParams>(usersParamsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -302,13 +302,13 @@ public class AdminPageController {
         {
             int count = usersDataService.getCountRows();
             pageFound = new Page<UsersData>(usersDataService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = usersDataService.getCountRows(search);
             pageFound = new Page<UsersData>(usersDataService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -398,13 +398,13 @@ public class AdminPageController {
         {
             int count = reportsService.getCountRows();
             pageFound = new Page<Reports>(reportsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = reportsService.getCountRows(search);
             pageFound = new Page<Reports>(reportsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -539,13 +539,13 @@ public class AdminPageController {
         {
             int count = productsService.getCountRows();
             pageFound = new Page<Products>(productsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = productsService.getCountRows(search);
             pageFound = new Page<Products>(productsService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
@@ -691,13 +691,13 @@ public class AdminPageController {
         {
             int count = foodCategoriesService.getCountRows();
             pageFound = new Page<FoodCategories>(foodCategoriesService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page == 1? limit: page * limit - 1),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         else
         {
             int count = foodCategoriesService.getCountRows(search);
             pageFound = new Page<FoodCategories>(foodCategoriesService.getPaginated(page==1? (page - 1) * limit: (page - 1) * limit + 1, page == 1? limit: page * limit - 1,search),
-                    page, count, count / limit + 1);
+                    page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }

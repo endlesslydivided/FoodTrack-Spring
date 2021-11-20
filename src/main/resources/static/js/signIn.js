@@ -44,13 +44,10 @@ function sendLoginForm() {
                 {
                     return response.json();       
                 }
-                if (response.status === 400) 
+                else 
                 {
-                    $(".alert .alertMessage").text("");
-                    alertAddMes(response.statusText);
-                    $(".alert").show('close');
-                    $(".alert").alert();
-                    return;
+                    return response.json();       
+
                 }
             }
            )
@@ -65,8 +62,12 @@ function sendLoginForm() {
             localStorage.setItem("user", JSON.stringify(response));
             window.location.href = url;
         }
+        else if (response)
+        {
+            throw response.errorMessage;
+        }
     }
-    )
+    ).catch(message => {messageShow(message)});
 }
 
 
@@ -106,3 +107,20 @@ $(document).ready(function() {
         }
     });
 });
+
+function messageShow(message)
+{
+    $(".alert .alertMessage").text("");
+    alertAddMes(message);
+    $(".alert").show('close');
+    $(".alert").alert();
+}
+function alertAddMes(message)
+{
+    $(".alert .alertMessage").append(message);
+}
+
+function closeAlert()
+{
+    $(".alert").hide('close');
+}

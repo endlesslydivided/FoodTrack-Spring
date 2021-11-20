@@ -103,3 +103,11 @@ $(document).ready(function() {
         }
     });
 });
+
+function messageShow(message)
+{
+    $(".alert .alertMessage").text("");
+    alertAddMes(message);
+    $(".alert").show('close');
+    $(".alert").alert();
+}

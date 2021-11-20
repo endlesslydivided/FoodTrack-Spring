@@ -1,20 +1,11 @@
-
 function logOut()
 {
     window.localStorage.removeItem("user");
+    window.location.reload();
     delete_cookie('username');
     delete_cookie('id');
     delete_cookie('token');
     delete_cookie('roles');
-
-    window.location.reload();
-}
-
-function delete_cookie ( cookie_name )
-{
-  var cookie_date = new Date ( );  // Текущая дата и время
-  cookie_date.setTime ( cookie_date.getTime() - 1 );
-  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
 }
 
 
@@ -32,7 +23,7 @@ window.onload = function()
       <a href="/signUp" class=" text-decoration-none">
         <input type="button" value="Регистрация" class="btn btn-secondary border"/>
       </a>`;
-      mainPageContent +=
+      mainPageContent.innerHTML +=
       `
       <div class="col-6 p-5">
             <h5>Войдите в аккаунт или зарегистрируйтесь для пользования функционалом приложения</h5>
@@ -47,7 +38,9 @@ window.onload = function()
           </div>
       `
       navLinks.innerHTML += `
-      <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
+      <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+        <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+        `
     }
     else
     {
@@ -63,28 +56,26 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`
-          mainPageContent +=
+          mainPageContent.innerHTML +=
       `
       <div class="col-6 p-5">
             <h5>Перейдите на страницу пользователя для пользования функционалом приложения</h5>
           </div>
           <div class="col-6 p-5">
-          <a href="/signIn" class=" text-decoration-none">
-            <input type="button" value="Вход" class="btn w-100 rounded-0  btn-outline-dark border-dark m-2 "/>
-          </a>
-          <a href="/signUp" class=" text-decoration-none">
-            <input type="button" value="Регистрация" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
-          </a>
-          <a onclick="/user" class=" text-decoration-none">
+          <a  href="/user" class=" text-decoration-none">
             <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
           </div>
       `
-          
+      navLinks.innerHTML += `
+      <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+        <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+        <h6><a href="/user" >Страница пользователя</a></h6>
+        `
           ;
         }
         else if(user.roles[0] == "ROLE_ADMIN")
@@ -98,27 +89,41 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
+          <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a  href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
 
-          mainPageContent +=
+          mainPageContent.innerHTML +=
       `
       <div class="col-6 p-5">
             <h5>Перейдите на страницу пользователя или администратора для пользования функционалом приложения</h5>
           </div>
           <div class="col-6 p-5">
-          <a onclick="/user" class=" text-decoration-none">
+          <a  href="/user" class=" text-decoration-none">
             <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
-          <a onclick="/admin" class=" text-decoration-none">
-            <input type="button" value="Страница Администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          <a  href="/admin" class=" text-decoration-none">
+            <input type="button" value="Страница администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
           </div>
       `
+
+      navLinks.innerHTML += `
+          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+            <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+            <h6><a href="/user" >Страница пользователя</a></h6>
+            <h6><a href="/admin" >Страница администратора</a></h6>
+            `
         }
     }
 };
 
 
+function delete_cookie ( cookie_name )
+{
+  var cookie_date = new Date ( );  // Текущая дата и время
+  cookie_date.setTime ( cookie_date.getTime() - 1 );
+  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
+}
