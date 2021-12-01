@@ -1,0 +1,230 @@
+
+ @font-face {
+  font-family: SamsungSharpSans; /* Имя шрифта */
+  src: url(fonts/SamsungSharpSans.ttf); /* Путь к файлу со шрифтом */
+ }
+
+ @font-face {
+  font-family: SamsungOne400; /* Имя шрифта */
+  src: url(fonts/SamsungOne400.ttf); /* Путь к файлу со шрифтом */
+ }
+
+i 
+{
+  font-family: fontawesome !important;
+}
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:150px;
+  overflow:auto;  
+  margin-top:20px;
+}
+#table-wrapper table {
+  width:100%;
+
+}
+
+
+h1,h2,h3,h4,h5
+{
+  text-align: center;
+  margin: 3px;
+  font-family: SamsungSharpSans;
+}
+
+
+h6
+{
+  text-align: left;
+  margin: 3px;
+  font-family: SamsungSharpSans;
+}
+
+.act-price {
+  color: red;
+  font-weight: 700
+}
+
+.dis-price {
+  text-decoration: line-through
+}
+
+.nav-tabs .nav-item 
+{
+  align-items: center;
+  justify-items: center;
+}
+
+table thead
+{
+  font-family: SamsungSharpSans;
+}
+
+table td
+{
+  font-family: SamsungOne400;
+}
+
+.nav-tabs .nav-item .btn
+{
+  border-radius: 0%;
+}
+
+.nav-tabs .nav-item .nav-link
+{
+  font-size: 13px;
+  color:black;
+  font-family: SamsungSharpSans;
+  padding: 3px 11px 3px 11px;
+}
+
+label.radio {
+  cursor: pointer
+}
+
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none
+}
+
+label.radio span {
+  padding: 2px 9px;
+  border: 2px solid #8b8b8b1f;
+  display: inline-block;
+  color: #474747;
+  border-radius: 3px;
+  text-transform: uppercase
+}
+
+label.radio input:checked+span {
+  border-color: #474747;
+  background-color: #474747;
+  color: #fff
+}
+
+
+.out {
+  transition: .3s ease-in-out;
+  transition-delay: 0.1s;
+	transform: translateY(-100%);
+}
+
+.in {
+  transition: .1s ease-in-out;
+  transition-delay: 0.1s;
+	transform: translateY(0%);
+}
+
+p
+{
+  font-family: SamsungOne400; 
+}
+span
+{
+  font-family: SamsungSharpSans; 
+}
+
+.product
+{
+  border: 1px solid #c0c0c0;
+ overflow: hidden;
+ padding: 25px 15px;
+ position: relative;
+ text-align: center;
+ transition: all 0.5s ease 0s;
+ margin-bottom: 20px;
+}
+
+.product:hover {
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+ }
+
+        input[type="text"],input[type="email"],input[type="date"],input[type="select"],
+select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #555555;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+input[type="text"]:focus,
+select.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.shadow
+{
+    background: #fff; /* Цвет фона */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+    padding: 15px 5px 15px 5px;
+}
+
+.border
+{
+    Border-radius: 3%;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: White;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 45px;
+    color: black;
+    display: block;
+    transition: 0.3s;   
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.header {
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fff;
+}
+
+.wrap
+{
+  max-width:1000px;
+  margin:0 auto;
+}
+.img_preview {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-position: top;  
+}
+

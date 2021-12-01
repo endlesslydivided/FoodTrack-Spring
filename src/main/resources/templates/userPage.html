@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Страница пользователя</title>
+    <link rel="shortcut icon" href="../../../static/app_pictures/icon.ico" type="image/x-icon">
+    <link  rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css"  href="../../static/css/all.css">
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+
+    <script src="../../static/js/authHeader.js"></script>
+    <script src="../../static/js/windowHeader.js"></script>
+    <script src="../../static/js/userPage.js"></script>
+    <script src="../../static/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script>
+      function openNav() 
+      {
+          document.getElementById("mySidenav").style.width = '100%';
+      }
+
+      function closeNav() 
+      {
+          document.getElementById("mySidenav").style.width = "0";
+      }     
+      $(document).ready(function() 
+      {
+        var header = $('#head'),
+        scrollPrev = 0;
+        $(window).scroll(function() {
+          var scrolled = $(window).scrollTop();
+        
+          if ( scrolled > 50 && scrolled > scrollPrev ) 
+          {
+            header.addClass('out');
+            header.removeClass('in');
+          } 
+          else 
+          {
+            header.removeClass('out');
+            header.addClass('in');
+
+          }
+          scrollPrev = scrolled;
+        });       
+      });  
+    </script>
+  </head>
+
+  <body>
+
+    <header id="head" class="py-md-2 fixed-top align-items-center justify-content-center shadow">
+    <div id="mySidenav" class="sidenav" style="z-index:1031;">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <h6><a href="/">Главная страница</a></h6>
+      <h6><a href="#">Страница пользователя</a></h6>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-2 col-4 align-self-center justify-content-center text-center">
+        <div style="cursor:pointer" class="col-lg-2 align-self-lg-start" onclick="openNav()">☰</div>
+      </div>
+
+      <a href="/" class="d-flex col-3 d-none d-md-flex  col-md-8 justify-content-center align-self-center my-sm-2  my-md-0">
+        <img class="" width="175" height="42" alt="logo" src="../../static/app_pictures/foodTrackS.png">
+      </a>
+
+      <div class="d-flex col-md-2 col-5  align-self-center
+        justify-content-sm-center justify-content-md-end justify-content-center align-items-center
+        mt-md-0 mt-sm-2 mt-2" id="actionButtons">
+
+      </div>
+    </div>
+  </header>
+  <div class="alert alert-warning alert-dismissible fade show" style="z-index: 5050;display:none;position:absolute" role="alert">
+    <span class="alertMessage"></span>
+        <button type="button" class="close" onclick="closeAlert()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    <section class="align-center clearfix pt-3 m-5 pt-5 pt-md-5">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <li class="nav-item">
+          <a class="nav-link active" id="UsersDiet-tab" data-toggle="tab" onclick="updateAllDiet()" href="#UserDiet" role="tab" aria-controls="UsersContacts" aria-selected="false">Приёмы пищи</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="UsersProducts-tab" data-toggle="tab" onclick="getAll('ProductsToAddCollection',10,1,'null','null','allProducts')" href="#UsersAddDiet" role="tab" aria-controls="UsersOrders" aria-selected="false">Добавить употребённый продукт</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="UsersProducts-tab" data-toggle="tab" onclick="getAll('ProductsUserCollection',10,1,'null','null')" href="#UsersProducts" role="tab" aria-controls="UsersOrders" aria-selected="false">Добавить продукт в коллекцию</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="UsersParams-tab" data-toggle="tab" onclick="getAll('UsersParamsCollection',10,1,'null','null')" href="#UsersParams" role="tab" aria-controls="UsersParams" aria-selected="false">Физические параметры</a>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="myTabContent">
+
+        <!--UserDiet-->
+        <div class="tab-pane fade show active table-responsive border rounded-0" id="UserDiet" role="tabpanel" aria-labelledby="UserDiet-tab">
+          <div class="container-fluid m-1">
+            <div class="row">
+              <div class="nav flex-column nav-pills col-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link rounded-0 active" id="breakfast-tab" data-toggle="pill" href="#breakfast" role="tab" aria-controls="breakfast" aria-selected="true">Завтрак</a>
+                <a class="nav-link rounded-0" id="lunch-tab" data-toggle="pill" href="#lunch" role="tab" aria-controls="lunch" aria-selected="false">Ланч</a>
+                <a class="nav-link rounded-0" id="dinner_day-tab" data-toggle="pill" href="#dinner_day" role="tab" aria-controls="dinner_day" aria-selected="false">Обед</a>
+                <a class="nav-link rounded-0" id="aftrernoon-tab" data-toggle="pill" href="#aftrernoon" role="tab" aria-controls="aftrernoon" aria-selected="false">Полдник</a>
+                <a class="nav-link rounded-0" id="dinner_night-tab" data-toggle="pill" href="#dinner_night" role="tab" aria-controls="dinner_night" aria-selected="false">Ужин</a>
+
+              </div>
+              <div class="tab-content col-9" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="breakfast" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div style="">
+                    <table class="table table-bordered m-1 table-hover" id="">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Продукт</th>
+                          <th scope="col">Калории</th>
+                          <th scope="col">Белки</th>
+                          <th scope="col">Жиры</th>
+                          <th scope="col">Углеводы</th>
+                          <th scope="col">Действие</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="BDT">
+      
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="BDTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>     
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="lunch" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <div style="">
+                    <table class="table table-bordered m-1 table-hover" id="">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Продукт</th>
+                          <th scope="col">Калории</th>
+                          <th scope="col">Белки</th>
+                          <th scope="col">Жиры</th>
+                          <th scope="col">Углеводы</th>
+                          <th scope="col">Действие</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="LDT">
+      
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="LDTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>     
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="dinner_day" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                  <div style="">
+                    <table class="table table-bordered m-1 table-hover" id="">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Продукт</th>
+                          <th scope="col">Калории</th>
+                          <th scope="col">Белки</th>
+                          <th scope="col">Жиры</th>
+                          <th scope="col">Углеводы</th>
+                          <th scope="col">Действие</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="DDDT">
+      
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="DDDTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>     
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="aftrernoon" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  <div style="">
+                    <table class="table table-bordered m-1 table-hover" id="">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Продукт</th>
+                          <th scope="col">Калории</th>
+                          <th scope="col">Белки</th>
+                          <th scope="col">Жиры</th>
+                          <th scope="col">Углеводы</th>
+                          <th scope="col">Действие</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="ADT">
+      
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="ADTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>     
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="dinner_night" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  <div style="">
+                    <table class="table table-bordered m-1 table-hover" id="">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Продукт</th>
+                          <th scope="col">Калории</th>
+                          <th scope="col">Белки</th>
+                          <th scope="col">Жиры</th>
+                          <th scope="col">Углеводы</th>
+                          <th scope="col">Действие</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="DNDT">
+      
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="6">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="DNDTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>     
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row justify-content-center">
+                <div class="col-1">
+                  <p>Дата отчёта:</p>
+                </div>
+                <div class="col-2">
+                  <input type="date" id="DTDS">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>    
+
+        <!--UserAddDiet-->
+        <div class="tab-pane fade table-responsive border rounded-0" id="UsersAddDiet" role="tabpanel" aria-labelledby="UsersAddDiet-tab">
+          <div class="container-fluid m-1">
+            <div class="row">
+              <div class="col-12">  
+                <form>
+                  <div class="row">
+                    <div class="col m-2 ">
+                      <input type="text" class="form-control w-100" placeholder="Название продукта" id="PTADProductName">
+                    </div>
+                    <div class="col m-2 text-center">
+                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','allProducts')" data-dismiss="modal">ВСЕ ПРОДУТКЫ</button>
+                    </div>
+                    <div class="col m-2 text-center">
+                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','usersProducts')" data-dismiss="modal">ПРОДУКТЫ ПОЛЬЗОВАТЕЛЯ</button>
+                    </div>
+                  </div>
+                  <div class="row align-items-center">
+                    <div class="col m-2 t">
+                      <input type="number" placeholder="Количество грамм" class="form-control" id="DAG">
+                    </div>
+                    <div class="col m-2">
+                      <input type="checkbox" checked="false" id="DACNC">
+                      <label for="DACN">Название категории:</label>
+                      <select type="text" class="form-control" disabled id="DACN">                       
+                      </select>
+                    </div>
+                    <div class="col m-2">
+                      <label for="DAEP">Приём пищи:</label>
+                      <select class="form-control" id="DAEP">
+                          <option value="Завтрак">Завтрак</option>
+                          <option value="Ланч">Ланч</option>
+                          <option value="Обед">Обед</option>
+                          <option value="Полдник">Полдник</option>
+                          <option value="Ужин">Ужин</option>
+                      </select>                    
+                    </div>
+                  </div>
+                </form>
+              </div>             
+            </div>
+            <div class="row">
+              <div class="col-12">  
+                  <div class="row justify-content-center">
+                    <div class="col-1">
+                      <p>Дата отчёта:</p>
+                    </div>
+                    <div class="col-2">
+                      <input type="date" id="AUDD">
+                    </div>
+                    <div class="col-9">
+                      <nav aria-label="...">
+                        <ul class="pagination" id="AUDP">
+                         
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+              </div>             
+            </div>
+            <div class="row" id="ProductsToAddCollection">
+                        
+            </div>
+          </div>
+        </div>  
+
+        <!--UsersProducts-->
+        <div class="tab-pane fade table-responsive border rounded-0" id="UsersProducts" role="tabpanel" aria-labelledby="UsersProducts-tab">
+
+          <div class="container-fluid">
+            <div class="row" >
+              <div class="col-3">  
+                  <form class="container-fluid m-1">
+                    <div class="row justify-content-center">
+                      <div class="form-group my-2" >
+                        <label for="PTAProductName">Название продукта:</label>
+                        <input type="text" class="form-control" id="PTAProductName">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="PTACaloriesGram">Калорий на 100 грамм:</label>
+                        <input type="number" class="form-control" id="PTACaloriesGram">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="PTAProteinsGram">Белков на 100 грамм:</label>
+                        <input type="number" class="form-control" id="PTAProteinsGram">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="PTACarbohydratesGram">Углеводов на 100 грамм:</label>
+                        <input type="number" class="form-control" id="PTACarbohydratesGram">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="PTAFatsGram">Жиров на 100 грамм:</label>
+                        <input type="number" class="form-control" id="PTAFatsGram">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="PTACategoryName">Название категории:</label>
+                        <select type="text" class="form-control" id="PTACategoryName">
+                          
+                        </select> 
+                      </div>
+                      <button type="button" onclick="insert('ProductsUserCollection')" class="btn btn-success rounded-0">Добавить</button>
+                    </div>
+                  </form>
+              </div>
+              <div class="col-9">
+                  <table class="table table-bordered m-1 table-hover" style="overflow-x:scroll;">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Название продукта</th>
+                        <th scope="col">Калорий на 100 г.</th>
+                        <th scope="col">Белков на 100 г.</th>
+                        <th scope="col">Жиров на 100 г.</th>
+                        <th scope="col">Углеводов на 100 г.</th>
+                        <th scope="col">Действие</th>
+
+                      </tr>
+                    </thead>
+                    <tbody id="ProductsUserCollection">
+                      
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="6">
+                          <nav aria-label="...">
+                            <ul class="pagination" id="PUCTP">
+                            
+                            </ul>
+                          </nav>
+                        </td>
+                      </tr>   
+                    </tfoot>
+                  </table>
+              </div>
+            </div>       
+          </div>
+        </div>
+
+        <!--UsersParams-->
+        <div class="tab-pane fade table-responsive border rounded-0" id="UsersParams" role="tabpanel" aria-labelledby="UsersParams-tab">
+          <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">  
+                  <form class="container-fluid m-1">
+                    <div class="row justify-content-center">
+                      <div class="form-group my-2" >
+                        <label for="UPTAUserHeight">Рост:</label>
+                        <input type="text" class="form-control" id="UPTAUserHeight">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="UPTAUserWeight">Вес:</label>
+                        <input type="number" class="form-control" id="UPTAUserWeight">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="AUPD">Дата отчёта:</label>
+                        <input type="date" id="AUPD">
+                      </div>
+                      <button type="button" onclick="insert('UsersParamsCollection')" class="btn btn-success rounded-0">Добавить</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-9">
+                    <table class="table table-bordered m-1 table-hover" style="overflow-x:scroll;">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">Рост</th>
+                          <th scope="col">Вес</th>
+                          <th scope="col">Дата</th>
+                          <th scope="col">Дейсвтие</th>
+    
+                        </tr>
+                      </thead>
+                      <tbody id="UsersParamsCollection">
+                        
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="4">
+                            <nav aria-label="...">
+                              <ul class="pagination" id="UPCTP">
+                               
+                              </ul>
+                            </nav>
+                          </td>
+                        </tr>   
+                      </tfoot>
+                    </table>
+                </div>              
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+         
+    </section>
+
+    <footer class="bg-dark text-center text-white">
+    <div class="container p-4">
+      <section class="">
+        <a class="btn btn-outline-light btn-floating m-1 ripple-surface" href="#!" role="button"><i class="fas fa-facebook"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+      </section>
+
+      <section class="">
+        <img  src="../../static/app_pictures/foodTrackSplash.png" alt="" width="350" height="auto">
+      </section>
+
+      <section class="">
+        <p>
+          FoodTrack - это приложение,
+          которое позволяет отслеживать потребление калорий,
+          улучшать свой рацион и достигать спортивных целей!
+        </p>
+      </section>
+
+
+      <section class="">
+        <div class="row">
+
+          <div class="col-lg-12 col-md-12 mb-6 mb-md-0">
+            <h5 class="text-uppercase">Карта сайта</h5>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="#!" class="text-white">Главная страница</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <span style="font-size: 14px">  ©2021 Copyrigth  Трекер калорий FoodTrack</span>&nbsp;<br>Created by @endlesslydivided
+    </div>
+  </footer>
+  </body>
+</html>
