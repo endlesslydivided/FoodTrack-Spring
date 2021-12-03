@@ -4,7 +4,6 @@ import com.divided.foodtrack.models.FoodCategories;
 import com.divided.foodtrack.repositories.FoodCategoriesRepository;
 import com.divided.foodtrack.services.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,12 @@ import java.util.Optional;
 @Service
 public class FoodCategoriesService implements GeneralService<FoodCategories> {
 
-    @Autowired
     private FoodCategoriesRepository foodCategoriesRepository;
+
+    @Autowired
+    public FoodCategoriesService(FoodCategoriesRepository foodCategoriesRepository) {
+        this.foodCategoriesRepository = foodCategoriesRepository;
+    }
 
     @Override
     public void delete(int id) {

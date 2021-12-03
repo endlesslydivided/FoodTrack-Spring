@@ -1,4 +1,4 @@
-package com.divided.foodtrack.security;
+package com.divided.foodtrack.security.jwt;
 
 
 import com.divided.foodtrack.logging.Loggable;

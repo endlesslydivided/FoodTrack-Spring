@@ -1,7 +1,6 @@
 package com.divided.foodtrack.repositories;
 
 import com.divided.foodtrack.models.UsersData;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

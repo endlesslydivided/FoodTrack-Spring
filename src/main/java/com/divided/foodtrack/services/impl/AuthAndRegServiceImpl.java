@@ -31,6 +31,7 @@ public class AuthAndRegServiceImpl implements AuthAndRegService {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @Override
     public void register(RegistrationForm registrationForm) throws Exception {
         if (!userRepository.getByName(registrationForm.getUserLogin()).isEmpty()) {

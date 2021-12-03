@@ -1,5 +1,4 @@
 package com.divided.foodtrack.security.jwt;
-
 import com.divided.foodtrack.logging.Loggable;
 import com.divided.foodtrack.models.Users;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ public final class JwtUserFactory {
     @Loggable
     public static JwtUser create(Users user) {
         ArrayList<String> authorities = new ArrayList<>();
-        authorities.add(user.isAdmin() ? "ADMIN" : "USER");
+        authorities.add(user.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
         return new JwtUser(
                 user.getId(),
                 user.getUserLogin(),

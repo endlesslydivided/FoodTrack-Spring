@@ -1,8 +1,6 @@
 package com.divided.foodtrack.services.impl;
 
-import com.divided.foodtrack.models.Products;
 import com.divided.foodtrack.models.Reports;
-import com.divided.foodtrack.repositories.ProductsRepository;
 import com.divided.foodtrack.repositories.ReportsRepository;
 import com.divided.foodtrack.services.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,12 @@ import java.util.Optional;
 
 public class ReportsService implements GeneralService<Reports> {
 
-    @Autowired
     private ReportsRepository reportsRepository;
+
+    @Autowired
+    public ReportsService(ReportsRepository reportsRepository) {
+        this.reportsRepository = reportsRepository;
+    }
 
     @Override
     public void delete(int id) {

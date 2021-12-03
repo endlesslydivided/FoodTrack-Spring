@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class UsersParamsService implements GeneralService<UsersParams> {
 
-    @Autowired
     private UsersParamsRepository usersParamsRepository;
+
+    @Autowired
+    public UsersParamsService(UsersParamsRepository usersParamsRepository) {
+        this.usersParamsRepository = usersParamsRepository;
+    }
 
     @Override
     public void delete(int id) {
@@ -45,6 +49,10 @@ public class UsersParamsService implements GeneralService<UsersParams> {
     public int getCountRows(String search) {
         return usersParamsRepository.countRows(search);
     }
+    public int getCountRows(int idParams) {
+        return usersParamsRepository.countRowsIdParams(idParams);
+    }
+
 
     @Override
     public List<UsersParams> getAll() {
@@ -56,8 +64,17 @@ public class UsersParamsService implements GeneralService<UsersParams> {
         return usersParamsRepository.findPaginated(min,max);
     }
 
+    public List<UsersParams> getPaginated(int min, int max,int idParams) {
+        return usersParamsRepository.findPaginatedIdParams(min,max,idParams);
+    }
+
+
     @Override
     public List<UsersParams> getPaginated(int min, int max, String seacrh) {
         return usersParamsRepository.findPaginated(min,max,seacrh);
+    }
+
+    public List<UsersParams> getPaginated(int min, int max, Integer idParams) {
+        return usersParamsRepository.findPaginatedIdParams(min,max,idParams);
     }
 }

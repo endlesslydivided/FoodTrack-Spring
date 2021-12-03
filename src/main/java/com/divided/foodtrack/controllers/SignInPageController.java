@@ -55,14 +55,14 @@ public class SignInPageController {
             if (user.isEmpty()) {
                 throw new UsernameNotFoundException("user with username: " + username + " not found");
             }
-            List<SimpleGrantedAuthority> listAuth = new ArrayList<String>(Collections.singleton(user.get().isAdmin() ? "ADMIN" : "USER")).stream()
-                            .map(role ->
-                                    new SimpleGrantedAuthority(role)
-                            ).collect(Collectors.toList());
+            List<SimpleGrantedAuthority> listAuth = new ArrayList<String>(Collections.singleton(user.get().isAdmin() ? "ROLE_ADMIN" : "ROLE_USER")).stream()
+                    .map(role ->
+                            new SimpleGrantedAuthority(role)
+                    ).collect(Collectors.toList());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.get().getUserLogin(),
                     loginForm.getUserPassword()));
             String token = jwtTokenProvider.createToken(username, user.get());
-            List<String> roleNames = Collections.singletonList(user.get().isAdmin() ? "ADMIN" : "USER");
+            List<String> roleNames = Collections.singletonList(user.get().isAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("token", token);

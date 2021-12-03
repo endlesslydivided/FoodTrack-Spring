@@ -1,7 +1,6 @@
 package com.divided.foodtrack.repositories;
 
 import com.divided.foodtrack.models.Reports;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +30,7 @@ public interface ReportsRepository  extends JpaRepository<Reports, Integer> {
                                        @Param("Period") String period,
                                        @Param("Id") Integer id);
 
+    @Modifying
     @Query(value = "EXECUTE DReportsDelete :Id", nativeQuery = true)
     void deleteById(@Param("Id") Integer id);
 

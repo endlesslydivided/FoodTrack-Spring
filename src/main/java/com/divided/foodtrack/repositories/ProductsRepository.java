@@ -1,8 +1,6 @@
 package com.divided.foodtrack.repositories;
 
-import com.divided.foodtrack.models.FoodCategories;
 import com.divided.foodtrack.models.Products;
-import com.divided.foodtrack.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -66,7 +64,7 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
     void importJSON(@Param("JSON_Data") String JSONData);
 
     @Query(value = "EXECUTE DProductsSelectS  :LimitMin,:LimitMax,:Search", nativeQuery = true)
-    List<Products> findPaginated(@Param("LimitMin") Integer limitMin,
+    List<Products> findPaginatedS(@Param("LimitMin") Integer limitMin,
                                        @Param("LimitMax") Integer limitMax,
                                        @Param("Search") String search
     );
@@ -82,6 +80,25 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
                                      @Param("LimitMax") Integer limitMax,
                                      @Param("Id") int id);
 
+    @Query(value = "EXECUTE DProductsSelectCategoryUserS :LimitMin,:LimitMax,:Id,:Seacrh,:Category", nativeQuery = true)
+    List<Products>  findPaginatedByUserIdCategoryS(@Param("LimitMin") Integer limitMin,
+                                          @Param("LimitMax") Integer limitMax,
+                                          @Param("Id") int id,
+                                          @Param("Seacrh")String seacrh,
+                                          @Param("Category")String category);
+
+    @Query(value = "EXECUTE DProductsSelectCategoryS :LimitMin,:LimitMax,:Seacrh,:Category", nativeQuery = true)
+    List<Products>  findPaginatedByCategoryS(@Param("LimitMin") Integer limitMin,
+                                                  @Param("LimitMax") Integer limitMax,
+                                                  @Param("Seacrh")String seacrh,
+                                                  @Param("Category")String category);
+
+    @Query(value = "EXECUTE DProductsSelectUserS :LimitMin,:LimitMax,:Id,:Seacrh", nativeQuery = true)
+    List<Products>  findPaginatedByUserS(@Param("LimitMin") Integer limitMin,
+                                             @Param("LimitMax") Integer limitMax,
+                                             @Param("Seacrh")String seacrh,
+                                             @Param("Id")int id);
+
     @Query(value = "EXECUTE DProductsSelectCount",nativeQuery = true)
     int countRows();
 
@@ -90,5 +107,18 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
 
     @Query(value = "EXECUTE DProductsSelectUserCount :Id",nativeQuery = true)
     int countRows(@Param("Id")int id);
+
+    @Query(value = "EXECUTE DProductsSelectCategoryUserCountS :Id,:Seacrh,:Category",nativeQuery = true)
+    int countRows(@Param("Id")int id,
+                  @Param("Seacrh")String seacrh,
+                  @Param("Category")String category);
+
+    @Query(value = "EXECUTE DProductsSelectUserCountS :Id,:Seacrh",nativeQuery = true)
+    int countRows(@Param("Id")int id,
+                  @Param("Seacrh")String seacrh);
+
+    @Query(value = "EXECUTE DProductsSelectCategoryCountS :Seacrh,:Category",nativeQuery = true)
+    int countRows(@Param("Seacrh")String seacrh,
+                  @Param("Category")String category);
 
 }

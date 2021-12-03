@@ -518,7 +518,7 @@ function getAll(table,limit = 10,page = 1,search=null) {
                     pdata.content.forEach(element => {
                         reportTable.innerHTML += 
                         `<td>${element.id}</td> <td>${element.idReport}</td> <td>${element.productName}</td>
-                        <td>${element.reportDate}</td><td>${element.eatPeriod}</td><td>${element.dayGram}</td> <td>${element.dayCalories}</td>
+                        <td>${(new Date(element.reportDate)).toLocaleDateString()}</td><td>${element.eatPeriod}</td><td>${element.dayGram}</td> <td>${element.dayCalories}</td>
                         <td>${element.dayProteins}</td><td>${element.dayFats}</td><td>${element.dayCarbohydrates}</td>
                         <td>
                             <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
@@ -558,7 +558,7 @@ function getAll(table,limit = 10,page = 1,search=null) {
                     pdata.content.forEach(element => {
                         usersDataTable.innerHTML += 
                         `<td>${element.id}</td> <td>${element.idData}</td> <td>${element.fullName}</td>
-                        <td>${element.birthday}</td>
+                        <td>${(new Date(element.birthday)).toLocaleDateString()}</td>
                         <td>
                             <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
                             <button type="button" onclick="edit('${table}',${element.id})" data-target="#UpdateUsersData" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
@@ -596,7 +596,7 @@ function getAll(table,limit = 10,page = 1,search=null) {
                     
                     pdata.content.forEach(element => {
                         usersParamsTable.innerHTML += 
-                        `<td>${element.id}</td> <td>${element.idParams}</td> <td>${element.paramsDate}</td>
+                        `<td>${element.id}</td> <td>${element.idParams}</td> <td>${(new Date(element.paramsDate)).toLocaleDateString()}</td>
                         <td>${element.userWeight}</td><td>${element.userHeight}</td>
                         <td>
                             <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
@@ -905,7 +905,7 @@ function goToUserPage() {
     fetch(url + "/user", {headers: authHeader()}).then(response=>
         {
           console.log(response);
-          if (response.statusf === 200) 
+          if (response.status === 200) 
             {
             window.location.href = response.url;
             }
@@ -940,7 +940,7 @@ window.onload = function()
     else
     {
         var user= JSON.parse(window.localStorage.getItem("user")); 
-        if(user.roles[0] == "USER")
+        if(user.roles[0] == "ROLE_USER")
         { 
           actionButtons.innerHTML = 
           `<p class="m-0">Привет,${user.username}</p>
@@ -956,7 +956,7 @@ window.onload = function()
           </div>
           </div>`;
         }
-        else if(user.roles[0] == "ADMIN")
+        else if(user.roles[0] == "ROLE_ADMIN")
         {
           actionButtons.innerHTML = `
           <p class="m-0">Привет,${user.username} </p>

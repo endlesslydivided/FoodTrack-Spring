@@ -1,20 +1,25 @@
 package com.divided.foodtrack.services.impl;
 
 import com.divided.foodtrack.models.Users;
-import com.divided.foodtrack.repositories.UsersDataRepository;
 import com.divided.foodtrack.repositories.UsersRepository;
 import com.divided.foodtrack.services.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsersService implements GeneralService<Users> {
+public class UsersService implements GeneralService<Users>{
+
+    private UsersRepository usersRepository;
 
     @Autowired
-    private UsersRepository usersRepository;
+    public UsersService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     @Override
     public void delete(int id) {
@@ -64,4 +69,6 @@ public class UsersService implements GeneralService<Users> {
     public Optional<Users> getByName(String name) {
         return usersRepository.getByName(name);
     }
+
+
 }

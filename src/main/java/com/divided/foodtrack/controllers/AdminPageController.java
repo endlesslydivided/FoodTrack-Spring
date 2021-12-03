@@ -6,13 +6,18 @@ import com.divided.foodtrack.logging.Loggable;
 import com.divided.foodtrack.models.*;
 import com.divided.foodtrack.myPage.Page;
 import com.divided.foodtrack.services.impl.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,6 +44,11 @@ public class AdminPageController {
         this.usersService = usersService;
     }
 
+    @Operation(summary = "Get user by name", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return adminPage.html",
+                    content = {@Content(mediaType = "text/html")})
+    })
     @Loggable
     @GetMapping()
     public ModelAndView index()

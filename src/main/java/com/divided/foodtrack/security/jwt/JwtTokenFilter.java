@@ -1,36 +1,75 @@
 package com.divided.foodtrack.security.jwt;
 
+import com.divided.foodtrack.services.impl.UsersService;
+import lombok.SneakyThrows;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class JwtTokenFilter extends GenericFilterBean {
+import static org.apache.logging.log4j.util.Strings.isEmpty;
 
-    private JwtTokenProvider jwtTokenProvider;
+@Component
+public class JwtTokenFilter extends OncePerRequestFilter {
 
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenUtil;
+    private final JwtUserDetailsService userDetailsService;
+
+    public JwtTokenFilter(JwtTokenProvider jwtTokenUtil, JwtUserDetailsService userDetailsService) {
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
 
+    @SneakyThrows
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException
-    {
-        String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
-        if (token != null && jwtTokenProvider.validateToken(token))
-        {
-            Authentication auth = jwtTokenProvider.getAuthentication(token);
-            if (auth != null) {
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain)
+            throws ServletException, IOException {
+
+        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (isEmpty(header) || !header.startsWith("Bearer ")) {
+            chain.doFilter(request, response);
+            return;
         }
-        filterChain.doFilter(request, response);
+
+
+        final String token = header.split(" ")[1].trim();
+        if (!jwtTokenUtil.validateToken(token)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtTokenUtil.getUsername(token));
+        if (userDetails == null) {
+            chain.doFilter(request, response);
+            return;
+        }
+        UsernamePasswordAuthenticationToken
+                authentication = new UsernamePasswordAuthenticationToken(
+                userDetails, "",
+                userDetails == null ?
+                        List.of() : userDetails.getAuthorities()
+        );
+
+        authentication.setDetails(
+                new WebAuthenticationDetailsSource().buildDetails(request)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        chain.doFilter(request, response);
     }
 
 }

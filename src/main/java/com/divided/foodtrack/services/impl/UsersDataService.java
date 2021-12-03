@@ -1,7 +1,6 @@
 package com.divided.foodtrack.services.impl;
 
 import com.divided.foodtrack.models.UsersData;
-import com.divided.foodtrack.repositories.ReportsRepository;
 import com.divided.foodtrack.repositories.UsersDataRepository;
 import com.divided.foodtrack.services.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,12 @@ import java.util.Optional;
 @Service
 public class UsersDataService implements GeneralService<UsersData> {
 
-    @Autowired
     private UsersDataRepository usersDataRepository;
+
+    @Autowired
+    public UsersDataService(UsersDataRepository usersDataRepository) {
+        this.usersDataRepository = usersDataRepository;
+    }
 
     @Override
     public void delete(int id) {

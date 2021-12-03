@@ -2,7 +2,6 @@ package com.divided.foodtrack.services.impl;
 
 import com.divided.foodtrack.DTO.ImportProductsJSONDTO;
 import com.divided.foodtrack.models.Products;
-import com.divided.foodtrack.repositories.FoodCategoriesRepository;
 import com.divided.foodtrack.repositories.ProductsRepository;
 import com.divided.foodtrack.services.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,12 @@ import java.util.Optional;
 @Service
 public class ProductsService implements GeneralService<Products> {
 
-    @Autowired
     private ProductsRepository productsRepository;
+
+    @Autowired
+    public ProductsService(ProductsRepository productsRepository) {
+        this.productsRepository = productsRepository;
+    }
 
     @Override
     public void delete(int id) {
@@ -53,6 +56,19 @@ public class ProductsService implements GeneralService<Products> {
         return productsRepository.countRows(id);
     }
 
+    public int getCountRows(int id,String seacrh,String category) {
+        return productsRepository.countRows(id,seacrh,category);
+    }
+
+    public int getCountRows(String seacrh,String category) {
+        return productsRepository.countRows(seacrh,category);
+    }
+
+    public int getCountRows(String seacrh,int id) {
+        return productsRepository.countRows(id,seacrh);
+    }
+
+
     @Override
     public List<Products> getAll() {
         return productsRepository.findAll();
@@ -65,11 +81,21 @@ public class ProductsService implements GeneralService<Products> {
 
     @Override
     public List<Products> getPaginated(int min, int max, String seacrh) {
-        return productsRepository.findPaginated(min,max,seacrh);
+        return productsRepository.findPaginatedS(min,max,seacrh);
     }
 
     public List<Products> getPaginatedByUsersId(int min, int max, int id) {
         return productsRepository.findPaginatedByUserId(min,max,id);
+    }
+    public List<Products> getPaginatedByUsersIdCategoryS(int min, int max, int id,String search,String category) {
+        return productsRepository.findPaginatedByUserIdCategoryS(min,max,id,search,category);
+    }
+    public List<Products> getPaginatedByCategoryS(int min, int max, String search,String category) {
+        return productsRepository.findPaginatedByCategoryS(min,max,search,category);
+    }
+
+    public List<Products> getPaginatedByUserS(int min, int max, String search,int id) {
+        return productsRepository.findPaginatedByUserS(min,max,search,id);
     }
 
     public void exportJson(String path) {

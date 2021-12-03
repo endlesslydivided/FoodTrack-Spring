@@ -1,7 +1,5 @@
 package com.divided.foodtrack.repositories;
 
-import com.divided.foodtrack.models.Users;
-import com.divided.foodtrack.models.UsersParams;
 import com.divided.foodtrack.models.UsersParams;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,9 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
-
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -58,9 +55,20 @@ public interface UsersParamsRepository  extends JpaRepository<UsersParams, Integ
 
     );
 
+    @Query(value = "EXECUTE DUsersParamsSelectIdParams :LimitMin,:LimitMax,:IdParams", nativeQuery = true)
+    List<UsersParams> findPaginatedIdParams(@Param("LimitMin") Integer limitMin,
+                                    @Param("LimitMax") Integer limitMax,
+                                            @Param("IdParams") Integer idParams
+
+    );
+
     @Query(value = "EXECUTE DUsersParamsSelectCount",nativeQuery = true)
     int countRows();
 
+
     @Query(value = "EXECUTE DUsersParamsSelectCountS :Seacrh",nativeQuery = true)
     int countRows(@Param("Seacrh")String seacrh);
+
+    @Query(value = "EXECUTE DUsersParamsSelectCountIdParams :IdParam",nativeQuery = true)
+    int countRowsIdParams(@Param("IdParam")Integer idParams);
 }

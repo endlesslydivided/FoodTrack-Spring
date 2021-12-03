@@ -27,7 +27,7 @@ window.onload = function()
     else
     {
         var user= JSON.parse(window.localStorage.getItem("user")); 
-        if(user.roles[0] == "USER")
+        if(user.roles[0] == "ROLE_USER")
         { 
           actionButtons.innerHTML = 
           `<p class="m-0">Привет,${user.username}</p>
@@ -43,7 +43,7 @@ window.onload = function()
           </div>
           </div>`;
         }
-        else if(user.roles[0] == "ADMIN")
+        else if(user.roles[0] == "ROLE_ADMIN")
         {
           actionButtons.innerHTML = `
           <p class="m-0">Привет,${user.username} </p>
@@ -59,8 +59,6 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
-          getAll("FoodCategory");
-          getCategories();
         }
     }
 };

@@ -2,7 +2,6 @@ package com.divided.foodtrack.repositories;
 
 
 import com.divided.foodtrack.models.Users;
-import com.divided.foodtrack.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,9 @@
 package com.divided.foodtrack.models;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Users {

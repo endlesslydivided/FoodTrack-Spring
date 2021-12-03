@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @CrossOrigin(origins = "*")
-
 @RequestMapping("/error")
 public class ErrorController {
 
