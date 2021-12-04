@@ -57,6 +57,11 @@ public class ReportsService implements GeneralService<Reports> {
         return reportsRepository.findAll();
     }
 
+
+    public List<Reports> getByDateUser(int id, String date) {
+        return reportsRepository.findByDateUser(date,id);
+    }
+
     @Override
     public List<Reports> getPaginated(int min, int max) {
         return reportsRepository.findPaginated(min,max);

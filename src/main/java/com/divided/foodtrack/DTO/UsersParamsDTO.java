@@ -30,6 +30,12 @@ public class UsersParamsDTO {
         this.userHeight = userHeight;
     }
 
+    public UsersParamsDTO(Date paramsDate, BigDecimal userWeight, int userHeight) {
+        this.paramsDate = paramsDate;
+        this.userWeight = userWeight;
+        this.userHeight = userHeight;
+    }
+
     public UsersParamsDTO() {
     }
     //endregion

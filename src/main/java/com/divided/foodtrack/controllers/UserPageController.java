@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.Year;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,16 +35,21 @@ public class UserPageController {
     private UsersParamsService usersParamsService;
     private UsersService usersService;
     private FoodCategoriesService foodCategoriesService;
-
+    private UsersNeedsService usersNeedsService;
 
     @Autowired
-    public UserPageController(ProductsService productsService, ReportsService reportsService, UsersParamsService usersParamsService, UsersService usersService,FoodCategoriesService foodCategoriesService) {
+    public UserPageController(ProductsService productsService,
+                              ReportsService reportsService,
+                              UsersParamsService usersParamsService,
+                              UsersService usersService,
+                              FoodCategoriesService foodCategoriesService,
+                              UsersNeedsService usersNeedsService) {
         this.productsService = productsService;
         this.reportsService = reportsService;
         this.usersParamsService = usersParamsService;
         this.usersService = usersService;
         this.foodCategoriesService = foodCategoriesService;
-
+        this.usersNeedsService = usersNeedsService;
     }
 
     //region PostMapping
@@ -64,7 +75,7 @@ public class UserPageController {
     }
 
     @Loggable
-    @PostMapping("/productsDiet")
+    @PostMapping("/reports")
     public ResponseEntity<Reports> addUsersDietProduct(@RequestBody ProductUsersDietDTO productDTO)
     {
         Optional<Products> product = productsService.getByName(productDTO.getProductName());
@@ -72,10 +83,10 @@ public class UserPageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         Reports report = new Reports();
         report.setDayGram(productDTO.getGrams());
-        report.setDayProteins(productDTO.getGrams().multiply(product.get().getProteinsGram()));
-        report.setDayFats(productDTO.getGrams().multiply(product.get().getFatsGram()));
-        report.setDayCarbohydrates(productDTO.getGrams().multiply(product.get().getCarbohydratesGram()));
-        report.setDayCalories(productDTO.getGrams().multiply(product.get().getCaloriesGram()));
+        report.setDayProteins(productDTO.getGrams().multiply(product.get().getProteinsGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.setDayFats(productDTO.getGrams().multiply(product.get().getFatsGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.setDayCarbohydrates(productDTO.getGrams().multiply(product.get().getCarbohydratesGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.setDayCalories(productDTO.getGrams().multiply(product.get().getCaloriesGram()).multiply(BigDecimal.valueOf(0.01)));
         report.setEatPeriod(productDTO.getEatPeriod());
         report.setReportDate(productDTO.getReportDate());
         report.setProductName(productDTO.getProductName());
@@ -102,6 +113,67 @@ public class UserPageController {
     //endregion
 
     //region GetMapping
+
+    @Loggable
+    @GetMapping("/usersparams/{id}")
+    public ResponseEntity<UsersParamsDTO> getUsersParams(@PathVariable("id") int id)
+    {
+        Optional<UsersParams> usersParams = usersParamsService.getById(id);
+        if(usersParams.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        UsersParamsDTO usersParamsDTO = new UsersParamsDTO(
+                usersParams.get().getId(),
+                usersParams.get().getIdParams(),
+                usersParams.get().getParamsDate(),
+                usersParams.get().getUserWeight(),
+                usersParams.get().getUserHeight());
+        return new ResponseEntity<UsersParamsDTO>(usersParamsDTO,HttpStatus.OK);
+    }
+
+    @Loggable
+    @GetMapping("/reports/{id}")
+    public ResponseEntity<ReportsDTO> getReport(@PathVariable("id") int id)
+    {
+        Optional<Reports> report = reportsService.getById(id);
+        if(report.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ReportsDTO reportDTO = new ReportsDTO(report.get().getId(),
+                report.get().getIdReport(),
+                report.get().getProductName(),
+                report.get().getReportDate(),
+                report.get().getEatPeriod(),
+                report.get().getDayGram(),
+                report.get().getDayCalories(),
+                report.get().getDayProteins(),
+                report.get().getDayFats(),
+                report.get().getDayCarbohydrates());
+        return new ResponseEntity<ReportsDTO>(reportDTO,HttpStatus.OK);
+    }
+
+    @Loggable
+    @GetMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") int id)
+    {
+        Optional<Products> products = productsService.getById(id);
+        if(products.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ProductDTO productDTO = new ProductDTO(products.get().getId(),
+                products.get().getIdAdded(),
+                products.get().getProductName(),
+                products.get().getCaloriesGram(),
+                products.get().getProteinsGram(),
+                products.get().getFatsGram(),
+                products.get().getCarbohydratesGram(),
+                products.get().getFoodCategory());
+        return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
+    }
+
     @Loggable
     @GetMapping("/usersparams")
     public ResponseEntity<Page<UsersParams>> getAllUsersParams( @RequestParam("idParams") int idParams,
@@ -152,9 +224,9 @@ public class UserPageController {
         }
         else if(!Objects.equals(productName, "null"))
         {
-            int count = productsService.getCountRows(productName);
+            int count = productsService.getCountRowsProductName(productName);
             pageFound = new Page<>(
-                    productsService.getPaginated(
+                    productsService.getPaginatedByProductName(
                             (page - 1) * limit, page == 1 ? limit : page * limit - 1, productName),
                     page, count, count / limit + 1);
         }
@@ -227,6 +299,31 @@ public class UserPageController {
     }
 
     @Loggable
+    @GetMapping("/reports")
+    public ResponseEntity<DayReportDTO> getAllDiet(@RequestParam("id") int id,@RequestParam("date") String date)
+    {
+        Optional<UsersData> usersData = usersNeedsService.getUsersData(id);
+        List<UsersParams> usersParamsList = usersNeedsService.getUsersParams(id);
+        List<Reports> reportsList = usersNeedsService.getUsersReports(id,date);
+        if(usersData.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Optional<UsersParams> usersParam =  usersParamsList.stream().filter(x -> x.getParamsDate().compareTo(
+                usersParamsList.stream().map(UsersParams::getParamsDate).max(Date::compareTo).get()) == 0
+        ).findFirst();
+
+        if(usersParam.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        DayReportDTO dayReportDTO = usersNeedsService.getUsersNeeds(usersParam.get(),usersData.get(),reportsList);
+
+        return new ResponseEntity<>(dayReportDTO, HttpStatus.OK);
+    }
+
+    @Loggable
     @GetMapping("/foodcategories_products")
     public ResponseEntity<List<FoodCategories>> getAllFoodCategories()
     {
@@ -273,7 +370,7 @@ public class UserPageController {
     }
 
     @Loggable
-    @DeleteMapping("/productsDiet/{id}")
+    @DeleteMapping("/reports/{id}")
     public ResponseEntity<ReportsDTO> deleteReport(@PathVariable("id") int id)
     {
         reportsService.delete(id);
@@ -281,6 +378,78 @@ public class UserPageController {
     }
     //endregion
 
+    //region PutMapping
+    @Loggable
+    @PutMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") int id,
+                                                    @RequestBody ProductDTO productDTO)
+    {
+        List<Products> products = productsService.getAll();
+        if(products.stream().filter(x -> x.getId() != id &&
+                x.getProductName() == productDTO.getProductName()).count() >1)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        Optional<Products> product = productsService.getById(id);
+        if(product.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        product.get().setProductName(productDTO.getProductName());
+        product.get().setCaloriesGram(productDTO.getCaloriesGram());
+        product.get().setFatsGram(productDTO.getFatsGram());
+        product.get().setProteinsGram(productDTO.getProteinsGram());
+        product.get().setCarbohydratesGram(productDTO.getCarbohydratesGram());
+        product.get().setFoodCategory(productDTO.getFoodCategory());
+
+        productsService.editItem(product.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Loggable
+    @PutMapping("/reports/{id}")
+    public ResponseEntity<ReportsDTO> updateReports(@PathVariable("id") int id,
+                                                    @RequestBody ReportsDTO reportsDTO)
+    {
+        Optional<Reports> report = reportsService.getById(id);
+        if(report.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<Products> product = productsService.getByName(report.get().getProductName());
+        if(product.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        report.get().setReportDate(reportsDTO.getReportDate());
+        report.get().setDayGram(reportsDTO.getDayGram());
+        report.get().setDayCalories(reportsDTO.getDayGram().multiply(product.get().getCaloriesGram()));
+        report.get().setDayFats(reportsDTO.getDayGram().multiply(product.get().getFatsGram()));
+        report.get().setDayCarbohydrates(reportsDTO.getDayGram().multiply(product.get().getCarbohydratesGram()));
+        report.get().setDayProteins(report.get().getDayGram().multiply(product.get().getProteinsGram()));
+
+        reportsService.editItem(report.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Loggable
+    @PutMapping("/usersparams/{id}")
+    public ResponseEntity<UsersParamsDTO> updateUsersData(@PathVariable("id") int id,
+                                                          @RequestBody UsersParamsDTO usersParamsDTO)
+    {
+        Optional<UsersParams> usersParams = usersParamsService.getById(id);
+        if(usersParams.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        usersParams.get().setParamsDate(usersParamsDTO.getParamsDate());
+        usersParams.get().setUserWeight(usersParamsDTO.getUserWeight());
+        usersParams.get().setUserHeight(usersParamsDTO.getUserHeight());
+
+
+        usersParamsService.editItem(usersParams.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    //endregion
 
 
 

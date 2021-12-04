@@ -57,6 +57,12 @@ public class ReportsDTO {
         this.dayFats = dayFats;
         this.dayCarbohydrates = dayCarbohydrates;
     }
+
+    public ReportsDTO(Date reportDate, BigDecimal dayGram) {
+        this.reportDate = reportDate;
+        this.dayGram = dayGram;
+    }
+
     //endregion
 
     //region Properties

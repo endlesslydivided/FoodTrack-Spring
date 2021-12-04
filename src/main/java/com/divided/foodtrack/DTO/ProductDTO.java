@@ -38,6 +38,15 @@ public class ProductDTO {
         this.foodCategory = foodCategory;
     }
 
+    public ProductDTO(String productName, BigDecimal caloriesGram, BigDecimal proteinsGram, BigDecimal fatsGram, BigDecimal carbohydratesGram, String foodCategory) {
+        this.productName = productName;
+        this.caloriesGram = caloriesGram;
+        this.proteinsGram = proteinsGram;
+        this.fatsGram = fatsGram;
+        this.carbohydratesGram = carbohydratesGram;
+        this.foodCategory = foodCategory;
+    }
+
     public ProductDTO(Integer idAdded, String productName, BigDecimal caloriesGram, BigDecimal proteinsGram, BigDecimal fatsGram, BigDecimal carbohydratesGram, String foodCategory) {
         this.idAdded = idAdded;
         this.productName = productName;

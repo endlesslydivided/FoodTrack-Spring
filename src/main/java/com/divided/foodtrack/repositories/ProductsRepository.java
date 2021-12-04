@@ -69,6 +69,12 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
                                        @Param("Search") String search
     );
 
+    @Query(value = "EXECUTE DProductsSelectProductNameS  :LimitMin,:LimitMax,:Search", nativeQuery = true)
+    List<Products> findPaginatedProductNameS(@Param("LimitMin") Integer limitMin,
+                                  @Param("LimitMax") Integer limitMax,
+                                  @Param("Search") String search
+    );
+
     @Query(value = "EXECUTE DProductsSelect :LimitMin,:LimitMax", nativeQuery = true)
     List<Products> findPaginated(@Param("LimitMin") Integer limitMin,
                                        @Param("LimitMax") Integer limitMax
@@ -104,6 +110,9 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
 
     @Query(value = "EXECUTE DProductsSelectCountS :Seacrh",nativeQuery = true)
     int countRows(@Param("Seacrh")String seacrh);
+
+    @Query(value = "EXECUTE DProductsSelectProductNameCountS :Seacrh",nativeQuery = true)
+    int countRowsProductName(@Param("Seacrh")String seacrh);
 
     @Query(value = "EXECUTE DProductsSelectUserCount :Id",nativeQuery = true)
     int countRows(@Param("Id")int id);

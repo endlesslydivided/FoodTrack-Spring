@@ -22,6 +22,9 @@ public interface UsersDataRepository  extends JpaRepository<UsersData, Integer> 
     @Query(value = "EXECUTE DUsersDataSelectId :Id", nativeQuery = true)
     Optional<UsersData> findById(@Param("Id") Integer id);
 
+    @Query(value = "EXECUTE DUsersDataSelectUser :Id", nativeQuery = true)
+    Optional<UsersData> findByUser(@Param("Id") Integer id);
+
     @Modifying
     @Query(value = "EXECUTE DUsersDataDelete :Id", nativeQuery = true)
     void deleteById(@Param("Id") Integer id);

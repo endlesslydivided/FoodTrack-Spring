@@ -58,11 +58,11 @@ IdReport int NOT NULL constraint FK_REPORTS_USERS foreign key (IdReport) referen
 ProductName varchar(200) NOT NULL constraint FK_REPORTS_PRODUCTS foreign key (ProductName) references Products(ProductName) ON UPDATE CASCADE ON DELETE CASCADE,
 ReportDate date NOT NULL,
 EatPeriod varchar(8) NOT NULL,
-DayGram decimal(7,2) NOT NULL default '0',
-DayCalories decimal(7,2) NOT NULL default '0',
-DayProteins decimal(7,2) NOT NULL default '0',
-DayFats decimal(7,2) NOT NULL default '0',
-DayCarbohydrates decimal(7,2) NOT NULL default '0'
+DayGram decimal(8,2) NOT NULL default '0',
+DayCalories decimal(8,2) NOT NULL default '0',
+DayProteins decimal(8,2) NOT NULL default '0',
+DayFats decimal(8,2) NOT NULL default '0',
+DayCarbohydrates decimal(8,2) NOT NULL default '0'
 )
 
 

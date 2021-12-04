@@ -49,6 +49,10 @@ public interface UsersParamsRepository  extends JpaRepository<UsersParams, Integ
                                   @Param("Search") String search
     );
 
+    @Query(value = "EXECUTE DUsersParamsSelectUser  :Id", nativeQuery = true)
+    List<UsersParams> findByUser(@Param("Id") Integer id
+    );
+
     @Query(value = "EXECUTE DUsersParamsSelect :LimitMin,:LimitMax", nativeQuery = true)
     List<UsersParams> findPaginated(@Param("LimitMin") Integer limitMin,
                                   @Param("LimitMax") Integer limitMax

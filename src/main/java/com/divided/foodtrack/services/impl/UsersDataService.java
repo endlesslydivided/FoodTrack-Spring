@@ -29,6 +29,11 @@ public class UsersDataService implements GeneralService<UsersData> {
         return usersDataRepository.findById(id);
     }
 
+    public Optional<UsersData> getByUser(int id) {
+        return usersDataRepository.findByUser(id);
+    }
+
+
     @Override
     public void editItem(UsersData item) {
         usersDataRepository.update(item.getId(),item.getFullName(),item.getBirthday());

@@ -4,7 +4,6 @@ const url = "http://localhost:8080";
 var currentPage = 1;
 var productMode = "allProducts";
 
-
 function alertAddMes(message)
 {
     $(".alert .alertMessage").append(message);
@@ -22,7 +21,7 @@ function updateAllDiet()
     getAll("null",10,1,"null","dinnerDay",null);
     getAll("null",10,1,"null","afternoon",null);
     getAll("null",10,1,"null","dinnerNight",null);
-
+    getUsersReportsDate();
 }
 
 function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mode=null) {       
@@ -75,7 +74,7 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
                 <td>${element.dayFats}</td><td>${element.dayCarbohydrates}</td>
                 <td>
                     <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
-                    <button type="button" onclick="edit('${table}',${element.id})" data-target="#UpdateProduct" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
+                    <button type="button" onclick="edit('${table}',${element.id})" data-target="#UpdateDiet" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
                 </td>` 
                 
             });
@@ -174,9 +173,13 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
         {
             document.getElementById("DACN").disabled = true;
         }
+        if(mode == "null")
+        {
+            mode = productMode;
+        }
         var collection = document.getElementById("ProductsToAddCollection");
         limit = 12;
-        if(productMode == "usersProducts")
+        if(mode == "usersProducts")
         {
             productMode = mode;
             var id = JSON.parse(localStorage.getItem("user")).id;
@@ -223,7 +226,7 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
                 ).catch(message => {messageShow(message)});      
         }
     
-        if(productMode == "allProducts" || productMode == "null")
+        if(mode == "allProducts")
         {
             productMode = mode;
             fetch(url + `/user/products?limit=${limit}&page=${page}&productName=${productNameToSearch == ""? "null":productNameToSearch}&category=${checkCategory?document.getElementById("DACN").value:"null"}&idAdded=-1`, 
@@ -247,7 +250,7 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
                     collection.innerHTML = ""; 
                     pdata.content.forEach(element => {
                         collection.innerHTML += 
-                        `<div class="col-4 col-sm-6 col-md-3 col-lg-3 col-xl-3 my-1">
+                        `<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 my-1">
                         <div class="card ">
                           <div class="card-body">
                               <h5 class="card-title text-left">${element.productName}</h5>
@@ -384,11 +387,14 @@ function getCategories()
         }
     ).then((pdata)=>
     {
+        let UPDATE_USERPRODUCT_CATEGORY =document.getElementById("UPDATE_USERPRODUCT_CATEGORY");
+
         let DACN =document.getElementById("DACN");
         let PTACategoryName =document.getElementById("PTACategoryName");
-        pdata.forEach(element => {
-            DACN.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`
-            PTACategoryName.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`
+        pdata.forEach(element => { 
+            UPDATE_USERPRODUCT_CATEGORY+= `<option value="${element.categoryName}">${element.categoryName}</option>`;
+            DACN.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`;
+            PTACategoryName.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`;
         })
     });
 }
@@ -523,7 +529,7 @@ function insertUsersDietProduct(productName) {
         return false;
     }
     closeAlert();    
-    fetch(url + '/user/productsDiet', 
+    fetch(url + '/user/reports', 
     {
     method: 'POST',
     headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization},
@@ -696,7 +702,7 @@ function deleteR(table,id)
     var finalUrl = url;
     if(table == "BDT" || table == "LDT" ||table == "DDDT" ||table == "ADT" ||table == "DNDT")  
     { 
-        finalUrl += `/user/productsDiet/${id}`;    
+        finalUrl += `/user/reports/${id}`;    
      }
      else if(table == "ProductsUserCollection")
      {
@@ -754,4 +760,238 @@ function deleteR(table,id)
             
             }).catch(message => {messageShow(message)});
     };      
+}
+
+function getUsersReportsDate()
+{
+    var date = document.getElementById('DTDS').value;
+    var userId = JSON.parse(localStorage.getItem('user')).id;
+    fetch(url + `/user/reports?id=${userId}&date=${date}`, 
+    {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization}
+    }
+).then( response => 
+    {
+        if (response.status === 200) 
+        {
+            return response.json();      
+        }
+        else
+        {
+            throw "Ничего не найдено"
+        }
+    }
+   ).then(pdata =>
+    {
+        var nutrientsNeeded = document.getElementById("NUTNED");
+        nutrientsNeeded.innerHTML = "";
+            nutrientsNeeded.innerHTML += 
+            `<tr><td></td><td>Необходимо</td> <td>Получено</td></tr>
+            <tr><td>Калорий</td><td>${pdata.calsNeeded} ккал</td> <td>${pdata.calsEaten} ккал</td></tr>
+            <tr><td>Белков</td><td>${pdata.proteinsNeeded} г.</td> <td>${pdata.proteinsEaten} г.</td></tr>
+            <tr><td>Жиров</td><td>${pdata.fatsNeeded} г.</td> <td>${pdata.fatsEaten} г.</td></tr>
+            <tr><td>Углеводов</td><td>${pdata.carbohydratesNeeded} г.</td> <td>${pdata.carbohydratesEaten} г.</td></tr>` 
+
+    }
+    ).catch(message => {messageShow(message)});
+}
+
+function update(table)
+{
+    var finalUrl = url;
+    var showAlert = false;
+    var body;
+    if(table == "DietTable")  
+    { 
+        var id = document.getElementById("REPORTID").value;
+
+        finalUrl += `/user/reports/${id}`;    
+
+        var reportDate = document.getElementById("UPDATE_DIET_DATE").value;
+        var dayGram = document.getElementById("GRAMSUPDATE").value;
+        $(".alert .alertMessage").text("");
+        if(dayGram <= 0  || dayGram >  10000) {alertAddMes("Количество грамм: 1-10000 единиц."); showAlert = true;}    
+        if(Date.parse(reportDate) > Date.now()) {alertAddMes("Неверная дата."); showAlert = true;}
+        if(!Number.isInteger(Number.parseInt(id))) {alertAddMes("Перезагрузите страницу. Неверное значение идентификтора записи."); showAlert = true;}
+
+        if(showAlert)
+        {
+            $(".alert").show('close');
+            $(".alert").alert();
+            return false;
+        }
+
+        closeAlert();    
+        body = { dayGram : dayGram,
+            reportDate:reportDate};
+     }
+     else if(table == "ProductsUserCollection")
+     {
+        var id = document.getElementById("PRODUCTID").value;
+        finalUrl += `/user/products/${id}`;
+        var productName = document.getElementById("UPDATE_USERPRODUCT_PRODUCTNAME").value;
+        var caloriesGram = document.getElementById("UPDATE_USERPRODUCT_CALORIESGRAM").value;
+        var proteinsGram = document.getElementById("UPDATE_USERPRODUCT_PROTEINSGRAM").value;
+        var carbohydratesGram = document.getElementById("UPDATE_USERPRODUCT_CARBSGRAM").value;
+        var foodCategory = document.getElementById("UPDATE_USERPRODUCT_FATSGRAM").value;
+        $(".alert .alertMessage").text("");
+        if(productName.length < 1  || productName.length >  200) {alertAddMes("Название продукта: 1-200 символов."); showAlert = true;}
+        if(caloriesGram <= 0  || caloriesGram >  1000) {alertAddMes("Количество калорий на 100 грамм: 0-1000 единиц."); showAlert = true;}
+        if(proteinsGram <= 0  || proteinsGram >  100) {alertAddMes("Количество белков на 100 грамм: 0-100 единиц."); showAlert = true;}
+        if(carbohydratesGram <= 0  || carbohydratesGram >  100) {alertAddMes("Количество углеводов на 100 грамм: 0-100 единиц."); showAlert = true;}
+        if(fatsGram <= 0  || fatsGram >  100) {alertAddMes("Количество жиров на 100 грамм: 0-100 единиц."); showAlert = true;}
+        if(foodCategory.length == 0) {alertAddMes("Поле 'Название категории' не заполнено"); showAlert = true;}
+        if(!Number.isInteger(Number.parseInt(id))) {alertAddMes("Перезагрузите страницу. Неверное значение идентификтора записи."); showAlert = true;}
+
+
+        if(showAlert)
+        {
+            $(".alert").show('close');
+            $(".alert").alert();
+            return false;
+        }
+        closeAlert();    
+        body = 
+        { 
+            productName:productName,
+            caloriesGram:caloriesGram,
+            proteinsGram:proteinsGram,
+            carbohydratesGram:carbohydratesGram,
+            foodCategory:foodCategory
+        }
+     }
+     else if (table == "UsersParamsCollection")
+     {    
+        var id = document.getElementById("PARAMSID").value;
+        finalUrl += `/user/usersparams/${id}`;    
+        var userHeight = document.getElementById("UPDATE_USERPARAMS_HEIGHT").value;
+        var userWeight = document.getElementById("UPDATE_USERPARAMS_WEIGHT").value;
+        var paramsDate = document.getElementById("UPDATE_USERPARAMS_DATE").value;  
+        $(".alert .alertMessage").text("");
+
+        if(Date.parse(paramsDate) > Date.now()) {alertAddMes("Неверная дата."); showAlert = true;}
+        if(userHeight < 30  || userHeight>  300) {alertAddMes("Рост: 30-300 единиц."); showAlert = true;}
+        if(userWeight < 10  || userWeight>  300) {alertAddMes("Вес: 10-300 единиц."); showAlert = true;}
+        if(!Number.isInteger(Number.parseInt(id))) {alertAddMes("Перезагрузите страницу. Неверное значение идентификтора записи."); showAlert = true;}
+
+        if(showAlert)
+        {
+            $(".alert").show('close');
+            $(".alert").alert();
+            return false;
+        }
+        closeAlert();    
+        body = 
+        { 
+            userHeight:userHeight,
+            userWeight:userWeight,
+            paramsDate:paramsDate,
+
+        }
+     }
+         fetch(finalUrl, 
+        {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization},
+        body : JSON.stringify(body)
+        }
+    ).then( response => 
+        {
+            if (response.status === 200) 
+            {
+                messageShow("Запись успешно изменена.");
+                if(table == "DietTable")  
+                { 
+                    updateAllDiet();
+                }
+                else if(table == "ProductsUserCollection")
+                {
+                    getAll('ProductsUserCollection',10,1,'null','null');
+                }
+                else if(table == "UsersParamsCollection")
+                {
+                    getAll('UsersParamsCollection',10,1,'null','null');
+                }
+            }
+            else
+            {
+                throw "Ошибка обновления."
+            }
+        
+    }).catch(message => {messageShow(message)});
+          
+}
+
+function edit(table,id)
+{
+    var finalUrl = url;
+    if(table == "BDT" || table == "LDT" ||table == "DDDT" ||table == "ADT" ||table == "DNDT")  
+    { 
+        finalUrl += `/user/reports/${id}`;    
+     }
+     else if(table == "ProductsUserCollection")
+     {
+        finalUrl += `/user/products/${id}`;
+     }
+     else if (table == "UsersParamsCollection")
+     {    
+        finalUrl += `/user/usersparams/${id}`;    
+     }
+         fetch(finalUrl, 
+        {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization}
+        }
+    ).then( response => 
+        {
+            if (response.status === 200) 
+            {               
+                return response.json();
+            }
+            else
+            {
+                throw "Ошибка получения данных с сервера. Перезагрузите страницу и повторите попытку"
+            }
+        }
+    )
+    .then( pdata => 
+        {
+                if(table == "BDT" || table == "LDT" ||table == "DDDT" ||table == "ADT" ||table == "DNDT")  
+                { 
+                    document.getElementById("REPORTID").value = pdata.id;
+                    document.getElementById("GRAMSUPDATE").value = pdata.dayGram;      
+                    var date = new Date(pdata.reportDate);
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                    document.getElementById("UPDATE_DIET_DATE").value = date_format;
+                }
+                else if(table == "ProductsUserCollection")
+                {
+                    document.getElementById("PRODUCTID").value = pdata.id;
+                    document.getElementById("UPDATE_USERPRODUCT_PRODUCTNAME").value = pdata.productName;
+                    document.getElementById("UPDATE_USERPRODUCT_CALORIESGRAM").value = pdata.caloriesGram;      
+                    document.getElementById("UPDATE_USERPRODUCT_PROTEINSGRAM").value = pdata.proteinsGram;
+                    document.getElementById("UPDATE_USERPRODUCT_CARBSGRAM").value = pdata.carbohydratesGram;
+                    document.getElementById("UPDATE_USERPRODUCT_FATSGRAM").value = pdata.fatsGram;
+                    document.getElementById("UPDATE_USERPRODUCT_CATEGORY").value = pdata.foodCategory;
+
+                }
+                else if(table == "UsersParamsCollection")
+                {
+                    document.getElementById("PARAMSID").value = pdata.id;
+                    document.getElementById("UPDATE_USERPARAMS_HEIGHT").value = pdata.userHeight;
+                    var date = new Date(pdata.paramsDate);
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                    document.getElementById("UPDATE_USERPARAMS_DATE").value;        
+                    document.getElementById("UPDATE_USERPARAMS_WEIGHT").value = pdata.userWeight;                            
+                }
+
+        }).catch(message => {messageShow(message)});
+          
 }

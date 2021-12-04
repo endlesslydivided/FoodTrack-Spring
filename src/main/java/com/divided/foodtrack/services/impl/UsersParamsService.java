@@ -59,6 +59,10 @@ public class UsersParamsService implements GeneralService<UsersParams> {
         return usersParamsRepository.findAll();
     }
 
+    public List<UsersParams> getByUser(int id) {
+        return usersParamsRepository.findByUser(id);
+    }
+
     @Override
     public List<UsersParams> getPaginated(int min, int max) {
         return usersParamsRepository.findPaginated(min,max);

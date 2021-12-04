@@ -48,7 +48,15 @@ Create Procedure DUsersParamsSelectId @Id int
 AS
 Begin
 	SELECT * from UsersParams where Id = @Id;
+end
+
+go
+Create Procedure DUsersParamsSelectUser @Id int
+AS
+Begin
+	SELECT * from UsersParams where IdParams = @Id;
 end;
+
 
 -- Select from UsersData
 go 
@@ -71,6 +79,12 @@ Begin
 	SELECT * from UsersData where Id = @Id;
 end;
 
+go 
+Create Procedure DUsersDataSelectUser @Id int
+AS
+Begin
+	SELECT * from UsersData where IdData = @Id;
+end;
 
 -- Select from Products
 go 
@@ -120,6 +134,13 @@ Create Procedure DReportsSelectId @Id int
 AS
 Begin
 	SELECT * from Reports where Id = @Id;
+end;
+
+go 
+Create Procedure DReportsSelectDateUser @Date nvarchar(max), @Id int
+AS
+Begin
+	SELECT * from Reports where IdReport = @Id and ReportDate like '%' + @Date + '%';
 end;
 
 
@@ -267,6 +288,13 @@ begin
 end;
 
 go 
+Create procedure DProductsSelectProductNameCountS @Seacrh nvarchar(max) 
+AS
+begin
+	SELECT count(*) from Products where ProductName like '%' + @Seacrh +'%';
+end;
+
+go 
 Create procedure DReportsSelectDatePeriodCount @Date nvarchar(max), @Period nvarchar(max),@Id int
 AS
 begin
@@ -385,6 +413,19 @@ begin
 		* from Products where Id like '%' + @Search + '%' or IdAdded like '%' + @Search + '%' or ProductName like '%' + @Search + '%' or 
 		CaloriesGram like '%' + @Search + '%' or ProteinsGram  like '%' + @Search + '%' or FatsGram like '%' + @Search + '%' or CarbohydratesGram like '%' + @Search + '%' or
 		FoodCategory like '%' + @Search + '%'
+	) 
+	SELECT Id,IdAdded,ProductName,CaloriesGram,ProteinsGram,CarbohydratesGram,FatsGram,FoodCategory FROM num_row
+	WHERE (nom BETWEEN @start AND @end) ;
+end;
+
+go 
+Create procedure DProductsSelectProductNameS @start int, @end int, @Search nvarchar(max)
+AS
+begin
+	WITH num_row AS
+	(
+		SELECT row_number() OVER (ORDER BY Id) as nom , 		
+		* from Products where ProductName like '%' + @Search + '%'
 	) 
 	SELECT Id,IdAdded,ProductName,CaloriesGram,ProteinsGram,CarbohydratesGram,FatsGram,FoodCategory FROM num_row
 	WHERE (nom BETWEEN @start AND @end) ;

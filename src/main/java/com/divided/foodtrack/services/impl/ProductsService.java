@@ -68,6 +68,10 @@ public class ProductsService implements GeneralService<Products> {
         return productsRepository.countRows(id,seacrh);
     }
 
+    public int getCountRowsProductName(String seacrh) {
+        return productsRepository.countRowsProductName(seacrh);
+    }
+
 
     @Override
     public List<Products> getAll() {
@@ -83,6 +87,11 @@ public class ProductsService implements GeneralService<Products> {
     public List<Products> getPaginated(int min, int max, String seacrh) {
         return productsRepository.findPaginatedS(min,max,seacrh);
     }
+
+    public List<Products> getPaginatedByProductName(int min, int max, String seacrh) {
+        return productsRepository.findPaginatedProductNameS(min,max,seacrh);
+    }
+
 
     public List<Products> getPaginatedByUsersId(int min, int max, int id) {
         return productsRepository.findPaginatedByUserId(min,max,id);

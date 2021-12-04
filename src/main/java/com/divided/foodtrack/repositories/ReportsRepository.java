@@ -30,6 +30,10 @@ public interface ReportsRepository  extends JpaRepository<Reports, Integer> {
                                        @Param("Period") String period,
                                        @Param("Id") Integer id);
 
+    @Query(value = "EXECUTE DReportsSelectDateUser :Date,:Id", nativeQuery = true)
+    List<Reports> findByDateUser(@Param("Date") String date,
+                                   @Param("Id") Integer id);
+
     @Modifying
     @Query(value = "EXECUTE DReportsDelete :Id", nativeQuery = true)
     void deleteById(@Param("Id") Integer id);

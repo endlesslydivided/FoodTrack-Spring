@@ -220,11 +220,11 @@ Create Procedure DReportsAdd
 		@Product_Name varchar(200),
 		@Report_Date date,
 		@Eat_Period varchar(8),
-		@Day_Gram decimal(7,2),
-		@Day_Calories decimal(7,2),
-		@Day_Proteins decimal(7,2),
-		@Day_Fats decimal(7,2),
-		@Day_Carbohydrates decimal(7,2) 
+		@Day_Gram decimal(8,2),
+		@Day_Calories decimal(8,2),
+		@Day_Proteins decimal(8,2),
+		@Day_Fats decimal(8,2),
+		@Day_Carbohydrates decimal(8,2) 
 AS
 Begin
 	Insert into Reports(IdReport,ProductName,ReportDate,EatPeriod,DayGram,DayCalories,DayProteins,DayFats,DayCarbohydrates)
@@ -248,11 +248,11 @@ Create Procedure DReportsUpdate
 		@Product_Name varchar(200),
 		@Report_Date date,
 		@Eat_Period varchar(8),
-		@Day_Gram decimal(7,2),
-		@Day_Calories decimal(7,2),
-		@Day_Proteins decimal(7,2),
-		@Day_Fats decimal(7,2),
-		@Day_Carbohydrates decimal(7,2)  
+		@Day_Gram decimal(8,2),
+		@Day_Calories decimal(8,2),
+		@Day_Proteins decimal(8,2),
+		@Day_Fats decimal(8,2),
+		@Day_Carbohydrates decimal(8,2)  
 AS
 Begin
 	Update Reports
@@ -267,4 +267,5 @@ Begin
 	DayCarbohydrates = @Day_Carbohydrates
 	where Id = @Id;
 End;
+
 

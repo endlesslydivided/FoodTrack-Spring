@@ -114,12 +114,41 @@
                 <a class="nav-link rounded-0" id="dinner_day-tab" data-toggle="pill" href="#dinner_day" role="tab" aria-controls="dinner_day" aria-selected="false">Обед</a>
                 <a class="nav-link rounded-0" id="aftrernoon-tab" data-toggle="pill" href="#aftrernoon" role="tab" aria-controls="aftrernoon" aria-selected="false">Полдник</a>
                 <a class="nav-link rounded-0" id="dinner_night-tab" data-toggle="pill" href="#dinner_night" role="tab" aria-controls="dinner_night" aria-selected="false">Ужин</a>
-
               </div>
               <div class="tab-content col-9" id="v-pills-tabContent">
+                <!--ModalUpdateDiet-->
+                      <div class="modal fade" id="UpdateDiet" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" >Изменение записи</h5>
+                              <button class="btn  btn-outline-dark close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" style="text-align: center;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <input type="hidden" class="form-control" id="REPORTID">
+
+                                <div class="form-group my-2" >
+                                  <label for="GRAMSUPDATE">Количество грамм</label>
+                                  <input type="number" min="1" max="10000" step="0.1"  placeholder="Количество грамм" class="form-control" id="GRAMSUPDATE">
+                                </div>
+                                <div class="form-group my-2" >
+                                  <label for="UPDATE_DIET_DATE">Дата отчёта:</label>
+                                  <input type="date" id="UPDATE_DIET_DATE">
+                                </div>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                <button type="button" onclick="update('DietTable')" class="btn btn-primary">Изменить</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 <div class="tab-pane fade show active" id="breakfast" role="tabpanel" aria-labelledby="v-pills-home-tab">
                   <div style="">
                     <table class="table table-bordered m-1 table-hover" id="">
+                      
                       <thead class="table-light">
                         <tr>
                           <th scope="col">Продукт</th>
@@ -284,6 +313,14 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <table class="table table-bordered m-1 table-hover" id="">
+                <tbody id="NUTNED">
+
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>    
 
@@ -293,28 +330,28 @@
             <div class="row">
               <div class="col-12">  
                 <form>
-                  <div class="row">
-                    <div class="col m-2 ">
+                  <div class="row m-1">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1 ">
                       <input type="text" class="form-control w-100" oninput="getAll('ProductsToAddCollection',10,1,'null','null','null')" placeholder="Название продукта" id="PTADProductName">
                     </div>
-                    <div class="col m-2 text-center">
-                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','allProducts')" data-dismiss="modal">ВСЕ ПРОДУТКЫ</button>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1  text-center">
+                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','allProducts')" >ВСЕ ПРОДУТКЫ</button>
                     </div>
-                    <div class="col m-2 text-center">
-                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','usersProducts')" data-dismiss="modal">ПРОДУКТЫ ПОЛЬЗОВАТЕЛЯ</button>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1  text-center">
+                      <button type="button" class="btn btn-outline-dark rounded-0 w-100" onclick="getAll('ProductsToAddCollection',10,1,'null','null','usersProducts')" >ПРОДУКТЫ ПОЛЬЗОВАТЕЛЯ</button>
                     </div>
                   </div>
-                  <div class="row align-items-center">
-                    <div class="col m-2 t">
+                  <div class="row m-1 align-items-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1 text-center">
                       <input type="number" min="1" max="10000" step="0.1"  placeholder="Количество грамм" class="form-control" id="DAG">
                     </div>
-                    <div class="col m-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1 ">
                       <input type="checkbox" onchange="getAll('ProductsToAddCollection',10,1,'null','null','null')" id="DACNC">
                       <label for="DACN">Название категории:</label>
                       <select type="text" class="form-control" onselect="getAll('ProductsToAddCollection',10,1,'null','null','null')" disabled id="DACN">                       
                       </select>
                     </div>
-                    <div class="col m-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 my-sm-1 my-md-1 my-1 ">
                       <label for="DAEP">Приём пищи:</label>
                       <select class="form-control" id="DAEP">
                           <option value="Завтрак">Завтрак</option>
@@ -328,7 +365,7 @@
                 </form>
               </div>             
             </div>
-            <div class="row">
+            <div class="row m-1">
               <div class="col-12">  
                   <div class="row justify-content-center">
                     <div class="col-1">
@@ -355,7 +392,52 @@
 
         <!--UsersProducts-->
         <div class="tab-pane fade table-responsive border rounded-0" id="UsersProducts" role="tabpanel" aria-labelledby="UsersProducts-tab">
-
+           <!--ModalUpdateUsersProducts-->
+           <div class="modal fade" id="UpdateProduct" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" >Изменение записи</h5>
+                  <button class="btn  btn-outline-dark close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="text-align: center;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <input type="hidden" class="form-control" id="PRODUCTID">
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_PRODUCTNAME">Название продукта:</label>
+                      <input type="text" class="form-control" id="UPDATE_USERPRODUCT_PRODUCTNAME">
+                    </div>
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_CALORIESGRAM">Калорий на 100 грамм:</label>
+                      <input type="number" min="1" max="1000" step="0.1"  class="form-control" id="UPDATE_USERPRODUCT_CALORIESGRAM">
+                    </div>
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_PROTEINSGRAM">Белков на 100 грамм:</label>
+                      <input type="number" min="0" max="100" step="0.1"  class="form-control" id="UPDATE_USERPRODUCT_PROTEINSGRAM">
+                    </div>
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_CARBSGRAM">Углеводов на 100 грамм:</label>
+                      <input type="number" min="0" max="100" step="0.1" class="form-control" id="UPDATE_USERPRODUCT_CARBSGRAM">
+                    </div>
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_FATSGRAM">Жиров на 100 грамм:</label>
+                      <input type="number" min="0" max="100" step="0.1" class="form-control" id="UPDATE_USERPRODUCT_FATSGRAM">
+                    </div>
+                    <div class="form-group my-2" >
+                      <label for="UPDATE_USERPRODUCT_CATEGORY">Название категории:</label>
+                      <select type="text" class="form-control" id="UPDATE_USERPRODUCT_CATEGORY">
+                        
+                      </select> 
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" onclick="update('ProductsUserCollection')" class="btn btn-primary">Изменить</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="container-fluid">
             <div class="row" >
               <div class="col-3">  
@@ -426,6 +508,38 @@
 
         <!--UsersParams-->
         <div class="tab-pane fade table-responsive border rounded-0" id="UsersParams" role="tabpanel" aria-labelledby="UsersParams-tab">
+            <!--ModalUpdateParams-->
+            <div class="modal fade" id="UpdateProduct" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" >Изменение записи</h5>
+                    <button class="btn  btn-outline-dark close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" style="text-align: center;">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <input type="hidden" class="form-control" id="PARAMSID">
+                      <div class="form-group my-2" >
+                        <label for="UPDATE_USERPARAMS_HEIGHT">Рост:</label>
+                        <input type="number" min="30" max="300" step="1" class="form-control" id="UPDATE_USERPARAMS_HEIGHT">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="UPDATE_USERPARAMS_WEIGHT">Вес:</label>
+                        <input type="number"  min="10" max="300" step="0.1" class="form-control" id="UPDATE_USERPARAMS_WEIGHT">
+                      </div>
+                      <div class="form-group my-2" >
+                        <label for="UPDATE_USERPARAMS_DATE">Дата отчёта:</label>
+                        <input type="date" id="UPDATE_USERPARAMS_DATE">
+                      </div>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                      <button type="button" onclick="update('UsersParamsCollection')" class="btn btn-primary">Изменить</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           <div class="container-fluid">
             <div class="row">
                 <div class="col-3">  
