@@ -926,6 +926,7 @@ function goToAdminPage() {
 window.onload = function() 
 {
 
+    var navLinks = document.getElementById('mySidenav');
     var actionButtons = document.getElementById('actionButtons');
     if(window.localStorage.getItem('user') == undefined)
     {
@@ -936,6 +937,10 @@ window.onload = function()
       <a href="/signUp" class=" text-decoration-none">
         <input type="button" value="Регистрация" class="btn btn-secondary border"/>
       </a>`;
+
+      navLinks.innerHTML += `
+      <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+      <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
     }
     else
     {
@@ -955,6 +960,12 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
+          navLinks.innerHTML += `
+          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+
+          <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+          <h6><a  href="javascript:goToUserPage()" >Страница пользователя</a></h6>
+          `
         }
         else if(user.roles[0] == "ROLE_ADMIN")
         {
@@ -972,10 +983,18 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
+
+          navLinks.innerHTML += `
+          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+            <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+            <h6><a href="javascript:goToUserPage()" >Страница пользователя</a></h6>
+            <h6><a href="javascript:goToAdminPage()" >Страница администратора</a></h6>
+            `
+        }
           getAll("FoodCategory");
           getCategories();
         }
-    }
+    
 };
 
 function messageShow(message)

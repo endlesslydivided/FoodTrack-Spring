@@ -310,8 +310,8 @@ public class UserPageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Optional<UsersParams> usersParam =  usersParamsList.stream().filter(x -> x.getParamsDate().compareTo(
-                usersParamsList.stream().map(UsersParams::getParamsDate).max(Date::compareTo).get()) == 0
+        Optional<UsersParams> usersParam =  usersParamsList.stream().filter(x -> Integer.valueOf(x.getId()).compareTo(
+                usersParamsList.stream().map(UsersParams::getId).max(Integer::compareTo).get()) == 0
         ).findFirst();
 
         if(usersParam.isEmpty())

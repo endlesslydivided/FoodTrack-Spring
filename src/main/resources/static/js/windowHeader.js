@@ -29,8 +29,9 @@ function goToAdminPage() {
 
 window.onload = function() 
 {
-
+    var navLinks = document.getElementById('mySidenav');
     var actionButtons = document.getElementById('actionButtons');
+    var mainPageContent = document.getElementById('mainPageContent');
     if(window.localStorage.getItem('user') == undefined)
     {
         actionButtons.innerHTML =`  
@@ -40,6 +41,22 @@ window.onload = function()
       <a href="/signUp" class=" text-decoration-none">
         <input type="button" value="Регистрация" class="btn btn-secondary border"/>
       </a>`;
+      mainPageContent +=
+      `
+      <div class="col-6 p-5">
+            <h5>Войдите в аккаунт или зарегистрируйтесь для пользования функционалом приложения</h5>
+          </div>
+          <div class="col-6 p-5">
+          <a href="/signIn" class=" text-decoration-none">
+            <input type="button" value="Вход" class="btn w-100 rounded-0  btn-outline-dark border-dark m-2 "/>
+          </a>
+          <a href="/signUp" class=" text-decoration-none">
+            <input type="button" value="Регистрация" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          </a>
+          </div>
+      `
+      navLinks.innerHTML += `
+      <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
     }
     else
     {
@@ -58,7 +75,26 @@ window.onload = function()
               <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
-          </div>`;
+          </div>`
+          mainPageContent +=
+      `
+      <div class="col-6 p-5">
+            <h5>Перейдите на страницу пользователя для пользования функционалом приложения</h5>
+          </div>
+          <div class="col-6 p-5">
+          <a href="/signIn" class=" text-decoration-none">
+            <input type="button" value="Вход" class="btn w-100 rounded-0  btn-outline-dark border-dark m-2 "/>
+          </a>
+          <a href="/signUp" class=" text-decoration-none">
+            <input type="button" value="Регистрация" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          </a>
+          <a onclick="goToUserPage()" class=" text-decoration-none">
+            <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          </a>
+          </div>
+      `
+          
+          ;
         }
         else if(user.roles[0] == "ROLE_ADMIN")
         {
@@ -75,6 +111,21 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
+
+          mainPageContent +=
+      `
+      <div class="col-6 p-5">
+            <h5>Перейдите на страницу пользователя или администратора для пользования функционалом приложения</h5>
+          </div>
+          <div class="col-6 p-5">
+          <a onclick="goToUserPage()" class=" text-decoration-none">
+            <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          </a>
+          <a onclick="goToAdminPage()" class=" text-decoration-none">
+            <input type="button" value="Страница Администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          </a>
+          </div>
+      `
         }
     }
 };

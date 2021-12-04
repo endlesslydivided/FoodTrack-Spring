@@ -152,7 +152,7 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
                 `<td>${element.userHeight}</td> <td>${element.userWeight}</td> <td>${(new Date(element.paramsDate)).toLocaleDateString()}</td>
                 <td>
                     <button type="button" onclick="deleteR('UsersParamsCollection',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
-                    <button type="button" onclick="edit('UsersParamsCollection',${element.id})" data-target="#UpdateProduct" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
+                    <button type="button" onclick="edit('UsersParamsCollection',${element.id})" data-target="#UpdateParams" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
                 </td>` 
                 
             });
@@ -304,7 +304,7 @@ function goToAdminPage() {
 
 window.onload = function() 
 {
-
+    var navLinks = document.getElementById('mySidenav');
     var actionButtons = document.getElementById('actionButtons');
     if(window.localStorage.getItem('user') == undefined)
     {
@@ -315,6 +315,10 @@ window.onload = function()
       <a href="/signUp" class=" text-decoration-none">
         <input type="button" value="Регистрация" class="btn btn-secondary border"/>
       </a>`;
+
+      navLinks.innerHTML += `
+      <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+      <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
     }
     else
     {
@@ -334,6 +338,12 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
+          navLinks.innerHTML += `
+          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+
+          <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+          <h6><a  href="javascript:goToUserPage()" >Страница пользователя</a></h6>
+          `
         }
         else if(user.roles[0] == "ROLE_ADMIN")
         {
@@ -351,6 +361,13 @@ window.onload = function()
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
+
+          navLinks.innerHTML += `
+          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+            <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+            <h6><a  href="javascript:goToUserPage()">Страница пользователя</a></h6>
+            <h6><a  href="javascript:goToAdminPage()">Страница администратора</a></h6>
+            `
         }
         var date = new Date();
         var curr_date = date.getDate();
@@ -387,12 +404,11 @@ function getCategories()
         }
     ).then((pdata)=>
     {
-        let UPDATE_USERPRODUCT_CATEGORY =document.getElementById("UPDATE_USERPRODUCT_CATEGORY");
-
+        let UPDATE_USERPRODUCT_CATEGORY = document.getElementById("UPDATE_USERPRODUCT_CATEGORY");
         let DACN =document.getElementById("DACN");
         let PTACategoryName =document.getElementById("PTACategoryName");
         pdata.forEach(element => { 
-            UPDATE_USERPRODUCT_CATEGORY+= `<option value="${element.categoryName}">${element.categoryName}</option>`;
+            UPDATE_USERPRODUCT_CATEGORY.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`;
             DACN.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`;
             PTACategoryName.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`;
         })
@@ -834,7 +850,9 @@ function update(table)
         var caloriesGram = document.getElementById("UPDATE_USERPRODUCT_CALORIESGRAM").value;
         var proteinsGram = document.getElementById("UPDATE_USERPRODUCT_PROTEINSGRAM").value;
         var carbohydratesGram = document.getElementById("UPDATE_USERPRODUCT_CARBSGRAM").value;
-        var foodCategory = document.getElementById("UPDATE_USERPRODUCT_FATSGRAM").value;
+        var foodCategory = document.getElementById("UPDATE_USERPRODUCT_CATEGORY").value;
+        var fatsGram = document.getElementById("UPDATE_USERPRODUCT_FATSGRAM").value;
+
         $(".alert .alertMessage").text("");
         if(productName.length < 1  || productName.length >  200) {alertAddMes("Название продукта: 1-200 символов."); showAlert = true;}
         if(caloriesGram <= 0  || caloriesGram >  1000) {alertAddMes("Количество калорий на 100 грамм: 0-1000 единиц."); showAlert = true;}
@@ -858,6 +876,7 @@ function update(table)
             caloriesGram:caloriesGram,
             proteinsGram:proteinsGram,
             carbohydratesGram:carbohydratesGram,
+            fatsGram:carbohydratesGram,
             foodCategory:foodCategory
         }
      }
@@ -916,7 +935,7 @@ function update(table)
             }
             else
             {
-                throw "Ошибка обновления."
+                throw "Ошибка обновления. Измените значения полей."
             }
         
     }).catch(message => {messageShow(message)});
@@ -988,7 +1007,7 @@ function edit(table,id)
                     var curr_month = date.getMonth() + 1;
                     var curr_year = date.getFullYear();
                     var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
-                    document.getElementById("UPDATE_USERPARAMS_DATE").value;        
+                    document.getElementById("UPDATE_USERPARAMS_DATE").value = date_format;        
                     document.getElementById("UPDATE_USERPARAMS_WEIGHT").value = pdata.userWeight;                            
                 }
 
