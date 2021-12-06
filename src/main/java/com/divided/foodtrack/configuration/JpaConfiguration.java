@@ -24,8 +24,8 @@ public class JpaConfiguration {
         dataSource.setURL("jdbc:sqlserver://localhost:1433;");
         dataSource.setDatabaseName("DietManager");
         dataSource.setIntegratedSecurity(false);
-        dataSource.setUser("booba");
-        dataSource.setPassword("sitinsilence");
+        dataSource.setUser("ConnectionUser");
+        dataSource.setPassword("ConnectionUserPassword");
         return dataSource;
     }
 

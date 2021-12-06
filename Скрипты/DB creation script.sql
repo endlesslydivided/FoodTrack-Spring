@@ -20,7 +20,7 @@ CREATE TABLE UsersParams
 (
 Id int constraint PK_USERS_PARAMS primary key(Id) identity(1,1),
 IdParams int NOT NULL  constraint FK_USERS_PARAMS_USERS foreign key (IdParams) references Users(Id) ON DELETE CASCADE,
-ParamsDate datetime NOT NULL,
+ParamsDate date NOT NULL,
 UserWeight decimal(4,1) default '0' NOT NULL,
 UserHeight int default '0' NOT NULL
 )

@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -108,6 +109,12 @@ public class AdminPageController {
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        if(usersDTO.getIdEditor() == usersDTO.getId())
+        {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("ErrorMessage","Admin change admin");
+            return new ResponseEntity<>(headers,HttpStatus.NOT_FOUND);
+        }
         user.get().setAdmin(usersDTO.isAdmin());
         user.get().setUserLogin(usersDTO.getUserLogin());
 
@@ -118,9 +125,16 @@ public class AdminPageController {
 
 
     @Loggable
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") int id)
+    @DeleteMapping("/users/{id}/{idEditor}")
+    public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") int id,@PathVariable("idEditor") int idEditor)
     {
+        if(id == idEditor)
+        {
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("ErrorMessage","User self delete");
+            return new ResponseEntity<>(headers,HttpStatus.BAD_REQUEST);
+        }
         usersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -207,6 +221,17 @@ public class AdminPageController {
     @DeleteMapping("/usersparams/{id}")
     public ResponseEntity<UsersParamsDTO> deleteUsersParams(@PathVariable("id") int id)
     {
+        Optional<UsersParams> usersParams = usersParamsService.getById(id);
+        if(usersParams.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if(usersParamsService.getByUser(usersParams.get().getIdParams()).size() == 1)
+        {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("ErrorMessage","Last users params");
+            return new ResponseEntity<>(headers,HttpStatus.NOT_FOUND);
+        }
         usersParamsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -286,13 +311,6 @@ public class AdminPageController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Loggable
-    @DeleteMapping("/usersdata/{id}")
-    public ResponseEntity<UsersDataDTO> deleteUsersData(@PathVariable("id") int id)
-    {
-        usersDataService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
     //endregion
 
     //region ReportsMapping

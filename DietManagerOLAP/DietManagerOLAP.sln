@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "DietManagerOLAP", "DietManagerOLAP\DietManagerOLAP.dwproj", "{34299D54-B79B-4919-9206-E2B3601067FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34299D54-B79B-4919-9206-E2B3601067FA}.Development|Default.ActiveCfg = Development
+		{34299D54-B79B-4919-9206-E2B3601067FA}.Development|Default.Build.0 = Development
+		{34299D54-B79B-4919-9206-E2B3601067FA}.Development|Default.Deploy.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE9790DB-EEAE-4388-96B7-59687CB9CFF7}
+	EndGlobalSection
+EndGlobal

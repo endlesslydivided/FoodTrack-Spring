@@ -19,15 +19,15 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     @Query(value = "EXECUTE DUsersSelectAll", nativeQuery = true)
     List<Users> findAll();
 
-    @Query(value = "EXECUTE DUsersSelectId Id", nativeQuery = true)
+    @Query(value = "EXECUTE DUsersSelectId :Id", nativeQuery = true)
     Optional<Users> findById(@Param("Id") Integer id);
 
     @Modifying
-    @Query(value = "EXECUTE DUserDel Id", nativeQuery = true)
+    @Query(value = "EXECUTE DUserDel :Id", nativeQuery = true)
     void deleteById(@Param("Id") Integer id);
 
     @Modifying
-    @Query(value = "EXECUTE DUserUpdate Id,Is_Admin,User_Login,User_Password", nativeQuery = true)
+    @Query(value = "EXECUTE DUserUpdate :Id,:Is_Admin,:User_Login,:User_Password", nativeQuery = true)
     void update(@Param("Id") Integer id,
                 @Param("Is_Admin") Boolean isAdmin,
                  @Param("User_Login") String userLogin,

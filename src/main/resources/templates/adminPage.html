@@ -53,10 +53,10 @@
   </head>
 
   <body>
-
-    <header id="head" class="py-md-2 fixed-top align-items-center justify-content-center shadow">
     <div id="mySidenav" class="sidenav"  style="z-index:1031;">
     </div>
+    <header id="head" class="py-md-2 fixed-top align-items-center justify-content-center shadow">
+    
 
     <div class="row">
 
@@ -390,12 +390,11 @@
                           <option value="Обед">Обед</option>
                           <option value="Ланч">Ланч</option>
                           <option value="Ужин">Ужин</option>
-
                       </select>
                     </div>
                     <div class="form-group my-2" >
                       <label for="RTUDayGram">DayGram:</label>
-                      <input type="number" class="form-control" id="RTUDayGram">
+                      <input type="number" min="0" max="10000" step="0.1" class="form-control" id="RTUDayGram">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" onclick="update('Report')" class="btn btn-primary">Изменить</button>
@@ -455,10 +454,14 @@
                 </div>
                 <div class="modal-body py-1">
                   <form>
+                    <div class="form-group my-2" >
+                      <label for="UTUId">Id:</label>
+                      <span class="form-control" id="UTUId"> </span>
+                    </div>
                     <div class="form-group my-1"> 
                       <label >IsAdmin:</label> 
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox"  id="UTUisAdmin" value="true">
+                        <input class="form-check-input" type="checkbox"  id="UTUisAdmin">
                         <label class="form-check-label" for="UTUisAdmin"></label>
                       </div>
                     </div>
@@ -468,7 +471,7 @@
                     </div>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" onclick="update('User')" class="btn btn-primary">Изменить</button>
+                    <button type="button" onclick="update('User')" class="btn btn-primary">Изменить</button>
                   </form>
                 </div>
               </div>
@@ -586,20 +589,20 @@
                       <span class="form-control" id="UPTUId"> </span>
                     </div>
                     <div class="form-group my-2" >
-                      <label for="UPTUIdData">IdParams:</label>
-                      <span class="form-control" id="UPTUIdData"> </span>
+                      <label for="UPTUIdParams">IdParams:</label>
+                      <span class="form-control" id="UPTUIdParams"> </span>
                     </div>
                     <div class="form-group my-2" >
-                      <label for="UPTParamsDate">ParamsDate:</label>
-                      <input type="text" class="form-control" id="UPTParamsDate">
+                      <label for="UPTUParamsDate">ParamsDate:</label>
+                      <input type="date" class="form-control" id="UPTUParamsDate">
                     </div>
                     <div class="form-group my-2" >
                       <label for="UPTUUserWeight">UserWeight:</label>
-                      <input type="text" class="form-control" id="UPTUUserWeight">
+                      <input type="number" min="10" max="300" step="0.1" class="form-control" id="UPTUUserWeight">
                     </div>
                     <div class="form-group my-2" >
                       <label for="UPTUUserHeigth">UserHeigth:</label>
-                      <input type="text" class="form-control" id="UPTUUserHeigth">
+                      <input type="number" min="30" max="300" step="1" class="form-control" id="UPTUUserHeigth">
                     </div>
                                 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

@@ -106,20 +106,20 @@ SET @number = 1;
 While @number <= 100000
 	BEGIN
 	SET @IdReport = (
-	SELECT c1 AS [number] FROM (SELECT TOP (1) c1 FROM (SELECT Id from Users) AS T1(c1) ORDER BY ABS(CHECKSUM(NEWID())) ) AS T2 FOR XML PATH('')
+	SELECT c1 AS [text()] FROM (SELECT TOP (1) c1 FROM (SELECT Id from Users) AS T1(c1) ORDER BY ABS(CHECKSUM(NEWID())) ) AS T2 FOR XML PATH('')
 	);
 	SET @Product_Name = (
-	SELECT c1 AS [number] FROM (SELECT TOP (1) c1 FROM (SELECT ProductName from Products) AS T1(c1) ORDER BY ABS(CHECKSUM(NEWID())) ) AS T2 FOR XML PATH('')
+	SELECT c1 AS [text()] FROM (SELECT TOP (1) c1 FROM (SELECT ProductName from Products) AS T1(c1) ORDER BY ABS(CHECKSUM(NEWID())) ) AS T2 FOR XML PATH('')
 	);
 	SET @Eat_Period = (
 	SELECT c1 AS [text()] FROM (SELECT TOP (1) c1 FROM (VALUES ('Завтрак'),('Обед'),('Ужин'),('Полдник'),('Ланч')) AS T1(c1) ORDER BY ABS(CHECKSUM(NEWID())) ) AS T2 FOR XML PATH('')
 	);
 	SET @Report_Date = (SELECT DATEADD(DAY, FLOOR(rand()*500), '20200101'));
 	SET @Day_Gram =  (SELECT FLOOR(RAND()*(200-10)+10));
-	SET @Day_Calories = @Day_Gram * (SELECT TOP(1) CaloriesGram from Products where ProductName = @Product_Name);
-	SET @Day_Proteins = @Day_Gram * (SELECT TOP(1) ProteinsGram from Products where ProductName = @Product_Name);
-	SET @Day_Fats = @Day_Gram * (SELECT TOP(1) FatsGram from Products where ProductName = @Product_Name);
-	SET @Day_Carbohydrates = @Day_Gram * (SELECT TOP(1) CarbohydratesGram from Products where ProductName = @Product_Name);
+	SET @Day_Calories = @Day_Gram * (SELECT TOP(1) CaloriesGram from Products where ProductName = @Product_Name) * 0.01;
+	SET @Day_Proteins = @Day_Gram * (SELECT TOP(1) ProteinsGram from Products where ProductName = @Product_Name) * 0.01;
+	SET @Day_Fats = @Day_Gram * (SELECT TOP(1) FatsGram from Products where ProductName = @Product_Name) * 0.01;
+	SET @Day_Carbohydrates = @Day_Gram * (SELECT TOP(1) CarbohydratesGram from Products where ProductName = @Product_Name) * 0.01;
 
 	Insert into Reports(IdReport,ProductName,ReportDate,EatPeriod,DayGram,DayCalories,DayProteins,DayFats,DayCarbohydrates)
 		values(@IdReport,

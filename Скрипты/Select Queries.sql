@@ -19,8 +19,9 @@ go
 Create Procedure DUsersSelectId @Id int
 AS
 Begin
-	SELECT * from Users where Id = 1;
+	SELECT * from Users where Id = @Id;
 end;
+
 
 go 
 Create Procedure DUsersSelectLogin @Login nvarchar(max)
@@ -224,8 +225,14 @@ go
 Create Procedure DProductsSelectCountS @Search nvarchar(max)  
 AS
 Begin
-	SELECT Count(*) from Products where (Id like '%' + @Search + '%' or IdAdded like '%' + @Search + '%' or ProductName like '%' + @Search + '%' or 
-	CaloriesGram like '%' + @Search + '%' or ProteinsGram  like '%' + @Search + '%' or FatsGram like '%' + @Search + '%' or CarbohydratesGram like '%' + @Search + '%' or
+	SELECT Count(*) from Products where (
+	Id like '%' + @Search + '%' or 
+	IdAdded like '%' + @Search + '%' or 
+	ProductName like '%' + @Search + '%' or 
+	CaloriesGram like '%' + @Search + '%' or 
+	ProteinsGram  like '%' + @Search + '%' or 
+	FatsGram like '%' + @Search + '%' or 
+	CarbohydratesGram like '%' + @Search + '%' or
 	FoodCategory like '%' + @Search + '%');
 end;
 
@@ -368,7 +375,8 @@ begin
 	 	WITH num_row AS
 	(
 		SELECT row_number() OVER (ORDER BY Id) as nom , 		
-		* from UsersParams where Id like '%' + @Search + '%' or IdParams like '%' + @Search + '%'  or ParamsDate like '%' + @Search + '%'  or
+		* from UsersParams where Id like '%' + @Search + '%' or 
+		IdParams like '%' + @Search + '%'  or ParamsDate like '%' + @Search + '%'  or
 		UserWeight like '%' + @Search + '%'  or UserHeight like '%' + @Search + '%'
 	) 
 	SELECT Id,IdParams,ParamsDate,UserWeight,UserHeight FROM num_row
@@ -465,7 +473,11 @@ begin
 end;
 
 go 
-Create procedure DReportsSelectDatePeriod @start int, @end int, @Date nvarchar(max), @Period nvarchar(max),@Id int
+Create procedure DReportsSelectDatePeriod 
+		@start int, 
+		@end int, 
+		@Date nvarchar(max), 
+		@Period nvarchar(max),@Id int
 AS
 begin
 	WITH num_row AS
@@ -473,7 +485,9 @@ begin
 		SELECT row_number() OVER (ORDER BY Id) as nom , 		
 		* from Reports where IdReport = @Id and EatPeriod like '%' + @Period + '%' and ReportDate like @Date
 	) 
-	SELECT Id,IdReport,ProductName,ReportDate,EatPeriod,DayGram,DayCalories,DayProteins,DayFats,DayCarbohydrates FROM num_row
+	SELECT Id,IdReport,ProductName,ReportDate,
+			EatPeriod,DayGram,DayCalories,DayProteins,
+			DayFats,DayCarbohydrates FROM num_row
 	WHERE (nom BETWEEN @start AND @end) ;
 end;
 

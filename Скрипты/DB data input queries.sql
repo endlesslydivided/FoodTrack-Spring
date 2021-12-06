@@ -143,5 +143,28 @@ INSERT into Products values
 (null,'Сало свиное','797','2.4','89','0','Масла');
 
 
+SELECT 'INSERT INTO  USERS VALUES(''' + CAST(IsAdmin as varchar(max))+''','''+UserLogin+''','''+UserPassword+''');' FROM USERS;
 
+INSERT INTO  USERS VALUES('1','AdminLogin','$2a$10$/sYpkUQJO4adyQx.ASWlJ.ilueCXVDEfRaMdAnjPQZjyk0gp2mZcm');
+INSERT INTO  USERS VALUES('0','User1Login','$2a$10$lUwCJ1MnRvXxpJY1vdEjbu8YAHe.ifyieEGpxkjAGep3SvrjJToba');
+INSERT INTO  USERS VALUES('0','User2Login','$2a$10$HfrA0SdSSIsU0V9UMfbbu.GHEbpa3w62RU3jWV2LTeSEl/VnJnIK6');
+INSERT INTO  USERS VALUES('0','User3Login','$2a$10$1N8EPy7tS.9C4bGX3TcVae3vzhU5DKVa.ZbEyT2R8ls9ONNHOpe4q');
+INSERT INTO  USERS VALUES('0','User4Login','$2a$10$xTRvaySUOv3ktbEsXNNnle8ktt0XhH4.677rqlKxBbD.fglPRCYPW');
 
+SELECT 'INSERT INTO  USERSDATA VALUES(''' + CAST(A.Id as varchar(max))+''','''+B.FullName+''','''+CAST(B.Birthday as varchar(max))+''');' FROM Users A left join UsersData B
+	ON B.IdData = A.Id;
+
+INSERT INTO  USERSDATA VALUES('1','Ковалев Александр Александрович','2002-04-24');
+INSERT INTO  USERSDATA VALUES('2','Губарь Анна Александровна','2001-12-09');
+INSERT INTO  USERSDATA VALUES('3','Батурель Евгений Дмитриевич','2001-10-16');
+INSERT INTO  USERSDATA VALUES('4','Михалькевич Алексей Сергеевич','2001-10-13');
+INSERT INTO  USERSDATA VALUES('5','Копыл Ефим Андреевич','2003-07-05');
+
+SELECT 'INSERT INTO  USERSPARAMS VALUES(''' + CAST(A.Id as varchar(max))+''','''+CAST(B.ParamsDate as varchar(max))+''','''+CAST(B.UserWeight as varchar(max))+
+''','''+CAST(B.UserHeight as varchar(max))+''');' FROM Users A left outer join UsersParams B ON B.IdParams = A.Id;
+
+INSERT INTO  USERSPARAMS VALUES('1','дек  5 2021','55.0','171');
+INSERT INTO  USERSPARAMS VALUES('2','дек  5 2021','54.0','165');
+INSERT INTO  USERSPARAMS VALUES('3','дек  5 2021','68.0','175');
+INSERT INTO  USERSPARAMS VALUES('4','дек  5 2021','58.0','171');
+INSERT INTO  USERSPARAMS VALUES('5','дек  5 2021','61.0','173');

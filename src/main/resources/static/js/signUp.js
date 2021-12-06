@@ -61,17 +61,24 @@ function sendRegisterForm() {
         {
         window.location.href = response.url;
         }
-        if (response.status === 400) 
+        if (response.headers.get('ErrorMessage') == "User has already registered") 
         {
-            $(".alert .alertMessage").text("");
-            alertAddMes(response.statusText);
-            $(".alert").show('close');
-            $(".alert").alert();
+            throw "Пользователь с таким именем уже зарегистрирован.";
         }
         if (response.redirected) 
         {
         window.location.href = response.url;
         }
     }
-    )
+    ).catch(message => {messageShow(message)})
+}
+
+
+
+function messageShow(message)
+{
+    $(".alert .alertMessage").text("");
+    alertAddMes(message);
+    $(".alert").show('close');
+    $(".alert").alert();
 }

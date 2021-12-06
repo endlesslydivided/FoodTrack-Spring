@@ -47,7 +47,7 @@ End;
 go
 Create Procedure DUsersParamsAdd
 		@Id_Params int,
-		@Params_Date datetime,
+		@Params_Date date,
 		@User_Weight decimal(4,1),
 		@User_Height int
 AS
@@ -69,7 +69,7 @@ End;
 go
 Create Procedure DUsersParamsUpdate
 		@Id int,
-		@Params_Date datetime,
+		@Params_Date date,
 		@User_Weight decimal(4,1),
 		@User_Height int
 AS
@@ -244,27 +244,19 @@ End;
 --Update Reports
 go
 Create Procedure DReportsUpdate
-		@Id int, 
-		@Product_Name varchar(200),
-		@Report_Date date,
-		@Eat_Period varchar(8),
-		@Day_Gram decimal(8,2),
-		@Day_Calories decimal(8,2),
-		@Day_Proteins decimal(8,2),
-		@Day_Fats decimal(8,2),
+		@Id int, @Product_Name varchar(200),
+		@Report_Date date, @Eat_Period varchar(8),
+		@Day_Gram decimal(8,2), @Day_Calories decimal(8,2),
+		@Day_Proteins decimal(8,2), @Day_Fats decimal(8,2),
 		@Day_Carbohydrates decimal(8,2)  
 AS
 Begin
 	Update Reports
 	set
-	ProductName = @Product_Name,
-	ReportDate = @Report_Date,
-	EatPeriod = @Eat_Period,
-	DayGram = @Day_Gram,
-	DayCalories = @Day_Calories,
-	DayProteins = @Day_Proteins,
-	DayFats = @Day_Fats,
-	DayCarbohydrates = @Day_Carbohydrates
+	ProductName = @Product_Name, ReportDate = @Report_Date,
+	EatPeriod = @Eat_Period, DayGram = @Day_Gram,
+	DayCalories = @Day_Calories,DayProteins = @Day_Proteins,
+	DayFats = @Day_Fats, DayCarbohydrates = @Day_Carbohydrates
 	where Id = @Id;
 End;
 

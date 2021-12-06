@@ -25,7 +25,7 @@ window.onload = function()
     <a href="/signUp" class=" text-decoration-none">
       <input type="button" value="Регистрация" class="btn btn-secondary border"/>
     </a>`;
-    mainPageContent +=
+    mainPageContent.innerHTML +=
     `
     <div class="col-6 p-5">
           <h5>Войдите в аккаунт или зарегистрируйтесь для пользования функционалом приложения</h5>
@@ -107,7 +107,7 @@ window.onload = function()
           <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
         </a>
         <a onclick="goToAdminPage()" class=" text-decoration-none">
-          <input type="button" value="Страница Администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
+          <input type="button" value="Страница администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
         </a>
         </div>
     `

@@ -3,7 +3,7 @@ const url = "http://localhost:8080";
 var currentPage = 1;
 var foodCategoriesAmount = 0;
 var productsAmount = 0;
-
+var importFinished = false;
 
 function alertAddMes(message)
 {
@@ -30,7 +30,7 @@ function update(table) {
                 return false;
             }
             closeAlert();    
-            fetch(url + '/admin/foodcategory/'+ idCategory, 
+            fetch(url + '/admin/foodcategories/'+ idCategory, 
             {
             method: 'PUT',
             headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization},
@@ -44,7 +44,8 @@ function update(table) {
                 if (response.status === 200) 
                 {
                     messageShow("Запись изменена успешно");
-                    getAll(table,limit = 10,currentPage,search=null)  
+                    getAll(table,limit = 10,currentPage,search=null);
+                    getCategories();
                     return;      
                 }
                 else
@@ -57,14 +58,14 @@ function update(table) {
         }
         case "Product":
             {
-                let id =document.getElementById("PTUId").textContent;
-                let idAdded =document.getElementById("PTUIdAdded").value;
-                let productName =document.getElementById("PTUProductName").value;
-                let caloriesGram =document.getElementById("PTUCaloriesGram").value;
-                let proteinsGram =document.getElementById("PTUProteinsGram").value;
-                let carbohydratesGram =document.getElementById("PTUCarbohydratesGram").value;
-                let fatsGram =document.getElementById("PTUFatsGram").value;
-                let foodCategory =document.getElementById("PTUCategoryName").value;
+                let id = document.getElementById("PTUId").textContent;
+                let idAdded = document.getElementById("PTUIdAdded").value;
+                let productName = document.getElementById("PTUProductName").value;
+                let caloriesGram = document.getElementById("PTUCaloriesGram").value;
+                let proteinsGram = document.getElementById("PTUProteinsGram").value;
+                let carbohydratesGram = document.getElementById("PTUCarbohydratesGram").value;
+                let fatsGram = document.getElementById("PTUFatsGram").value;
+                let foodCategory = document.getElementById("PTUCategoryName").value;
 
                 if(productName.length < 1  || productName.length >  200) {alertAddMes("Название продукта: 1-200 символов."); showAlert = true;}
                 if(caloriesGram < 0  || caloriesGram >  1000) {alertAddMes("Количество калорий на 100 грамм: 0-1000 единиц."); showAlert = true;}
@@ -188,7 +189,8 @@ function update(table) {
                 headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization},
                 body: JSON.stringify(
                     {
-                        isAdmin : isAdmin,
+                        idEditor: JSON.parse(localStorage.getItem("user")).id,
+                        admin : isAdmin ,
                         id : id,
                         userLogin : userLogin
                     }
@@ -199,7 +201,10 @@ function update(table) {
                     {
                         messageShow("Запись изменена успешно");
                         getAll(table,limit = 10,currentPage,search=null)  
-                        return;      
+                    }
+                    else if (response.headers.get('ErrorMessage') == "Admin change admin")
+                    {
+                        throw "Администратор не может изменять свои данные.";
                     }
                     else
                     {
@@ -215,7 +220,7 @@ function update(table) {
                 let idParams =document.getElementById("UPTUIdParams").textContent;
                 let userHeight =document.getElementById("UPTUUserHeigth").value;
                 let userWeight =document.getElementById("UPTUUserWeight").value;
-                let paramsDate =document.getElementById("UPTParamsDate").value;
+                let paramsDate =document.getElementById("UPTUParamsDate").value;
 
                 if(Date.parse(paramsDate) > Date.now()) {alertAddMes("Неверная дата."); showAlert = true;}
                 if(userHeight < 30  || userHeight>  300) {alertAddMes("Рост: 30-300 единиц."); showAlert = true;}
@@ -260,16 +265,16 @@ function update(table) {
         }
         case "UsersData":
             {
-                let id =document.getElementById("UPTUId").textContent;
-                let idData =document.getElementById("UPTUIdData").textContent;
+                let id =document.getElementById("UDTUId").textContent;
+                let idData =document.getElementById("UDTUIdData").textContent;
+                var ValidationExpression="^[^#%&*:<>?/{|}]+$"
                 let fullName =document.getElementById("UDTUFullName").value;
                 let birthday =document.getElementById("UDTUBirthday").value;
 
-                var repDate = Date.parse(birthday);
-                if(Date.parse(reportDate) > Date.now()) {alertAddMes("Неверная дата."); showAlert = true;}
+                if(Date.parse(birthday) > Date.now()) {alertAddMes("Неверная дата."); showAlert = true;}
                 if(fullName.length < 5  || fullName.length>  300) {alertAddMes("ФИО: 5-300 символов."); showAlert = true;}
-
-
+                if (!fullName.match(ValidationExpression))
+                {alertAddMes("Запрещённые символы в поле ФИО."); showAlert = true;}
                 if(showAlert)
                 {
                     $(".alert").show('close');
@@ -324,7 +329,7 @@ function insert(table) {
                 return false;
             }
             closeAlert();    
-            fetch(url + '/admin/foodcategory', 
+            fetch(url + '/admin/foodcategories', 
             {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization},
@@ -473,7 +478,7 @@ function getAll(table,limit = 10,page = 1,search=null) {
                 {
                     var productsTable = document.getElementById("PT");
                     productsTable.innerHTML = "";
-                    productsAmount = pdata.wholeAmount;
+                    productsAmount = pdata.wholeAmount;                    
 
                     pdata.content.forEach(element => {
                         productsTable.innerHTML += 
@@ -486,10 +491,11 @@ function getAll(table,limit = 10,page = 1,search=null) {
                         </td>` 
                         
                     });
-    
                     makePagination(table,pdata);
+                    importFinished =  true;
+
                 }
-                ).catch(message => {messageShow(message)});break;
+                ).catch(message => {messageShow(message);return false;});break;
         }
         case "Report":
             {        
@@ -560,7 +566,6 @@ function getAll(table,limit = 10,page = 1,search=null) {
                         `<td>${element.id}</td> <td>${element.idData}</td> <td>${element.fullName}</td>
                         <td>${(new Date(element.birthday)).toLocaleDateString()}</td>
                         <td>
-                            <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
                             <button type="button" onclick="edit('${table}',${element.id})" data-target="#UpdateUsersData" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
                         </td>` 
                         
@@ -811,6 +816,52 @@ function deleteR(table,id)
                     }
                 )
             }
+        case "UsersParam":
+        {
+            fetch(url + '/admin/usersparams/' + id, 
+                {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization}
+                }
+            ).then( response => 
+                {
+                    if (response.status === 200) 
+                    {
+                        messageShow("Запись удалена успешно");
+                        getAll(table,10,1,'null','null');
+                    }                 
+                    else
+                    {
+                        if(response.headers.get('ErrorMessage') == "Last users params")
+                        throw "Нельзя удалить единственную запись параметров пользователя.";
+                    }
+                
+                }).catch(message => {messageShow(message)});
+        }
+        case "User":
+            {
+                fetch(url + `/admin/users/${id}/${JSON.parse(localStorage.getItem('user')).id}`,
+                    {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization}
+                    }
+                ).then( response => 
+                    {
+                        if (response.status === 200) 
+                        {
+                            messageShow("Запись удалена успешно");
+                            getAll(table,10,1,'null','null');
+                        }                 
+                        else
+                        {
+                            if(response.headers.get('ErrorMessage') == "User self delete")
+                            throw "Нельзя удалить данную пользовательскую запись";
+                            else 
+                            throw "Ошибка удаления";
+                        }
+                    
+                    }).catch(message => {messageShow(message)});
+                }
     }
 
 }
@@ -831,6 +882,8 @@ function getCategories()
     {
         let categoryNameSelectI =document.getElementById("PTICategoryName");
         let categoryNameSelectU =document.getElementById("PTUCategoryName");
+        categoryNameSelectI.innerHTML = "";
+        categoryNameSelectU.innerHTML  = "";
         pdata.forEach(element => {
             categoryNameSelectI.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`
             categoryNameSelectU.innerHTML += `<option value="${element.categoryName}">${element.categoryName}</option>`
@@ -838,7 +891,7 @@ function getCategories()
     });
 }
 
-function edit(table,id)
+function edit(table,id) 
 {
     switch(table)
     {
@@ -857,14 +910,14 @@ function edit(table,id)
                 {
                     document.getElementById("FCTUID").textContent = pdata.id;
                     document.getElementById("FCTUCategoryName").value = pdata.categoryName;
-                })
+                });break;
         }
         case "Product":
         {
             fetch(url + '/admin/products/' + id, 
             {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization}
             }
             ).then( response => 
                 {
@@ -886,9 +939,100 @@ function edit(table,id)
                                 break;
                             }
                     }
-
-
-                })
+                });break;
+        }
+        case "Report":
+        {
+            fetch(url + '/admin/reports/' + id, 
+            {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization}
+            }
+            ).then( response => 
+                {
+                    return response.json();
+                }
+            ).then( pdata=>
+                {
+                    var date = new Date(pdata.reportDate);
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                    document.getElementById("RTUId").textContent = pdata.id;
+                    document.getElementById("RTUIdReport").value = pdata.idReport;
+                    document.getElementById("RTUProductName").value = pdata.productName;
+                    document.getElementById("RTUReportDate").value = date_format;
+                    document.getElementById("RTUEatPeriod").value = pdata.eatPeriod;
+                    document.getElementById("RTUDayGram").value = pdata.carbohydratesGram;
+                });break;
+        }
+        case "User":
+        {
+            fetch(url + '/admin/users/' + id, 
+            {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization}
+            }
+            ).then( response => 
+                {
+                    return response.json();
+                }
+            ).then( pdata=>
+                {
+                    document.getElementById("UTUId").textContent = pdata.id;
+                    document.getElementById("UTUisAdmin").checked = pdata.admin;
+                    document.getElementById("UTUUserLogin").value = pdata.userLogin;
+                });break;
+        }
+        case "UsersData":
+        {
+            fetch(url + '/admin/usersdata/' + id, 
+            {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization}
+            }
+            ).then( response => 
+                {
+                    return response.json();
+                }
+            ).then( pdata=>
+                {
+                    var date = new Date(pdata.birthday);
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                    document.getElementById("UDTUId").textContent = pdata.id;
+                    document.getElementById("UDTUIdData").textContent = pdata.idData;
+                    document.getElementById("UDTUFullName").value = pdata.fullName;
+                    document.getElementById("UDTUBirthday").value = date_format;
+                });break;
+        }
+        case "UsersParam":
+        {
+            fetch(url + '/admin/usersparams/' + id, 
+            {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization' : authHeader().Authorization}
+            }
+            ).then( response => 
+                {
+                    return response.json();
+                }
+            ).then( pdata=>
+                {
+                    var date = new Date(pdata.paramsDate);
+                    var curr_date = date.getDate();
+                    var curr_month = date.getMonth() + 1;
+                    var curr_year = date.getFullYear();
+                    var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                    document.getElementById("UPTUId").textContent = pdata.id;
+                    document.getElementById("UPTUIdParams").textContent = pdata.idParams;
+                    document.getElementById("UPTUUserWeight").value = pdata.userWeight;
+                    document.getElementById("UPTUUserHeigth").value = pdata.userHeight;
+                    document.getElementById("UPTUParamsDate").value = date_format;
+                });break;
         }
     }
 
@@ -1009,6 +1153,8 @@ function importProductsJSON()
 {
 
     var input = document.createElement('input');
+    var foodCategoriesAmountBefore =  foodCategoriesAmount;
+    var productsAmountBefore =  productsAmount;
     input.type = 'file';
 
     input.onchange = e => { 
@@ -1017,6 +1163,8 @@ function importProductsJSON()
         reader.readAsText(file);
         $('#importUpdate').modal('show');
 
+        document.getElementById('PIJSONMH').innerHTML = `<h5 class="modal-title">Осуществляется выполнение процедуры.</h5>`;
+        document.getElementById('PIJSONMB').innerHTML = `<span>Ожидайте.</span>`
         reader.onload = function() 
         {
           var result = reader.result;
@@ -1031,26 +1179,33 @@ function importProductsJSON()
           }).then(response => {
               if(response.status === 200)
               {
-                var foodCategoriesAmountBefore =  foodCategoriesAmount;
-                var productsAmountBefore =  productsAmount;
-                getAll('FoodCategory');getAll('Products');
-                document.getElementById('PIJSONMH').innerHTML = `<h5 class="modal-title">Выполнение процедуры завершено.</h5>
-                <button class="btn  btn-outline-dark close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="text-align: center;">&times;</span>
-                  </button>`
-                document.getElementById('PIJSONMB').innerHTML = `Вставлено строк в таблицу Products: ${productsAmount - productsAmountBefore}.
-                Вставлено строк в таблицу FoodCategories: ${foodCategoriesAmount - foodCategoriesAmountBefore}.`
+                getAll('FoodCategory');getAll('Product');
+                var  timer = setInterval(() => {
+                    if(importFinished)
+                    {
+                        document.getElementById('PIJSONMH').innerHTML = `<h5 class="modal-title">Выполнение процедуры завершено.</h5>
+                        <button class="btn  btn-outline-dark close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="text-align: center;">&times;</span>
+                          </button>`;
+                        document.getElementById('PIJSONMB').innerHTML = `Вставлено строк в таблицу Products: ${productsAmount - productsAmountBefore}.
+                        Вставлено строк в таблицу FoodCategories: ${foodCategoriesAmount - foodCategoriesAmountBefore}.`;
+                        clearInterval(timer);
+                    }
+                }, 8000);         
             }
               else
               {
                 $('#importUpdate').modal('hide');
-
                 throw `Ошибка выполнения процедуры` ;
               }
-            }).catch(message => { messageShow(message); })
+            }).catch(message => { messageShow(message); });
+           
         };
+       
+
     }
     input.click();
+  
 
     }
 

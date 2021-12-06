@@ -25,8 +25,6 @@ public interface ProductsRepository  extends JpaRepository<Products, Integer>
     @Query(value = "EXECUTE DProductsSelectName :Name", nativeQuery = true)
     Optional<Products> findByName(@Param("Name") String name);
 
-
-
     @Modifying
     @Query(value = "EXECUTE DProductsDelete :Id", nativeQuery = true)
     void deleteById(@Param("Id") Integer id);

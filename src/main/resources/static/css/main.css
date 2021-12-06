@@ -27,6 +27,29 @@ i
 
 }
 
+label {
+  display: inline-block;
+  font-family: 'SamsungSharpSans';
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  font-family: 'SamsungOne400';
+}
 
 h1,h2,h3,h4,h5
 {
@@ -83,6 +106,10 @@ table td
 
 label.radio {
   cursor: pointer
+}
+
+button.btn.btn-outline-dark.rounded-0 {
+  font-family: 'SamsungSharpSans';
 }
 
 label.radio input {
@@ -145,7 +172,7 @@ span
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
  }
 
-        input[type="text"],input[type="email"],input[type="date"],input[type="select"],
+        input[type="text"],input[type="email"],input[type="date"],input[type="select"],input[type="number"],
 select.form-control {
   background: transparent;
   border: none;
@@ -154,7 +181,7 @@ select.form-control {
   box-shadow: none;
   border-radius: 0;
 }
-input[type="text"]:focus,
+input[type="text"]:focus,input[type="email"]:focus,input[type="date"]:focus,input[type="select"]:focus,input[type="number"]:focus,
 select.form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;

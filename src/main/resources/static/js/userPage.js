@@ -373,7 +373,7 @@ window.onload = function()
         var curr_date = date.getDate();
         var curr_month = date.getMonth() + 1;
         var curr_year = date.getFullYear();
-        var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+        var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
         document.getElementById("DTDS").value = date_format;
         document.getElementById("AUPD").value = date_format;
         document.getElementById("AUDD").value = date_format;
@@ -984,7 +984,7 @@ function edit(table,id)
                     var curr_date = date.getDate();
                     var curr_month = date.getMonth() + 1;
                     var curr_year = date.getFullYear();
-                    var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                                       var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
                     document.getElementById("UPDATE_DIET_DATE").value = date_format;
                 }
                 else if(table == "ProductsUserCollection")
@@ -1006,7 +1006,7 @@ function edit(table,id)
                     var curr_date = date.getDate();
                     var curr_month = date.getMonth() + 1;
                     var curr_year = date.getFullYear();
-                    var date_format = curr_year + "-" + curr_month + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+                                       var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
                     document.getElementById("UPDATE_USERPARAMS_DATE").value = date_format;        
                     document.getElementById("UPDATE_USERPARAMS_WEIGHT").value = pdata.userWeight;                            
                 }

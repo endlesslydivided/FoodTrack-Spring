@@ -11,7 +11,7 @@ Begin
 	SELECT DISTINCT CategoryName from
 	OPENJSON(replace(replace (@JSONData,CHAR(13),''),CHAR(10),'')) WITH
 		(
-		CategoryName varchar(100) '$.FoodCategory'
+		CategoryName varchar(100) '$.foodCategory'
 		) AS A
 	where CategoryName not in(SELECT CategoryName from FoodCategories);
 
@@ -21,16 +21,12 @@ Begin
 	OPENJSON(replace(replace (@JSONData,CHAR(13),''),CHAR(10),'')) WITH
 		(
 		Id int '$.Id',
-		ProductName varchar(200) '$.ProductName',
-		CaloriesGram decimal(7,2) '$.CaloriesGram',
-		ProteinsGram decimal(7,2) '$.ProteinsGram',
-		FatsGram decimal(7,2) '$.FatsGram',
-		CarbohydratesGram decimal(7,2) '$.CarbohydratesGram',
-		FoodCategory varchar(50) '$.FoodCategory'	
+		ProductName varchar(200) '$.productName',
+		CaloriesGram decimal(7,2) '$.caloriesGram',
+		ProteinsGram decimal(7,2) '$.proteinsGram',
+		FatsGram decimal(7,2) '$.fatsGram',
+		CarbohydratesGram decimal(7,2) '$.carbohydratesGram',
+		FoodCategory varchar(50) '$.foodCategory'	
 		) AS A
 	where ProductName not in(SELECT ProductName from Products);
-
-
 End;
-
-

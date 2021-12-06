@@ -4,6 +4,7 @@ package com.divided.foodtrack.controllers;
 import com.divided.foodtrack.DTO.RegistrationForm;
 import com.divided.foodtrack.logging.Loggable;
 import com.divided.foodtrack.services.impl.AuthAndRegServiceImpl;
+import com.nimbusds.jose.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,9 @@ public class SignUpPageController {
         }
         catch (Exception e)
         {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("ErrorName",e.getMessage());
+            return new ResponseEntity<>(httpHeaders,HttpStatus.BAD_REQUEST);
         }
         URI login = new URI("http://localhost:8080/signIn");
         HttpHeaders httpHeaders = new HttpHeaders();
