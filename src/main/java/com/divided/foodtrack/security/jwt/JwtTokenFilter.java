@@ -1,7 +1,9 @@
 package com.divided.foodtrack.security.jwt;
 
 import com.divided.foodtrack.services.impl.UsersService;
+import io.jsonwebtoken.JwtException;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,10 +18,12 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.apache.logging.log4j.util.Strings.isEmpty;
 
@@ -29,6 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenUtil;
     private final JwtUserDetailsService userDetailsService;
 
+    @Autowired
     public JwtTokenFilter(JwtTokenProvider jwtTokenUtil, JwtUserDetailsService userDetailsService) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
@@ -37,16 +42,28 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain)
-            throws ServletException, IOException {
+    throws  IOException,ServletException, JwtException {
 
-        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (isEmpty(header) || !header.startsWith("Bearer ")) {
+        if(request.getCookies() == null)
+        {
+            chain.doFilter(request, response);
+            return;
+        }
+        Optional<Cookie> cookieOptional = List.of(request.getCookies()).stream().filter(x -> x.getName().equals("token")).findFirst();
+        if(cookieOptional.isEmpty())
+        {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        String cookie = cookieOptional.get().getValue().replace("%20"," ");
+        if (isEmpty(cookie) || !cookie.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
 
 
-        final String token = header.split(" ")[1].trim();
+        final String token = cookie.split(" ")[1].trim();
         if (!jwtTokenUtil.validateToken(token)) {
             chain.doFilter(request, response);
             return;
@@ -68,8 +85,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 new WebAuthenticationDetailsSource().buildDetails(request)
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
+         SecurityContextHolder.getContext().setAuthentication(authentication);
+       chain.doFilter(request, response);
     }
 
 }

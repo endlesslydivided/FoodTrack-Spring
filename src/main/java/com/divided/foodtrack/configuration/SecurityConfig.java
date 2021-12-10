@@ -43,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+
+
         http = http.cors().and().csrf().disable();
 
         http = http
@@ -50,28 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and();
 
-        http = http
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> {
-                            response.sendError(
-                                    HttpServletResponse.SC_UNAUTHORIZED,
-                                    ex.getMessage()
-                            );
-                        }
-                )
-                .and();
 
         http.authorizeRequests()
-                .antMatchers("/static/**").permitAll()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/signIn/**").anonymous()
-                .antMatchers("/signUp/**").anonymous()
-                .antMatchers( "/").permitAll()
-                .antMatchers("/user/**").permitAll()
-                .antMatchers("/user/**","/admin/**").permitAll()
-/*                .antMatchers("/user/**").hasAuthority("ROLE_USER")
-                .antMatchers("/user/**","/admin/**").hasAuthority("ROLE_ADMIN")*/
+                .antMatchers("/signIn").anonymous()
+                .antMatchers("/signUp").anonymous()
+                .antMatchers("/user/**","/user").hasAnyRole("ADMIN","USER")
+                .antMatchers("/admin/**","/admin").hasRole("ADMIN")
+                .antMatchers("/**","/error","/static","/static/**","/static/**/**").permitAll()
                 .anyRequest().authenticated().and()
 
                 .exceptionHandling()

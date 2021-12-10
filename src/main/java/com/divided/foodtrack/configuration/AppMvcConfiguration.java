@@ -64,9 +64,7 @@ public class AppMvcConfiguration implements WebMvcConfigurer {
         registry.addViewController("/admin").setViewName("adminPage");
         registry.addViewController("/signIn").setViewName("signInPage");
         registry.addViewController("/signUp").setViewName("signUpPage");
-        registry.addViewController("/error").setViewName("404page");
-
-
+        registry.addViewController("/error").setViewName("errorPage");
     }
 
 

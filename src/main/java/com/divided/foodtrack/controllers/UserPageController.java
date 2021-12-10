@@ -7,6 +7,11 @@ import com.divided.foodtrack.models.*;
 import com.divided.foodtrack.myPage.Page;
 import com.divided.foodtrack.services.impl.*;
 import com.sun.net.httpserver.Headers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -53,6 +58,11 @@ public class UserPageController {
     }
 
     //region PostMapping
+    @Operation(summary = "Add user's Product", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Add user's Product",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PostMapping("/products")
     public ResponseEntity<ProductDTO> addUsersProduct(@RequestBody ProductDTO productDTO)
@@ -74,6 +84,11 @@ public class UserPageController {
         return new ResponseEntity<>(productDTO,HttpStatus.OK);
     }
 
+    @Operation(summary = "Add user's Report", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Add user's Report",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PostMapping("/reports")
     public ResponseEntity<Reports> addUsersDietProduct(@RequestBody ProductUsersDietDTO productDTO)
@@ -97,6 +112,11 @@ public class UserPageController {
         return new ResponseEntity<>(report,HttpStatus.OK);
     }
 
+    @Operation(summary = "Add user's Params", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Add user's Params",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PostMapping("/usersparams")
     public ResponseEntity<UsersParams> addUsersParams(@RequestBody UsersParamsDTO usersParamsDTO)
@@ -114,6 +134,11 @@ public class UserPageController {
 
     //region GetMapping
 
+    @Operation(summary = "Get UsersParams ", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get UsersParams ",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/usersparams/{id}")
     public ResponseEntity<UsersParamsDTO> getUsersParams(@PathVariable("id") int id)
@@ -132,6 +157,11 @@ public class UserPageController {
         return new ResponseEntity<UsersParamsDTO>(usersParamsDTO,HttpStatus.OK);
     }
 
+    @Operation(summary = "Get report ", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get report",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/reports/{id}")
     public ResponseEntity<ReportsDTO> getReport(@PathVariable("id") int id)
@@ -154,6 +184,11 @@ public class UserPageController {
         return new ResponseEntity<ReportsDTO>(reportDTO,HttpStatus.OK);
     }
 
+    @Operation(summary = "Get Product list", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get Products list",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") int id)
@@ -174,6 +209,11 @@ public class UserPageController {
         return new ResponseEntity<ProductDTO>(productDTO,HttpStatus.OK);
     }
 
+    @Operation(summary = "Get UsersParams list", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get UsersParams list",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/usersparams")
     public ResponseEntity<Page<UsersParams>> getAllUsersParams( @RequestParam("idParams") int idParams,
@@ -190,6 +230,11 @@ public class UserPageController {
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
 
+    @Operation(summary = "Get Products list", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get Products list",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/products")
     public ResponseEntity<Page<Products>> getAllProducts(@RequestParam("limit") int limit, @RequestParam("page") int page,
@@ -240,6 +285,12 @@ public class UserPageController {
         }
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
+
+    @Operation(summary = "Returns userPage.html", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns userPage.html",
+                    content = {@Content(mediaType = "text/html")})
+    })
     @Loggable
     @GetMapping()
     public ModelAndView index()
@@ -247,6 +298,11 @@ public class UserPageController {
         return new ModelAndView("userPage");
     }
 
+    @Operation(summary = "Get paginated list of user's eaten products", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get paginated list of user's eaten products",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/productsDiet")
     public ResponseEntity<Page<Reports>> getPaginatedDiet(@RequestParam("username") String userName,
@@ -298,6 +354,11 @@ public class UserPageController {
         return new ResponseEntity<>(pageFound, HttpStatus.OK);
     }
 
+    @Operation(summary = "Get users needs of nutrients in JSON", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get users needs of nutrients in JSON",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/reports")
     public ResponseEntity<DayReportDTO> getAllDiet(@RequestParam("id") int id,@RequestParam("date") String date)
@@ -323,6 +384,11 @@ public class UserPageController {
         return new ResponseEntity<>(dayReportDTO, HttpStatus.OK);
     }
 
+    @Operation(summary = "Get all foodCategories", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all foodCategories",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/foodcategories_products")
     public ResponseEntity<List<FoodCategories>> getAllFoodCategories()
@@ -330,6 +396,11 @@ public class UserPageController {
         return new ResponseEntity<>(foodCategoriesService.getAll(),HttpStatus.OK);
     }
 
+    @Operation(summary = "Get all user's products", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all user's products",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @GetMapping("/productsUser")
     public ResponseEntity<Page<Products>> getAllUsersProducts( @RequestParam("limit") int limit,
@@ -346,6 +417,11 @@ public class UserPageController {
     //endregion
 
     //region DeleteMapping
+    @Operation(summary = "Delete user's product", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete user's product",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @DeleteMapping("/products/{id}")
     public ResponseEntity<ReportsDTO> deleteUsersProduct(@PathVariable("id") int id)
@@ -354,6 +430,11 @@ public class UserPageController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete user's params", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete user's params",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @DeleteMapping("/usersparams/{idUser}/{idParams}")
     public ResponseEntity<UsersParamsDTO> deleteUsersParams(@PathVariable("idUser") int id,@PathVariable("idParams") int idParams)
@@ -369,6 +450,11 @@ public class UserPageController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete user's report", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete user's report",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @DeleteMapping("/reports/{id}")
     public ResponseEntity<ReportsDTO> deleteReport(@PathVariable("id") int id)
@@ -379,6 +465,11 @@ public class UserPageController {
     //endregion
 
     //region PutMapping
+    @Operation(summary = "Update user's product", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update user's product",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PutMapping("/products/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") int id,
@@ -405,6 +496,12 @@ public class UserPageController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Update user's report", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update user's report",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PutMapping("/reports/{id}")
     public ResponseEntity<ReportsDTO> updateReports(@PathVariable("id") int id,
@@ -422,15 +519,20 @@ public class UserPageController {
         }
         report.get().setReportDate(reportsDTO.getReportDate());
         report.get().setDayGram(reportsDTO.getDayGram());
-        report.get().setDayCalories(reportsDTO.getDayGram().multiply(product.get().getCaloriesGram()));
-        report.get().setDayFats(reportsDTO.getDayGram().multiply(product.get().getFatsGram()));
-        report.get().setDayCarbohydrates(reportsDTO.getDayGram().multiply(product.get().getCarbohydratesGram()));
-        report.get().setDayProteins(report.get().getDayGram().multiply(product.get().getProteinsGram()));
+        report.get().setDayCalories(reportsDTO.getDayGram().multiply(product.get().getCaloriesGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.get().setDayFats(reportsDTO.getDayGram().multiply(product.get().getFatsGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.get().setDayCarbohydrates(reportsDTO.getDayGram().multiply(product.get().getCarbohydratesGram()).multiply(BigDecimal.valueOf(0.01)));
+        report.get().setDayProteins(report.get().getDayGram().multiply(product.get().getProteinsGram()).multiply(BigDecimal.valueOf(0.01)));
 
         reportsService.editItem(report.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Update user's data", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update user's data",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @Loggable
     @PutMapping("/usersparams/{id}")
     public ResponseEntity<UsersParamsDTO> updateUsersData(@PathVariable("id") int id,

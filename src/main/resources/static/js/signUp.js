@@ -21,6 +21,7 @@ function sendRegisterForm() {
     let date = document.getElementById("date").value;
     let weight = document.getElementById("weight").value;
     let height = document.getElementById("height").value;
+    let eMail =document.getElementById("email").value;
 
     if(name.length < 1  || name.length >  100) {alertAddMes("Имя: 1-100 символов."); }
     if(surname.length < 1  || surname.length >  100) {alertAddMes("Фамилия: 1-100 символов.");}
@@ -30,6 +31,8 @@ function sendRegisterForm() {
     if(new Date(date) < '01.01.2000'  || new Date(date) > new Date || date == "") {alertAddMes("Неверная дата.");}
     if(weight < 10  || weight >  300) {alertAddMes("Вес: от 10 до 300."); }
     if(height < 10  || height >  300) {alertAddMes("Рост: от 10 до 300."); }
+    if(eMail.length < 10  || eMail.length >  254) {alertAddMes("Электронная почта: 10-254 символов."); showAlert = true;}
+
 
     if($(".alert .alertMessage").text() != "")
     {
@@ -51,7 +54,8 @@ function sendRegisterForm() {
                     userPassword: password,
                     userBirthday: date,
                     userWeight: weight,
-                    userHeight: height
+                    userHeight: height,
+                    eMail : eMail
                 }
             )
         })
@@ -61,9 +65,13 @@ function sendRegisterForm() {
         {
         window.location.href = response.url;
         }
-        if (response.headers.get('ErrorMessage') == "User has already registered") 
+        if (response.headers.get('ErrorMessage') == "User has already registered username") 
         {
             throw "Пользователь с таким именем уже зарегистрирован.";
+        }
+        if (response.headers.get('ErrorMessage') == "User has already registered email") 
+        {
+            throw "Пользователь с такой почтой уже зарегистрирован.";
         }
         if (response.redirected) 
         {
@@ -73,8 +81,6 @@ function sendRegisterForm() {
     ).catch(message => {messageShow(message)})
 }
 
-
-
 function messageShow(message)
 {
     $(".alert .alertMessage").text("");
@@ -82,3 +88,18 @@ function messageShow(message)
     $(".alert").show('close');
     $(".alert").alert();
 }
+
+$(document).ready(function() {
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});

@@ -2,30 +2,21 @@
 function logOut()
 {
     window.localStorage.removeItem("user");
+    delete_cookie('username');
+    delete_cookie('id');
+    delete_cookie('token');
+    delete_cookie('roles');
+
     window.location.reload();
 }
 
-function goToUserPage() {
-    fetch(url + "/user", {headers: authHeader()}).then(response=>
-        {
-          console.log(response);
-          if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-        });
+function delete_cookie ( cookie_name )
+{
+  var cookie_date = new Date ( );  // Текущая дата и время
+  cookie_date.setTime ( cookie_date.getTime() - 1 );
+  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
 }
 
-function goToAdminPage() {
-  fetch(url + "/admin", {headers: authHeader()}).then(response=>
-      {
-        console.log(response);
-        if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-      });
-}
 
 window.onload = function() 
 {
@@ -72,7 +63,7 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a onclick="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`
@@ -88,7 +79,7 @@ window.onload = function()
           <a href="/signUp" class=" text-decoration-none">
             <input type="button" value="Регистрация" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
-          <a onclick="goToUserPage()" class=" text-decoration-none">
+          <a onclick="/user" class=" text-decoration-none">
             <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
           </div>
@@ -107,7 +98,7 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToAdminPage()" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
+              <a onclick="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
@@ -118,10 +109,10 @@ window.onload = function()
             <h5>Перейдите на страницу пользователя или администратора для пользования функционалом приложения</h5>
           </div>
           <div class="col-6 p-5">
-          <a onclick="goToUserPage()" class=" text-decoration-none">
+          <a onclick="/user" class=" text-decoration-none">
             <input type="button" value="Страница пользователя" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
-          <a onclick="goToAdminPage()" class=" text-decoration-none">
+          <a onclick="/admin" class=" text-decoration-none">
             <input type="button" value="Страница Администратора" class="btn w-100 rounded-0 btn-outline-dark border-dark m-2 "/>
           </a>
           </div>

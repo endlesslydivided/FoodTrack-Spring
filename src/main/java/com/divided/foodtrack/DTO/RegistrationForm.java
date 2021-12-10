@@ -9,7 +9,7 @@ public class RegistrationForm {
     public RegistrationForm() {
     }
 
-    public RegistrationForm(String userLogin, String userPassword, String userName, String userSurname, String userLastname, Date userBirthday, BigDecimal userWeight, int userHeight) {
+    public RegistrationForm(String userLogin, String userPassword, String userName, String userSurname, String userLastname, Date userBirthday, BigDecimal userWeight, int userHeight, String eMail) {
         this.userLogin = userLogin;
         this.userPassword = userPassword;
         this.userName = userName;
@@ -18,7 +18,9 @@ public class RegistrationForm {
         this.userBirthday = userBirthday;
         this.userWeight = userWeight;
         this.userHeight = userHeight;
+        this.eMail = eMail;
     }
+
     //endregion
 
     //region Fields
@@ -30,9 +32,19 @@ public class RegistrationForm {
     private Date userBirthday;
     private BigDecimal userWeight;
     private int userHeight;
+    private String eMail;
     //endregion
 
     //region Properties
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
     public String getUserLogin() {
         return userLogin;
     }

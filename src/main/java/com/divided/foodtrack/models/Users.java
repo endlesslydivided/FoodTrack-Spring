@@ -11,6 +11,7 @@ public class Users {
     private boolean isAdmin;
     private String userLogin;
     private String userPassword;
+    private String eMail;
 
     @Id
     @Column(name = "Id", nullable = false)
@@ -52,6 +53,16 @@ public class Users {
         this.userPassword = userPassword;
     }
 
+    @Basic
+    @Column(name = "EMail", nullable = false, length = 254)
+    public String getEmail() {
+        return eMail;
+    }
+
+    public void setEmail(String eMail) {
+        this.eMail = eMail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +74,7 @@ public class Users {
         if (isAdmin != users.isAdmin) return false;
         if (userLogin != null ? !userLogin.equals(users.userLogin) : users.userLogin != null) return false;
         if (userPassword != null ? !userPassword.equals(users.userPassword) : users.userPassword != null) return false;
+        if (eMail != null ? !eMail.equals(users.eMail) : users.eMail != null) return false;
 
         return true;
     }
@@ -73,6 +85,8 @@ public class Users {
         result = 31 * result + (isAdmin ? 1 : 0);
         result = 31 * result + (userLogin != null ? userLogin.hashCode() : 0);
         result = 31 * result + (userPassword != null ? userPassword.hashCode() : 0);
+        result = 31 * result + (eMail != null ? eMail.hashCode() : 0);
+
         return result;
     }
 }

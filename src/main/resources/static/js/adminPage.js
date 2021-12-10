@@ -172,9 +172,11 @@ function update(table) {
                 let id =document.getElementById("UTUId").textContent;
                 let userLogin =document.getElementById("UTUUserLogin").value;
                 let isAdmin =document.getElementById("UTUisAdmin").checked;
+                let eMail =document.getElementById("UTUEMail").value;
 
 
                 if(userLogin.length < 8  || userLogin.length >  25) {alertAddMes("Логин: 8-25 символов."); showAlert = true;}
+                if(eMail.length < 10  || userLogin.length >  254) {alertAddMes("Электронная почта: 10-254 символов."); showAlert = true;}
 
                 if(showAlert)
                 {
@@ -192,7 +194,8 @@ function update(table) {
                         idEditor: JSON.parse(localStorage.getItem("user")).id,
                         admin : isAdmin ,
                         id : id,
-                        userLogin : userLogin
+                        userLogin : userLogin,
+                        eMail: eMail
                     }
                 )
             }).then( response => 
@@ -641,11 +644,12 @@ function getAll(table,limit = 10,page = 1,search=null) {
                     pdata.content.forEach(element => {
                         usersTable.innerHTML += 
                         `<td>${element.id}</td> <td>${element.admin}</td> <td>${element.userLogin}</td>
-                        <td>${element.userPassword}</td>
+                        <td>${element.userPassword}</td><td>${element.email}</td>
                         <td>
                             <button type="button" onclick="deleteR('${table}',${element.id})" class="btn btn-outline-dark rounded-0">Удалить</button>
                             <button type="button" onclick="edit('${table}',${element.id})" data-target="#UpdateUser" data-toggle="modal"  class="btn btn-outline-dark rounded-0">Изменить</button>
-                        </td>` 
+                            <button type="button" onclick="sendNotify(${element.id})"  class="btn btn-outline-dark rounded-0">Отправка уведомления</button>
+                            </td>` 
                         
                     });
     
@@ -1042,29 +1046,11 @@ function logOut()
 {
     window.localStorage.removeItem("user");
     window.location.href ="http://localhost:8080";
-    ;
-}
+    delete_cookie('username');
+    delete_cookie('id');
+    delete_cookie('token');
+    delete_cookie('roles');
 
-function goToUserPage() {
-    fetch(url + "/user", {headers: authHeader()}).then(response=>
-        {
-          console.log(response);
-          if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-        });
-}
-
-function goToAdminPage() {
-  fetch(url + "/admin", {headers: authHeader()}).then(response=>
-      {
-        console.log(response);
-        if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-      });
 }
 
 window.onload = function() 
@@ -1100,7 +1086,7 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a href="/user"  role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
@@ -1108,7 +1094,7 @@ window.onload = function()
           <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
 
           <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-          <h6><a  href="javascript:goToUserPage()" >Страница пользователя</a></h6>
+          <h6><a  href="/user" >Страница пользователя</a></h6>
           `
         }
         else if(user.roles[0] == "ROLE_ADMIN")
@@ -1122,8 +1108,8 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
-              <a onclick="goToAdminPage()" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
+              <a href="/user"  role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
@@ -1131,8 +1117,8 @@ window.onload = function()
           navLinks.innerHTML += `
           <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
             <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-            <h6><a href="javascript:goToUserPage()" >Страница пользователя</a></h6>
-            <h6><a href="javascript:goToAdminPage()" >Страница администратора</a></h6>
+            <h6><a href="/user" >Страница пользователя</a></h6>
+            <h6><a href="/admin" >Страница администратора</a></h6>
             `
         }
           getAll("FoodCategory");
@@ -1228,3 +1214,15 @@ function exportProductsJSON() {
             });
   }
 
+function sendNotify(id)
+{
+    fetch(url + `/sendNotify/${id}`, 
+    {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json','Authorization' : authHeader().Authorization}
+    }
+    ).then(response =>
+    {
+        console.log(response);
+    });
+}

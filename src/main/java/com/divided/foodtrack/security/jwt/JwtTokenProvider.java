@@ -1,8 +1,10 @@
 package com.divided.foodtrack.security.jwt;
 
 
+import com.divided.foodtrack.exception.UserNameNotFoundException;
 import com.divided.foodtrack.logging.Loggable;
 import com.divided.foodtrack.models.Users;
+import com.divided.foodtrack.services.impl.UsersService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 @Component
 public class JwtTokenProvider {
@@ -32,6 +32,8 @@ public class JwtTokenProvider {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private UsersService usersService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -44,10 +46,15 @@ public class JwtTokenProvider {
     }
 
     @Loggable
-    public String createToken(String username, Users user) {
+    public String createToken(String username) throws UserNameNotFoundException {
 
+        Optional<Users> user = usersService.getByName(username);
+        if(user.isEmpty())
+        {
+            throw new UserNameNotFoundException("Username isn't found during JWT token creation");
+        }
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", getRoleNames(user));
+        claims.put("roles", getRoleNames(user.get()));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -83,15 +90,11 @@ public class JwtTokenProvider {
     }
 
     @Loggable
-    public boolean validateToken(String token) throws Exception {
-        try
-        {
+    public boolean validateToken(String token) {
+
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new Exception("JWT token is expired or invalid");
-        }
     }
 
     @Loggable

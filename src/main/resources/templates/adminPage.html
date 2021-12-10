@@ -124,7 +124,7 @@
 
         <!--FoodCategoriesTable-->
         <div class="tab-pane fade show active table-responsive" id="FoodCategories" role="tabpanel" aria-labelledby="Users-tab">
-          <label for="FCTS">Поиск:</label><input type="text" id="FCTS"  oninput="getAll('Product')"/>
+          <label for="FCTS">Поиск:</label><input type="text" id="FCTS"  oninput="getAll('FoodCategory')"/>
           <!--ModalUpdate-->
           <div class="modal fade" id="UpdateCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -429,7 +429,7 @@
               <td colspan="11">
                 <nav aria-label="...">
                   <ul class="pagination" id="ReportPagination">
-                   
+                   <a hr></a>
                   </ul>
                 </nav>
               </td>
@@ -469,6 +469,10 @@
                       <label for="UTUUserLogin">UserLogin:</label>
                       <input type="text" class="form-control" id="UTUUserLogin">
                     </div>
+                    <div class="form-group my-2" >
+                      <label for="UTUEMail">EMail:</label>
+                      <input type="email" class="form-control" id="UTUEMail">
+                    </div>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" onclick="update('User')" class="btn btn-primary">Изменить</button>
@@ -486,6 +490,8 @@
                 <th scope="col">IsAdmin</th>
                 <th scope="col">UserLogin</th>
                 <th scope="col">UserPassword</th>
+                <th scope="col">EMail</th>
+
                 <th scope="col">Action</th>
               </tr>
             </thead>

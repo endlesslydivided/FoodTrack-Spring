@@ -22,7 +22,7 @@ public class JpaConfiguration {
     DataSource dataSource() {
         SQLServerDataSource dataSource = new SQLServerDataSource();
         dataSource.setURL("jdbc:sqlserver://localhost:1433;");
-        dataSource.setDatabaseName("DietManager");
+        dataSource.setDatabaseName("DietManagerSpring");
         dataSource.setIntegratedSecurity(false);
         dataSource.setUser("ConnectionUser");
         dataSource.setPassword("ConnectionUserPassword");

@@ -6,6 +6,12 @@ import com.divided.foodtrack.models.Users;
 import com.divided.foodtrack.security.jwt.JwtTokenProvider;
 import com.divided.foodtrack.services.impl.AuthAndRegServiceImpl;
 import com.divided.foodtrack.validators.LogInFormValidator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +51,11 @@ public class SignInPageController {
         this.validator = validator;
     }
 
-
+    @Operation(summary = "LogIn user", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "LogIn user",
+                    content = {@Content(mediaType = "application/json")})
+    })
     @PostMapping("/login")
     @Loggable
     public ResponseEntity<Map<Object, Object>> login(@RequestBody LogInForm loginForm) throws Exception {
@@ -61,20 +71,24 @@ public class SignInPageController {
                     ).collect(Collectors.toList());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.get().getUserLogin(),
                     loginForm.getUserPassword()));
-            String token = jwtTokenProvider.createToken(username, user.get());
+            String token = jwtTokenProvider.createToken(username);
             List<String> roleNames = Collections.singletonList(user.get().isAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("token", token);
             response.put("roles", roleNames);
             response.put("id", user.get().getId());
-
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             throw new Exception("Invalid username or password");
         }
     }
 
+    @Operation(summary = "Returns signInPage.html", security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns signInPage.html",
+                    content = {@Content(mediaType = "text/html")})
+    })
     @Loggable
     @GetMapping()
     public ModelAndView index()

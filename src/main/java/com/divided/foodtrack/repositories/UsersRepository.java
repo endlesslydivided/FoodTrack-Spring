@@ -27,19 +27,22 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     void deleteById(@Param("Id") Integer id);
 
     @Modifying
-    @Query(value = "EXECUTE DUserUpdate :Id,:Is_Admin,:User_Login,:User_Password", nativeQuery = true)
+    @Query(value = "EXECUTE DUserUpdate :Id,:Is_Admin,:User_Login,:User_Password,:EMail", nativeQuery = true)
     void update(@Param("Id") Integer id,
                 @Param("Is_Admin") Boolean isAdmin,
                  @Param("User_Login") String userLogin,
-                 @Param("User_Password") String userPassword
+                 @Param("User_Password") String userPassword,
+                @Param("EMail") String email
+
     );
 
     @Modifying
-    @Query(value = "EXECUTE DUserAdd :Is_Admin,:User_Login,:User_Password", nativeQuery = true)
+    @Query(value = "EXECUTE DUserAdd :Is_Admin,:User_Login,:User_Password,:EMail", nativeQuery = true)
     void add(
               @Param("Is_Admin") Boolean isAdmin,
               @Param("User_Login") String userLogin,
-              @Param("User_Password") String userPassword
+              @Param("User_Password") String userPassword,
+              @Param("EMail") String email
     );
 
     @Query(value = "EXECUTE DUsersSelectLogin :User_Login", nativeQuery = true)

@@ -6,6 +6,7 @@ import com.divided.foodtrack.repositories.UsersDataRepository;
 import com.divided.foodtrack.repositories.UsersParamsRepository;
 import com.divided.foodtrack.repositories.UsersRepository;
 import com.divided.foodtrack.services.AuthAndRegService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,19 @@ public class AuthAndRegServiceImpl implements AuthAndRegService {
 
     @Override
     public void register(RegistrationForm registrationForm) throws Exception {
-        if (!userRepository.getByName(registrationForm.getUserLogin()).isEmpty()) {
-            throw new Exception("User has already registered");
+        List<Users> users = userRepository.findAll();
+        if (users.stream().filter(x -> x.getEmail().equals(registrationForm.geteMail())).count() != 0) {
+            throw new Exception("User has already registered email");
+        }
+        if (users.stream().filter(x -> x.getUserLogin().equals(registrationForm.getUserLogin())).count() != 0) {
+            throw new Exception("User has already registered username");
         }
         if(userRepository.countRows() == 0)
-            userRepository.add(true,registrationForm.getUserLogin(), passwordEncoder.encode(registrationForm.getUserPassword()));
+            userRepository.add(true,registrationForm.getUserLogin(), passwordEncoder.encode(registrationForm.getUserPassword()),
+                    registrationForm.geteMail());
         else
-            userRepository.add(false,registrationForm.getUserLogin(), passwordEncoder.encode(registrationForm.getUserPassword()));
+            userRepository.add(false,registrationForm.getUserLogin(), passwordEncoder.encode(registrationForm.getUserPassword()),
+                    registrationForm.geteMail());
 
         Optional<Users> userInserted = userRepository.getByName(registrationForm.getUserLogin());
 
@@ -67,7 +74,7 @@ public class AuthAndRegServiceImpl implements AuthAndRegService {
 
     @Override
     public void editUser(Users user) {
-        userRepository.update(user.getId(),user.isAdmin(),user.getUserLogin(), user.getUserPassword());
+        userRepository.update(user.getId(),user.isAdmin(),user.getUserLogin(), user.getUserPassword(),user.getEmail());
     }
 
     @Override

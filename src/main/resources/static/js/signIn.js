@@ -57,9 +57,52 @@ function sendLoginForm() {
   .then(response => 
     {
         if (response.token) {
+            set_cookie(`token`,"Bearer " + response.token,2100,12,31,`/`);
+            set_cookie(`username`,response.username,2100,12,31,`/`);
+            set_cookie(`id`,response.id,2100,12,31,`/`);
+            set_cookie(`roles`,response.roles,2100,12,31,`/`);
+
             localStorage.setItem("user", JSON.stringify(response));
             window.location.href = url;
         }
     }
     )
 }
+
+
+function set_cookie ( name, value, exp_y, exp_m, exp_d, path, domain, secure )
+{
+  var cookie_string = name + "=" + escape ( value );
+ 
+  if ( exp_y )
+  {
+    var expires = new Date ( exp_y, exp_m, exp_d );
+    cookie_string += "; expires=" + expires.toGMTString();
+  }
+ 
+  if ( path )
+        cookie_string += "; path=" + escape ( path );
+ 
+  if ( domain )
+        cookie_string += "; domain=" + escape ( domain );
+  
+  if ( secure )
+        cookie_string += "; secure";
+  
+  document.cookie = cookie_string;
+}
+
+$(document).ready(function() {
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+        }
+    });
+});

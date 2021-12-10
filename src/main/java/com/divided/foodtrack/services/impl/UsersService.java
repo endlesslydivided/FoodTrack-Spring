@@ -33,12 +33,12 @@ public class UsersService implements GeneralService<Users>{
 
     @Override
     public void editItem(Users item) {
-        usersRepository.update(item.getId(),item.isAdmin(),item.getUserLogin(),item.getUserPassword());
+        usersRepository.update(item.getId(),item.isAdmin(),item.getUserLogin(),item.getUserPassword(),item.getEmail());
     }
 
     @Override
     public void add(Users item) {
-        usersRepository.add(item.isAdmin(),item.getUserLogin(),item.getUserPassword());
+        usersRepository.add(item.isAdmin(),item.getUserLogin(),item.getUserPassword(),item.getEmail());
     }
 
     @Override

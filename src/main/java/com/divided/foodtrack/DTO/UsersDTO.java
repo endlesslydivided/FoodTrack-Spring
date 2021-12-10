@@ -8,38 +8,29 @@ public class UsersDTO {
     private boolean isAdmin;
     private String userLogin;
     private String userPassword;
+    private String eMail;
+
     //endregion
 
 
     //region Constructors
 
 
-    public UsersDTO(int idEditor, int id, boolean isAdmin, String userLogin, String userPassword) {
+    public UsersDTO(int idEditor, int id, boolean isAdmin, String userLogin, String userPassword, String eMail) {
         this.idEditor = idEditor;
         this.id = id;
         this.isAdmin = isAdmin;
         this.userLogin = userLogin;
         this.userPassword = userPassword;
+        this.eMail = eMail;
     }
 
-    public UsersDTO(int id, boolean isAdmin, String userLogin, String userPassword) {
-        this.id = id;
-        this.isAdmin = isAdmin;
-        this.userLogin = userLogin;
-        this.userPassword = userPassword;
-    }
-
-    public UsersDTO(int idEditor, int id, boolean isAdmin, String userLogin) {
+    public UsersDTO(int idEditor, boolean isAdmin, String userLogin, String userPassword, String eMail) {
         this.idEditor = idEditor;
-        this.id = id;
-        this.isAdmin = isAdmin;
-        this.userLogin = userLogin;
-    }
-
-    public UsersDTO(boolean isAdmin, String userLogin, String userPassword) {
         this.isAdmin = isAdmin;
         this.userLogin = userLogin;
         this.userPassword = userPassword;
+        this.eMail = eMail;
     }
 
     public UsersDTO() {

@@ -277,29 +277,11 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
 function logOut()
 {
     window.localStorage.removeItem("user");
+    delete_cookie('username');
+    delete_cookie('id');
+    delete_cookie('token');
+    delete_cookie('roles');
     window.location.href = "http://localhost:8080";
-}
-
-function goToUserPage() {
-    fetch(url + "/user", {headers: authHeader()}).then(response=>
-        {
-          console.log(response);
-          if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-        });
-}
-
-function goToAdminPage() {
-  fetch(url + "/admin", {headers: authHeader()}).then(response=>
-      {
-        console.log(response);
-        if (response.status === 200) 
-            {
-            window.location.href = response.url;
-            }
-      });
 }
 
 window.onload = function() 
@@ -334,7 +316,7 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
@@ -342,7 +324,7 @@ window.onload = function()
           <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
 
           <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-          <h6><a  href="javascript:goToUserPage()" >Страница пользователя</a></h6>
+          <h6><a  href="/user" >Страница пользователя</a></h6>
           `
         }
         else if(user.roles[0] == "ROLE_ADMIN")
@@ -356,8 +338,8 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a onclick="goToUserPage()" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
-              <a onclick="goToAdminPage()" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
+              <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
               <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
@@ -365,8 +347,8 @@ window.onload = function()
           navLinks.innerHTML += `
           <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
             <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-            <h6><a  href="javascript:goToUserPage()">Страница пользователя</a></h6>
-            <h6><a  href="javascript:goToAdminPage()">Страница администратора</a></h6>
+            <h6><a  href="/user">Страница пользователя</a></h6>
+            <h6><a  href="/admin">Страница администратора</a></h6>
             `
         }
         var date = new Date();
