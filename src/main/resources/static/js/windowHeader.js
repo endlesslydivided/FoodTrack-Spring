@@ -1,12 +1,3 @@
-function logOut()
-{
-    window.localStorage.removeItem("user");
-    window.location.reload();
-    delete_cookie('username');
-    delete_cookie('id');
-    delete_cookie('token');
-    delete_cookie('roles');
-}
 
 
 window.onload = function() 
@@ -14,7 +5,7 @@ window.onload = function()
     var navLinks = document.getElementById('mySidenav');
     var actionButtons = document.getElementById('actionButtons');
     var mainPageContent = document.getElementById('mainPageContent');
-    if(window.localStorage.getItem('user') == undefined)
+    if(getCookie('username') == undefined)
     {
         actionButtons.innerHTML =`  
       <a href="/signIn" class=" text-decoration-none">
@@ -44,11 +35,12 @@ window.onload = function()
     }
     else
     {
-        var user= JSON.parse(window.localStorage.getItem("user")); 
-        if(user.roles[0] == "ROLE_USER")
+        var roles= getCookie('roles'); 
+        var username=  getCookie('username');
+        if(roles == "ROLE_USER")
         { 
           actionButtons.innerHTML = 
-          `<p class="m-0">Привет,${user.username}</p>
+          `<p class="m-0">Привет,${username}</p>
           <div class="dropdown">
           <a class="btn btn-floating m-1 ripple-surface"
           id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -57,7 +49,7 @@ window.onload = function()
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
               <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
-              <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
+              <a href="/signIn/logout" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`
           mainPageContent.innerHTML +=
@@ -78,10 +70,10 @@ window.onload = function()
         `
           ;
         }
-        else if(user.roles[0] == "ROLE_ADMIN")
+        else if(roles == "ROLE_ADMIN")
         {
           actionButtons.innerHTML = `
-          <p class="m-0">Привет,${user.username} </p>
+          <p class="m-0">Привет,${username} </p>
           <div class="dropdown">
           <a class="btn btn-floating m-1 ripple-surface"
           id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -91,7 +83,7 @@ window.onload = function()
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
           <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
               <a  href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
-              <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
+              <a href="/signIn/logout" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
 
@@ -120,10 +112,9 @@ window.onload = function()
     }
 };
 
-
-function delete_cookie ( cookie_name )
-{
-  var cookie_date = new Date ( );  // Текущая дата и время
-  cookie_date.setTime ( cookie_date.getTime() - 1 );
-  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }

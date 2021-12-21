@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,6 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/static","/static/**","/static/**/**");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http = http.cors().and().csrf().disable();
 
+
+
         http = http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -51,12 +58,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
-                .antMatchers("/signIn").anonymous()
-                .antMatchers("/signUp").anonymous()
+                .antMatchers("/signIn","/signIn/**").anonymous()
+                .antMatchers("/signUp","/signUp/**").anonymous()
                 .antMatchers("/user/**","/user").hasAnyRole("ADMIN","USER")
                 .antMatchers("/admin/**","/admin").hasRole("ADMIN")
                 .antMatchers("/**","/error","/static","/static/**","/static/**/**").permitAll()
-                .anyRequest().authenticated().and()
+                .anyRequest().authenticated().and().logout().deleteCookies("id","username","roles","token")
+
+                .logoutUrl("/signIn/logout")
+                .permitAll()
+                .logoutSuccessUrl("/").and()
 
                 .exceptionHandling()
                 .authenticationEntryPoint(new MyAuthenticationEntryPoint()).and();

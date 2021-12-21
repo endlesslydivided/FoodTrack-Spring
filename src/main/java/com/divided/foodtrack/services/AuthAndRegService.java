@@ -2,7 +2,9 @@ package com.divided.foodtrack.services;
 
 import com.divided.foodtrack.DTO.RegistrationForm;
 import com.divided.foodtrack.models.Users;
+import org.springframework.validation.BindingResult;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 

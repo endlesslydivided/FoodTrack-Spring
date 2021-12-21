@@ -583,7 +583,7 @@ public class AdminPageController {
     })
     @Loggable
     @PutMapping("/products/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") int id,
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") int id,
                                                               @RequestBody ProductDTO productDTO)
     {
         List<Products> products = productsService.getAll();
@@ -605,7 +605,7 @@ public class AdminPageController {
         product.get().setFoodCategory(productDTO.getFoodCategory());
 
         productsService.editItem(product.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
     @Operation(summary = "Add product", security = @SecurityRequirement(name = "bearerAuth"))
@@ -641,10 +641,11 @@ public class AdminPageController {
     })
     @Loggable
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable("id") int id)
+    public ResponseEntity<Object> deleteProduct(@PathVariable("id") int id)
     {
+        Products product = productsService.getById(id).get();
         productsService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
     @Operation(summary = "Export all products to JSON", security = @SecurityRequirement(name = "bearerAuth"))

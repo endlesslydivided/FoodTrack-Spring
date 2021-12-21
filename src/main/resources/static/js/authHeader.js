@@ -1,12 +1,19 @@
 function authHeader() 
 {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const token = getCookie("token");
   
-    if (user && user.token) 
+    if (token != "") 
     {
-      return { Authorization: 'Bearer ' + user.token};
+      return { Authorization: token};
     } else {
       return {};
     }
+  }
+
+  function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   

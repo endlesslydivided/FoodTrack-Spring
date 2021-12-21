@@ -42,7 +42,8 @@ function sendLoginForm() {
             {
                 if (response.status === 200) 
                 {
-                    return response.json();       
+                    window.location.href = response.url;
+    
                 }
                 else 
                 {
@@ -51,20 +52,11 @@ function sendLoginForm() {
                 }
             }
            )
-  .then(response => 
+  .then(pdata => 
     {
-        if (response.token) {
-            set_cookie(`token`,"Bearer " + response.token,2100,12,31,`/`);
-            set_cookie(`username`,response.username,2100,12,31,`/`);
-            set_cookie(`id`,response.id,2100,12,31,`/`);
-            set_cookie(`roles`,response.roles,2100,12,31,`/`);
-
-            localStorage.setItem("user", JSON.stringify(response));
-            window.location.href = url;
-        }
-        else if (response)
+        if (pdata != null) 
         {
-            throw response.errorMessage;
+            throw pdata["errorMessage"];
         }
     }
     ).catch(message => {messageShow(message)});

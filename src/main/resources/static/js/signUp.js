@@ -23,15 +23,15 @@ function sendRegisterForm() {
     let height = document.getElementById("height").value;
     let eMail =document.getElementById("email").value;
 
-    if(name.length < 1  || name.length >  100) {alertAddMes("Имя: 1-100 символов."); }
-    if(surname.length < 1  || surname.length >  100) {alertAddMes("Фамилия: 1-100 символов.");}
-    if(lastname.length < 1  || lastname.length >  100) {alertAddMes("Отчество: 1-100 символов.");}
-    if(login.length < 8  || login.length >  25) {alertAddMes("Логин: 8-25 символов.");}
-    if(password.length < 5  || password.length >  20) {alertAddMes("Пароль: 5-20 символов.");}
-    if(new Date(date) < '01.01.2000'  || new Date(date) > new Date || date == "") {alertAddMes("Неверная дата.");}
-    if(weight < 10  || weight >  300) {alertAddMes("Вес: от 10 до 300."); }
-    if(height < 10  || height >  300) {alertAddMes("Рост: от 10 до 300."); }
-    if(eMail.length < 10  || eMail.length >  254) {alertAddMes("Электронная почта: 10-254 символов."); showAlert = true;}
+    // if(name.length < 1  || name.length >  100) {alertAddMes("Имя: 1-100 символов."); }
+    // if(surname.length < 1  || surname.length >  100) {alertAddMes("Фамилия: 1-100 символов.");}
+    // if(lastname.length < 1  || lastname.length >  100) {alertAddMes("Отчество: 1-100 символов.");}
+    // if(login.length < 8  || login.length >  25) {alertAddMes("Логин: 8-25 символов.");}
+    // if(password.length < 5  || password.length >  20) {alertAddMes("Пароль: 5-20 символов.");}
+    // if(new Date(date) < '01.01.2000'  || new Date(date) > new Date || date == "") {alertAddMes("Неверная дата.");}
+    // if(weight < 10  || weight >  300) {alertAddMes("Вес: от 10 до 300."); }
+    // if(height < 10  || height >  300) {alertAddMes("Рост: от 10 до 300."); }
+    // if(eMail.length < 10  || eMail.length >  254) {alertAddMes("Электронная почта: 10-254 символов."); showAlert = true;}
 
 
     if($(".alert .alertMessage").text() != "")
@@ -63,22 +63,22 @@ function sendRegisterForm() {
     {
         if (response.status === 303) 
         {
-        window.location.href = response.url;
+            window.location.href = response.url;
         }
-        if (response.headers.get('ErrorMessage') == "User has already registered username") 
+        if (response.status === 400) 
         {
-            throw "Пользователь с таким именем уже зарегистрирован.";
-        }
-        if (response.headers.get('ErrorMessage') == "User has already registered email") 
-        {
-            throw "Пользователь с такой почтой уже зарегистрирован.";
+            return response.json()
         }
         if (response.redirected) 
         {
         window.location.href = response.url;
         }
     }
-    ).catch(message => {messageShow(message)})
+    ).then((pdata)=>
+    {
+        throw pdata["errorMessage"];
+
+    }).catch(message => {messageShow(message)})
 }
 
 function messageShow(message)

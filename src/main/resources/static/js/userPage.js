@@ -274,21 +274,11 @@ function getAll(table = null,limit = 10,page = 1,search=null,tablepart =null,mod
     }
 }
 
-function logOut()
-{
-    window.localStorage.removeItem("user");
-    delete_cookie('username');
-    delete_cookie('id');
-    delete_cookie('token');
-    delete_cookie('roles');
-    window.location.href = "http://localhost:8080";
-}
-
 window.onload = function() 
 {
     var navLinks = document.getElementById('mySidenav');
     var actionButtons = document.getElementById('actionButtons');
-    if(window.localStorage.getItem('user') == undefined)
+    if(getCookie('username') == undefined)
     {
         actionButtons.innerHTML =`  
       <a href="/signIn" class=" text-decoration-none">
@@ -297,18 +287,20 @@ window.onload = function()
       <a href="/signUp" class=" text-decoration-none">
         <input type="button" value="Регистрация" class="btn btn-secondary border"/>
       </a>`;
-
+    
       navLinks.innerHTML += `
       <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
-      <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>`
+        <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+        `
     }
     else
     {
-        var user= JSON.parse(window.localStorage.getItem("user")); 
-        if(user.roles[0] == "ROLE_USER")
+        var roles= getCookie('roles'); 
+        var username=  getCookie('username');
+        if(roles == "ROLE_USER")
         { 
           actionButtons.innerHTML = 
-          `<p class="m-0">Привет,${user.username}</p>
+          `<p class="m-0">Привет,${username}</p>
           <div class="dropdown">
           <a class="btn btn-floating m-1 ripple-surface"
           id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -317,20 +309,21 @@ window.onload = function()
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
               <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
-              <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
+              <a href="/signIn/logout" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
-          </div>`;
-          navLinks.innerHTML += `
-          <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
-
-          <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-          <h6><a  href="/user" >Страница пользователя</a></h6>
-          `
+          </div>`
+         
+      navLinks.innerHTML += `
+      <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
+        <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
+        <h6><a href="/user" >Страница пользователя</a></h6>
+        `
+          ;
         }
-        else if(user.roles[0] == "ROLE_ADMIN")
+        else if(roles == "ROLE_ADMIN")
         {
           actionButtons.innerHTML = `
-          <p class="m-0">Привет,${user.username} </p>
+          <p class="m-0">Привет,${username} </p>
           <div class="dropdown">
           <a class="btn btn-floating m-1 ripple-surface"
           id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -338,31 +331,40 @@ window.onload = function()
               <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
-              <a href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
-              <a onclick="logOut()" role="button" class=" dropdown-item text-decoration-none">Выход</a>
+          <a href="/user" role="button" class=" dropdown-item text-decoration-none">Страница пользователя</a>
+              <a  href="/admin" role="button" class=" dropdown-item text-decoration-none">Страница администратора</a>
+              <a href="/signIn/logout" role="button" class=" dropdown-item text-decoration-none">Выход</a>
           </div>
           </div>`;
 
-          navLinks.innerHTML += `
+    
+
+      navLinks.innerHTML += `
           <a href="javascript:void(0)" class="closebtn"  onclick="closeNav()">×</a>
             <h6><a href="/" class=" text-decoration-none">Главная страница</a></h6>
-            <h6><a  href="/user">Страница пользователя</a></h6>
-            <h6><a  href="/admin">Страница администратора</a></h6>
+            <h6><a href="/user" >Страница пользователя</a></h6>
+            <h6><a href="/admin" >Страница администратора</a></h6>
             `
         }
-        var date = new Date();
-        var curr_date = date.getDate();
-        var curr_month = date.getMonth() + 1;
-        var curr_year = date.getFullYear();
-        var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
-        document.getElementById("DTDS").value = date_format;
-        document.getElementById("AUPD").value = date_format;
-        document.getElementById("AUDD").value = date_format;
-        updateAllDiet();
-        getCategories();
     }
+    var date = new Date();
+    var curr_date = date.getDate();
+    var curr_month = date.getMonth() + 1;
+    var curr_year = date.getFullYear();
+    var date_format = curr_year + "-" + (curr_month < 10? '0' + curr_month: curr_month) + "-" + (curr_date < 10? '0' + curr_date: curr_date);
+    document.getElementById("DTDS").value = date_format;
+    document.getElementById("AUPD").value = date_format;
+    document.getElementById("AUDD").value = date_format;
+    updateAllDiet();
+    getCategories();
 };
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 
 function messageShow(message)
 {
@@ -997,9 +999,3 @@ function edit(table,id)
           
 }
 
-function delete_cookie ( cookie_name )
-{
-  var cookie_date = new Date ( );  // Текущая дата и время
-  cookie_date.setTime ( cookie_date.getTime() - 1 );
-  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
-}

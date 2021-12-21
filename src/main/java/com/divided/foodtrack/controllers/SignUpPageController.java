@@ -2,9 +2,10 @@ package com.divided.foodtrack.controllers;
 
 
 import com.divided.foodtrack.DTO.RegistrationForm;
+import com.divided.foodtrack.exception.RegistrationFormException;
 import com.divided.foodtrack.logging.Loggable;
 import com.divided.foodtrack.services.impl.AuthAndRegServiceImpl;
-import com.nimbusds.jose.Header;
+import com.divided.foodtrack.validators.RegistrationFormValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,11 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -27,10 +32,17 @@ import java.util.Map;
 public class SignUpPageController {
 
     private final AuthAndRegServiceImpl usersService;
+    private final RegistrationFormValidator validator;
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
 
     @Autowired
-    public SignUpPageController(AuthAndRegServiceImpl usersService) {
+    public SignUpPageController(AuthAndRegServiceImpl usersService,RegistrationFormValidator validator) {
         this.usersService = usersService;
+        this.validator = validator;
     }
 
 
@@ -41,17 +53,15 @@ public class SignUpPageController {
     })
     @PostMapping("/register")
     @Loggable
-    public ResponseEntity<Map<Object, Object>> register(@RequestBody RegistrationForm registrationForm) throws URISyntaxException {
-        try
+    public ResponseEntity<Map<Object, Object>> register(@RequestBody RegistrationForm registrationForm) throws Exception {
+        BindException bindException = new BindException(registrationForm,"registrationForm");
+
+        validator.validate(registrationForm,bindException);
+        if (bindException.hasErrors())
         {
-            usersService.register(registrationForm);
+            throw new RegistrationFormException(bindException.getAllErrors().stream().findFirst().get().getDefaultMessage());
         }
-        catch (Exception e)
-        {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add("ErrorMessage",e.getMessage());
-            return new ResponseEntity<>(httpHeaders,HttpStatus.BAD_REQUEST);
-        }
+        usersService.register(registrationForm);
         URI login = new URI("http://localhost:8080/signIn");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(login);
@@ -68,5 +78,14 @@ public class SignUpPageController {
     {
         ModelAndView modelAndView = new ModelAndView("signUpPage");
         return modelAndView;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<Object,Object>> handleException(Exception ex, HttpServletResponse response)
+    {
+        Map<Object, Object> responseEntityMap = new HashMap<>();
+        responseEntityMap.put("errorMessage", ex.getMessage());
+        response.setStatus(400);
+        return new ResponseEntity<>(responseEntityMap, HttpStatus.BAD_REQUEST);
     }
 }
