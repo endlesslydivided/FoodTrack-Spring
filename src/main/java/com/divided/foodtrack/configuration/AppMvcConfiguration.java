@@ -47,6 +47,9 @@ public class AppMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+
     }
 
     @Override
@@ -57,8 +60,9 @@ public class AppMvcConfiguration implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-
-
-
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/configuration/ui", "/swagger-resources/configuration/ui");
+    }
 
 }
