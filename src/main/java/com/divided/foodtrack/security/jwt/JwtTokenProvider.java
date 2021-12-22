@@ -67,19 +67,16 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    @Loggable
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
 
         return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
     }
 
-    @Loggable
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    @Loggable
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -89,7 +86,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    @Loggable
+
     public boolean validateToken(String token) {
 
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -97,7 +94,6 @@ public class JwtTokenProvider {
             return !claims.getBody().getExpiration().before(new Date());
     }
 
-    @Loggable
     private List<String> getRoleNames(Users user) {
         List<String> result = new ArrayList<>();
 

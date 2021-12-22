@@ -29,7 +29,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @SneakyThrows
     @Override
-    @Loggable
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Users> user = usersRepository.getByName(username);
 

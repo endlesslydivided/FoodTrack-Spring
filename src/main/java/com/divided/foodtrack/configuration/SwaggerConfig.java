@@ -16,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+//http://localhost:8080/swagger-ui.html
 public class SwaggerConfig implements WebMvcConfigurer {
 
 
@@ -31,14 +32,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                //Заголовок страницы
                 .title ("FoodTrack")
-                // основатель
                 .contact(new Contact("Alex", "https://github.com/endlesslydivided", "sashakovalev2002@hotmail.com"))
-
-                //Описание
                 .description ("API приложения FoodTrack")
-                //номер версии
                 .version("1.0.0")
                 .build();
     }

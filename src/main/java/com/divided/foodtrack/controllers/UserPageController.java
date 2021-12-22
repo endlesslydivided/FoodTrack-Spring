@@ -418,8 +418,8 @@ public class UserPageController {
         int count = productsService.getCountRows(idAdded);
         Page<Products> pageFound = new Page<>(
                 productsService.getPaginatedByUsersId(
-                        page == 1 ? (page - 1) * limit : (page - 1) * limit, page == 1 ? limit : page * limit - 1, idAdded),
-                page, count, count % 10 == 0 ? count / limit : count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
+                        (page - 1) * limit, page == 1 ? limit : page * limit - 1, idAdded),
+                page, count, count % 10 == 0 ? (count == 0 ? 1 : count/ limit) : count / limit + 1);
         return new ResponseEntity<>(pageFound,HttpStatus.OK);
     }
     //endregion

@@ -1,0 +1,86 @@
+"2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Starting FoodTrackApplication using Java 15.0.2 on DESKTOP-A8E6OVC with PID 13444 (D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack\target\classes started by ON in D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack)
+""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - No active profile set, falling back to default profiles: default
+""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 6 JPA repository interfaces.
+""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+""2021-12-22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-12-22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2432 ms
+""2021-12-22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 62 mappings in 'requestMappingHandlerMapping'
+""2021-12-22 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/configuration/ui] in 'viewControllerHandlerMapping'
+""2021-12-22 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/static/**, /swagger-ui.html, /webjars/**] in 'resourceHandlerMapping'
+""2021-12-22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**/**'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@474f1bba, org.springframework.security.web.context.SecurityContextPersistenceFilter@ef1d7f7, org.springframework.security.web.header.HeaderWriterFilter@c457207, org.springframework.web.filter.CorsFilter@59c1f70b, org.springframework.security.web.authentication.logout.LogoutFilter@3734ff8e, com.divided.foodtrack.security.jwt.JwtTokenFilter@319663e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e7d0c81, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@38e260ef, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59341deb, org.springframework.security.web.session.SessionManagementFilter@64ee1846, org.springframework.security.web.access.ExceptionTranslationFilter@506e4ebe, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@25a18bb0]
+""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-12-22 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-12-22 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@20874301
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1206e93a
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+""2021-12-22 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.divided.foodtrack.controllers.MainPageController#index()
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@12e8f6eb
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.divided.foodtrack.controllers.MainPageController#index()
+""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Started FoodTrackApplication in 8.122 seconds (JVM running for 9.085)
+""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+""2021-12-22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Starting FoodTrackApplication using Java 15.0.2 on DESKTOP-A8E6OVC with PID 3052 (D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack\target\classes started by ON in D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack)
+""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - No active profile set, falling back to default profiles: default
+""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92 ms. Found 6 JPA repository interfaces.
+""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+""2021-12-22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-12-22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2651 ms
+""2021-12-22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-12-22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**/**'] with []
+""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79f4f902, org.springframework.security.web.context.SecurityContextPersistenceFilter@177c0650, org.springframework.security.web.header.HeaderWriterFilter@7755e85d, org.springframework.web.filter.CorsFilter@6432dd80, org.springframework.security.web.authentication.logout.LogoutFilter@169ce1f2, com.divided.foodtrack.security.jwt.JwtTokenFilter@3fcd079b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3c6289d2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ec464a0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5acbb494, org.springframework.security.web.session.SessionManagementFilter@cc6ff74, org.springframework.security.web.access.ExceptionTranslationFilter@9c8946b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2a172cad]
+""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-12-22 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
+""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@4567e262
+""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Started FoodTrackApplication in 9.104 seconds (JVM running for 10.345)
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@28d425e9
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="adminPage"; model=null]
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@1fdae2a
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@302d1a9d
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedFoodCategories, args: [10, 1, null]
+""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedFoodCategories returns <200 OK OK,com.divided.foodtrack.myPage.Page@4ad0b5e7,[]>
+""2021-12-22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+"
