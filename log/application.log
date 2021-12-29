@@ -1,86 +1,185 @@
-"2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Starting FoodTrackApplication using Java 15.0.2 on DESKTOP-A8E6OVC with PID 13444 (D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack\target\classes started by ON in D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack)
-""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - No active profile set, falling back to default profiles: default
-""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 6 JPA repository interfaces.
-""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
-""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
-""2021-12-22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-""2021-12-22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2432 ms
-""2021-12-22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 62 mappings in 'requestMappingHandlerMapping'
-""2021-12-22 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/configuration/ui] in 'viewControllerHandlerMapping'
-""2021-12-22 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/static/**, /swagger-ui.html, /webjars/**] in 'resourceHandlerMapping'
-""2021-12-22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-""2021-12-22 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**/**'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@474f1bba, org.springframework.security.web.context.SecurityContextPersistenceFilter@ef1d7f7, org.springframework.security.web.header.HeaderWriterFilter@c457207, org.springframework.web.filter.CorsFilter@59c1f70b, org.springframework.security.web.authentication.logout.LogoutFilter@3734ff8e, com.divided.foodtrack.security.jwt.JwtTokenFilter@319663e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e7d0c81, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@38e260ef, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59341deb, org.springframework.security.web.session.SessionManagementFilter@64ee1846, org.springframework.security.web.access.ExceptionTranslationFilter@506e4ebe, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@25a18bb0]
-""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
-""2021-12-22 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-""2021-12-22 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@20874301
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1206e93a
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-""2021-12-22 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.divided.foodtrack.controllers.MainPageController#index()
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@12e8f6eb
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/", parameters={}
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.divided.foodtrack.controllers.MainPageController#index()
-""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Started FoodTrackApplication in 8.122 seconds (JVM running for 9.085)
-""2021-12-22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-""2021-12-22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Starting FoodTrackApplication using Java 15.0.2 on DESKTOP-A8E6OVC with PID 3052 (D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack\target\classes started by ON in D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack)
-""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - No active profile set, falling back to default profiles: default
-""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-""2021-12-22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-""2021-12-22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92 ms. Found 6 JPA repository interfaces.
-""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
-""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-""2021-12-22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
-""2021-12-22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-""2021-12-22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2651 ms
-""2021-12-22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-""2021-12-22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**/**'] with []
-""2021-12-22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79f4f902, org.springframework.security.web.context.SecurityContextPersistenceFilter@177c0650, org.springframework.security.web.header.HeaderWriterFilter@7755e85d, org.springframework.web.filter.CorsFilter@6432dd80, org.springframework.security.web.authentication.logout.LogoutFilter@169ce1f2, com.divided.foodtrack.security.jwt.JwtTokenFilter@3fcd079b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3c6289d2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ec464a0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5acbb494, org.springframework.security.web.session.SessionManagementFilter@cc6ff74, org.springframework.security.web.access.ExceptionTranslationFilter@9c8946b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2a172cad]
-""2021-12-22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
-""2021-12-22 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
-""2021-12-22 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@4567e262
-""2021-12-22 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Started FoodTrackApplication in 9.104 seconds (JVM running for 10.345)
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@28d425e9
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
-""2021-12-22 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="adminPage"; model=null]
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getUsername, args: [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDAxODcwNzUsImV4cCI6MTY0MDE5MDY3NX0.y76KLW9nPQFPs14fI0he6Tf8hCGVTUdnP4pV5swpplg]
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getUsername returns AdminLogin
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: loadUserByUsername, args: [AdminLogin]
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@1fdae2a
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method loadUserByUsername returns com.divided.foodtrack.security.jwt.JwtUser@302d1a9d
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedFoodCategories, args: [10, 1, null]
-""2021-12-22 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
-""2021-12-22 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedFoodCategories returns <200 OK OK,com.divided.foodtrack.myPage.Page@4ad0b5e7,[]>
-""2021-12-22 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+"2021-12-29 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Starting FoodTrackApplication using Java 15.0.2 on DESKTOP-A8E6OVC with PID 4240 (D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack\target\classes started by ON in D:\ALEX\STUDY\5SEM_3COURSE\MTOPIL\FoodTrack)
+""2021-12-29 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - No active profile set, falling back to default profiles: default
+""2021-12-29 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2021-12-29 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2021-12-29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2021-12-29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 157 ms. Found 6 JPA repository interfaces.
+""2021-12-29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+""2021-12-29 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+""2021-12-29 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+""2021-12-29 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+""2021-12-29 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4377 ms
+""2021-12-29 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2021-12-29 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2021-12-29 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static'] with []
+""2021-12-29 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**'] with []
+""2021-12-29 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/static/**/**'] with []
+""2021-12-29 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8323385, org.springframework.security.web.context.SecurityContextPersistenceFilter@3567d882, org.springframework.security.web.header.HeaderWriterFilter@43182b24, org.springframework.web.filter.CorsFilter@7a6fc6b6, org.springframework.security.web.authentication.logout.LogoutFilter@7a374a7c, com.divided.foodtrack.security.jwt.JwtTokenFilter@63f673d9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20951ce, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70b888e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@100c3eae, org.springframework.security.web.session.SessionManagementFilter@4ed079c1, org.springframework.security.web.access.ExceptionTranslationFilter@3929b21c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@394211c5]
+""2021-12-29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+""2021-12-29 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2021-12-29 [restartedMain] INFO  c.d.foodtrack.FoodTrackApplication - Started FoodTrackApplication in 14.319 seconds (JVM running for 16.242)
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: login, args: [com.divided.foodtrack.DTO.LogInForm@31206008, org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@26050758]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: login, args: [com.divided.foodtrack.DTO.LogInForm@74eb0400, org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@40f78d1b]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: createToken, args: [AdminLogin]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method createToken returns eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDA3NjE4MzgsImV4cCI6MTY0MDc2NTQzOH0.ClRmZtgaJX3nxFRrFU3A7PAoJRThQaS-gCdQFgNBztA
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method login returns null
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="userPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerDay]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, lunch]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getAllDiet, args: [1, 2021-12-29]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, breakfast]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerNight]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, afternoon]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@5ce1309,[]>
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@6c21a3b0,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@402ce387,[]>
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getAllDiet returns <200 OK OK,com.divided.foodtrack.DTO.DayReportDTO@3b8ef408,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@4b51b865,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@4d89d16d,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersProducts, args: [10, 1, 1]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@4c3f9839,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersParams, args: [1, 10, 1]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersParams returns <200 OK OK,com.divided.foodtrack.myPage.Page@45585af7,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="adminPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedFoodCategories, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedFoodCategories returns <200 OK OK,com.divided.foodtrack.myPage.Page@68a4d853,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsers, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsers returns <200 OK OK,com.divided.foodtrack.myPage.Page@20e6f8ec,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsersData, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsersData returns <200 OK OK,com.divided.foodtrack.myPage.Page@136e7dc8,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsers, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsers returns <200 OK OK,com.divided.foodtrack.myPage.Page@42b79a14,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: deleteUser, args: [8, 1]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method deleteUser returns <200 OK OK,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsers, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsers returns <200 OK OK,com.divided.foodtrack.myPage.Page@3347ca25,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: deleteUser, args: [9, 1]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method deleteUser returns <200 OK OK,[]>
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsers, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsers returns <200 OK OK,com.divided.foodtrack.myPage.Page@4c2b8d0a,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedUsersData, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedUsersData returns <200 OK OK,com.divided.foodtrack.myPage.Page@321162c9,[]>
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedProducts, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@3733a124,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedReports, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedReports returns <200 OK OK,com.divided.foodtrack.myPage.Page@2372c821,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedFoodCategories, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedFoodCategories returns <200 OK OK,com.divided.foodtrack.myPage.Page@7b30e47f,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: login, args: [com.divided.foodtrack.DTO.LogInForm@39704bd9, org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@2906180d]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: createToken, args: [AdminLogin]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method createToken returns eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDA3NjI1MTEsImV4cCI6MTY0MDc2NjExMX0.aW_Hc6Borxd_LG9fUc7FSEUA1bCU-g-jvWow8MWSJTQ
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method login returns null
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="userPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getAllDiet, args: [1, 2021-12-29]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerDay]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, afternoon]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, breakfast]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, lunch]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerNight]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getAllDiet returns <200 OK OK,com.divided.foodtrack.DTO.DayReportDTO@39795960,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@726cca02,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@2cbe8328,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@496b1ae,[]>
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@58879f61,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@6ebdb7d7,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getAllProducts, args: [12, 1, null, null, -1]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getAllProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@73078540,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersProducts, args: [10, 1, 1]
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@7b5cadf6,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: deleteUsersProduct, args: [131]
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method deleteUsersProduct returns <200 OK OK,[]>
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersProducts, args: [10, 1, 1]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@7b3a53c,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: addUsersProduct, args: [com.divided.foodtrack.DTO.ProductDTO@132b8392]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method addUsersProduct returns <200 OK OK,com.divided.foodtrack.DTO.ProductDTO@132b8392,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersProducts, args: [10, 1, 1]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@6520e21c,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getProduct, args: [132]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getProduct returns <200 OK OK,com.divided.foodtrack.DTO.ProductDTO@2080bcca,[]>
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersParams, args: [1, 10, 1]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersParams returns <200 OK OK,com.divided.foodtrack.myPage.Page@66eeee0f,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="adminPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedFoodCategories, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedFoodCategories returns <200 OK OK,com.divided.foodtrack.myPage.Page@4bd93975,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedProducts, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@42d5e95d,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedReports, args: [10, 1, null]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedReports returns <200 OK OK,com.divided.foodtrack.myPage.Page@3b65c0de,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="signInPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: login, args: [com.divided.foodtrack.DTO.LogInForm@25a76bfd, org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@45fd3cae]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: createToken, args: [AdminLogin]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method createToken returns eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbkxvZ2luIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2NDA3NjI2ODEsImV4cCI6MTY0MDc2NjI4MX0.S9qOol3IkSdZfiiUbqanZgV_jDoFadbRAlX2GV8HPVI
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method login returns null
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: index, args: []
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method index returns ModelAndView [view="userPage"; model=null]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, lunch]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, breakfast]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerNight]
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getAllDiet, args: [1, 2021-12-29]
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, afternoon]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerDay]
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@411c0346,[]>
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@1fa45a7c,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@217cfebc,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@38a96412,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@4bb98b0f,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getAllDiet returns <200 OK OK,com.divided.foodtrack.DTO.DayReportDTO@38fc18fa,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getAllFoodCategories, args: []
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getAllFoodCategories returns <200 OK OK,[com.divided.foodtrack.models.FoodCategories@7f091b58, com.divided.foodtrack.models.FoodCategories@33678a08, com.divided.foodtrack.models.FoodCategories@c6495211, com.divided.foodtrack.models.FoodCategories@3be064b6, com.divided.foodtrack.models.FoodCategories@549fa44e, com.divided.foodtrack.models.FoodCategories@1eeeb6d, com.divided.foodtrack.models.FoodCategories@43b0be2b, com.divided.foodtrack.models.FoodCategories@33ec4ccc, com.divided.foodtrack.models.FoodCategories@3f4ee35d, com.divided.foodtrack.models.FoodCategories@4eb52dba, com.divided.foodtrack.models.FoodCategories@383c7a4d, com.divided.foodtrack.models.FoodCategories@cf4226b5],[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getAllUsersProducts, args: [10, 1, 1]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getAllUsersProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@2cad7f48,[]>
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: getAllProducts, args: [12, 1, null, null, -1]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method getAllProducts returns <200 OK OK,com.divided.foodtrack.myPage.Page@3adbf22f,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: addUsersDietProduct, args: [com.divided.foodtrack.DTO.ProductUsersDietDTO@c0a300]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method addUsersDietProduct returns <200 OK OK,com.divided.foodtrack.models.Reports@ddf423f5,[]>
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, lunch]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, breakfast]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerDay]
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method: getAllDiet, args: [1, 2021-12-29]
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerNight]
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, afternoon]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@5682d68c,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@63d2cac1,[]>
+""2021-12-29 [http-nio-8080-exec-7] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@7f10ee75,[]>
+""2021-12-29 [http-nio-8080-exec-4] INFO  com.divided.foodtrack.logging.Logger - Method getAllDiet returns <200 OK OK,com.divided.foodtrack.DTO.DayReportDTO@447a99b7,[]>
+""2021-12-29 [http-nio-8080-exec-1] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@38bf72f7,[]>
+""2021-12-29 [http-nio-8080-exec-5] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@18cb389d,[]>
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerDay]
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, lunch]
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, breakfast]
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, afternoon]
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method: getAllDiet, args: [1, 2021-12-29]
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method: getPaginatedDiet, args: [AdminLogin, 10, 1, 2021-12-29, dinnerNight]
+""2021-12-29 [http-nio-8080-exec-10] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@1e829ed9,[]>
+""2021-12-29 [http-nio-8080-exec-9] INFO  com.divided.foodtrack.logging.Logger - Method getAllDiet returns <200 OK OK,com.divided.foodtrack.DTO.DayReportDTO@676d2c81,[]>
+""2021-12-29 [http-nio-8080-exec-2] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@4e98c455,[]>
+""2021-12-29 [http-nio-8080-exec-8] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@3f93a933,[]>
+""2021-12-29 [http-nio-8080-exec-3] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@32dddbd4,[]>
+""2021-12-29 [http-nio-8080-exec-6] INFO  com.divided.foodtrack.logging.Logger - Method getPaginatedDiet returns <200 OK OK,com.divided.foodtrack.myPage.Page@6f5152f2,[]>
+""2021-12-29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 "

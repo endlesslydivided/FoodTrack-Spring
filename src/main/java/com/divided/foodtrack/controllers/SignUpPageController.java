@@ -45,7 +45,6 @@ public class SignUpPageController {
         this.validator = validator;
     }
 
-
     @Operation(summary = "Registers a user", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Registers a user",
